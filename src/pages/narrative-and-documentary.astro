@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const allProjects = await getCollection('projects');
+const narrativeProjects = allProjects
+	.filter((p) => p.data.category === 'narrative' && !p.data.comingSoon)
+	.sort((a, b) => a.data.order - b.data.order);
+const comingSoon = allProjects
+	.filter((p) => p.data.category === 'narrative' && p.data.comingSoon)
+	.sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout
+	title="Short Film & Documentary Production San Diego"
+	description="Short film and documentary production in San Diego, directed by Jacob Willett and produced by JWMedia — with feature-length work on the horizon."
+>
+	<section class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
+		<p class="text-sm font-semibold uppercase tracking-widest text-accent">Narrative &amp; Documentary</p>
+		<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
+			Short films and documentaries, directed by Jacob Willett.
+		</h1>
+		<p class="mt-4 max-w-2xl text-fg-muted">
+			Character-driven stories and documentary work that go beyond the music video — from dark
+			comedy shorts to long-form artist documentaries. We produce short films today, with
+			feature-length work on the horizon.
+		</p>
+	</section>
+
+	<section class="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{
+				narrativeProjects.map((project) => (
+					<ProjectCard
+						title={project.data.title}
+						tag={project.data.tag}
+						thumbnail={project.data.thumbnail}
+						videoProvider={project.data.videoProvider}
+						videoId={project.data.videoId}
+						comingSoon={project.data.comingSoon}
+					/>
+				))
+			}
+		</div>
+	</section>
+
+	{
+		comingSoon.length > 0 && (
+			<section class="border-y border-border bg-bg-alt">
+				<div class="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+					<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">Coming Soon</h2>
+					<div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+						{comingSoon.map((project) => (
+							<ProjectCard
+								title={project.data.title}
+								tag={project.data.tag}
+								thumbnail={project.data.thumbnail}
+								videoProvider={project.data.videoProvider}
+								videoId={project.data.videoId}
+								comingSoon={project.data.comingSoon}
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+		)
+	}
+
+	<CtaBand
+		heading="Have a story worth telling?"
+		subheading="Whether it's a short film or a full documentary, let's talk about what it takes to make it."
+	/>
+</Layout>

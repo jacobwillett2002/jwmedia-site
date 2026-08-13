@@ -1,0 +1,84 @@
+---
+const navLinks = [
+	{ href: '/music-cinematography', label: 'Music Cinematography' },
+	{ href: '/narrative-and-documentary', label: 'Narrative & Documentary' },
+	{ href: '/live-sessions', label: 'Live Sessions' },
+	{ href: '/photo-gallery', label: 'Photo Gallery' },
+	{ href: '/about', label: 'About' },
+	{ href: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-bg/80 backdrop-blur-md">
+	<div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+		<a href="/" class="font-display text-2xl tracking-wide text-fg">
+			JW<span class="text-accent">MEDIA</span>
+		</a>
+
+		<nav class="hidden items-center gap-8 xl:flex">
+			{
+				navLinks.map((link) => (
+					<a
+						href={link.href}
+						class:list={[
+							'text-sm font-medium uppercase tracking-wide transition-colors hover:text-accent',
+							currentPath === link.href ? 'text-accent' : 'text-fg-muted',
+						]}
+					>
+						{link.label}
+					</a>
+				))
+			}
+		</nav>
+
+		<a
+			href="/contact"
+			class="hidden rounded-full bg-accent px-5 py-2 text-sm font-semibold uppercase tracking-wide text-bg transition-opacity hover:opacity-90 xl:inline-block"
+		>
+			Book a Shoot
+		</a>
+
+		<button
+			id="menu-toggle"
+			type="button"
+			aria-label="Toggle navigation menu"
+			aria-expanded="false"
+			class="flex flex-col gap-1.5 xl:hidden"
+		>
+			<span class="h-0.5 w-6 bg-fg"></span>
+			<span class="h-0.5 w-6 bg-fg"></span>
+			<span class="h-0.5 w-6 bg-fg"></span>
+		</button>
+	</div>
+
+	<nav id="mobile-menu" class="hidden flex-col gap-1 border-t border-border/60 px-6 py-4 xl:hidden">
+		{
+			navLinks.map((link) => (
+				<a
+					href={link.href}
+					class:list={[
+						'py-2 text-sm font-medium uppercase tracking-wide',
+						currentPath === link.href ? 'text-accent' : 'text-fg-muted',
+					]}
+				>
+					{link.label}
+				</a>
+			))
+		}
+	</nav>
+</header>
+
+<div class="h-[73px]"></div>
+
+<script>
+	const toggle = document.getElementById('menu-toggle');
+	const menu = document.getElementById('mobile-menu');
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = menu?.classList.toggle('flex');
+		menu?.classList.toggle('hidden');
+		toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+	});
+</script>

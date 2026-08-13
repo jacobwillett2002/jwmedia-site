@@ -1,0 +1,84 @@
+---
+const socials = [
+	{ label: 'Instagram', href: 'https://www.instagram.com/jwmedia.biz/' },
+	{ label: 'YouTube', href: 'https://www.youtube.com/channel/UCVnhW-a6Mu7H3edWdgB6hXg' },
+	{ label: 'Facebook', href: 'https://www.facebook.com/jacob.willett.2025' },
+	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/jacob-willett-894b901aa/' },
+];
+
+const pages = [
+	{ href: '/', label: 'Home' },
+	{ href: '/music-cinematography', label: 'Music Cinematography' },
+	{ href: '/narrative-and-documentary', label: 'Narrative & Documentary' },
+	{ href: '/live-sessions', label: 'Live Sessions' },
+	{ href: '/photo-gallery', label: 'Photo Gallery' },
+	{ href: '/about', label: 'About' },
+	{ href: '/contact', label: 'Contact' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-border bg-bg-alt">
+	<div class="mx-auto max-w-7xl px-6 py-16 lg:px-10">
+		<div class="grid gap-12 lg:grid-cols-3">
+			<div>
+				<p class="font-display text-2xl tracking-wide text-fg">
+					JW<span class="text-accent">MEDIA</span>
+				</p>
+				<p class="mt-4 max-w-sm text-sm text-fg-muted">
+					A San Diego-based visual direction and production team — music videos, narrative &
+					documentary film, studio sessions, and photography.
+				</p>
+				<a
+					href="mailto:jacobwillett2002@gmail.com"
+					class="mt-4 inline-block text-sm font-medium text-fg hover:text-accent"
+				>
+					jacobwillett2002@gmail.com
+				</a>
+			</div>
+
+			<div>
+				<p class="text-xs font-semibold uppercase tracking-widest text-fg-muted">Pages</p>
+				<ul class="mt-4 space-y-2">
+					{
+						pages.map((page) => (
+							<li>
+								<a href={page.href} class="text-sm text-fg-muted transition-colors hover:text-accent">
+									{page.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div>
+				<p class="text-xs font-semibold uppercase tracking-widest text-fg-muted">Follow</p>
+				<ul class="mt-4 space-y-2">
+					{
+						socials.map((social) => (
+							<li>
+								<a
+									href={social.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-sm text-fg-muted transition-colors hover:text-accent"
+								>
+									{social.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+
+		<div
+			class="mt-12 flex flex-col gap-2 border-t border-border pt-6 text-xs text-fg-muted sm:flex-row sm:items-center sm:justify-between"
+		>
+			<p>&copy; {year} JWMedia, LLC. All rights reserved.</p>
+			<p>San Diego, California</p>
+		</div>
+	</div>
+</footer>

@@ -1,0 +1,20 @@
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/projects' }),
+  schema: z.object({
+    title: z.string(),
+    tag: z.string(),
+    category: z.enum(['music', 'narrative', 'live']),
+    videoProvider: z.enum(['vimeo', 'youtube']).optional(),
+    videoId: z.string().optional(),
+    thumbnail: z.string().optional(),
+    description: z.string(),
+    featured: z.boolean().default(false),
+    comingSoon: z.boolean().default(false),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { projects };

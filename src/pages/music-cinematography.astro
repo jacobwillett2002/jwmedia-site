@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const allProjects = await getCollection('projects');
+const musicProjects = allProjects
+	.filter((p) => p.data.category === 'music')
+	.sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout
+	title="Music Video Production San Diego"
+	description="San Diego music video production and cinematography from JWMedia — including our San Diego Music Award for Best Video, for The Gravities' 'Stuck in the Desert.'"
+>
+	<section class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
+		<p class="text-sm font-semibold uppercase tracking-widest text-accent">Music Cinematography</p>
+		<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
+			The Gravities get stuck in the desert &mdash; and win a San Diego Music Award for it.
+		</h1>
+		<p class="mt-4 max-w-2xl text-fg-muted">
+			Award-winning "Best Music Video" at the 2026 San Diego Music Awards. From full narrative music
+			videos to live session coverage, this is where we live.
+		</p>
+	</section>
+
+	<section class="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{
+				musicProjects.map((project) => (
+					<ProjectCard
+						title={project.data.title}
+						tag={project.data.tag}
+						thumbnail={project.data.thumbnail}
+						videoProvider={project.data.videoProvider}
+						videoId={project.data.videoId}
+						comingSoon={project.data.comingSoon}
+					/>
+				))
+			}
+		</div>
+	</section>
+
+	<CtaBand
+		heading="Got a track that needs visuals?"
+		subheading="Tell us about the song and the story you want to tell — we'll take it from there."
+	/>
+</Layout>

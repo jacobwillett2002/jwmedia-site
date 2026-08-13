@@ -1,0 +1,217 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const photoModules = import.meta.glob<{ default: ImageMetadata }>('/src/assets/gallery/*.jpg', {
+	eager: true,
+});
+
+const captions: Record<string, { alt: string; tag: string; group: string }> = {
+	'studio-01.jpg': { alt: 'Portrait during a break in the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-02.jpg': { alt: 'Man wearing headphones in a warm-lit room.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-03.jpg': { alt: 'Two collaborators reviewing footage on a camera indoors.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-04.jpg': { alt: 'Man using a camera setup indoors.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-05.jpg': { alt: 'Person working in a music studio with headphones.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-06.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-07.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-08.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-09.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-10.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-11.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-12.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-13.jpg': { alt: 'Portrait during the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-14.jpg': { alt: 'Michelin, studio headshot.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'studio-15.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'gal-trackone-01.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+	'gal-trackone-02.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
+
+	'live-band-01.jpg': { alt: 'Live performance at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
+	'live-band-02.jpg': { alt: 'Drummer performing live at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
+	'live-band-03.jpg': { alt: 'Guitarist performing live at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
+	'live-band-04.jpg': { alt: 'Guitarist performing live at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
+	'live-band-05.jpg': { alt: 'Vocalist performing live at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
+	'gal-bsp-01.jpg': { alt: 'Live music at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
+	'gal-bsp-02.jpg': { alt: 'Live music at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
+	'gal-bsp-03.jpg': { alt: 'Live music at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
+
+	'gal-edge-01.jpg': { alt: 'Portrait from The Resinators — Edge Sheeran shoot.', tag: 'EDGE SHEERAN', group: 'edge' },
+	'gal-edge-02.jpg': { alt: 'On set for The Resinators — Edge Sheeran.', tag: 'EDGE SHEERAN', group: 'edge' },
+	'gal-edge-03.jpg': { alt: 'On set for The Resinators — Edge Sheeran.', tag: 'EDGE SHEERAN', group: 'edge' },
+
+	'gal-nakedi-01.jpg': { alt: 'On set for The Naked I corporate demo reel.', tag: 'THE NAKED I', group: 'nakedi' },
+	'gal-nakedi-02.jpg': { alt: 'On set for The Naked I corporate demo reel.', tag: 'THE NAKED I', group: 'nakedi' },
+
+	'gal-ragoo-01.jpg': { alt: 'On set for More Truth — Princess Ragoo.', tag: 'PRINCESS RAGOO', group: 'ragoo' },
+	'gal-ragoo-02.jpg': { alt: 'On set for More Truth — Princess Ragoo.', tag: 'PRINCESS RAGOO', group: 'ragoo' },
+
+	'gal-oside-01.jpg': { alt: "Hip-hop show at O'side Sports Bar & Grill.", tag: "O'SIDE SPORTS BAR", group: 'oside' },
+	'gal-oside-02.jpg': { alt: "Hip-hop show at O'side Sports Bar & Grill.", tag: "O'SIDE SPORTS BAR", group: 'oside' },
+	'gal-oside-03.jpg': { alt: "Hip-hop show at O'side Sports Bar & Grill.", tag: "O'SIDE SPORTS BAR", group: 'oside' },
+
+	'gal-newports-01.jpg': { alt: "Live music at Newports and Nelli's.", tag: "NEWPORTS AND NELLI'S", group: 'newports' },
+	'gal-newports-02.jpg': { alt: "Live music at Newports and Nelli's.", tag: "NEWPORTS AND NELLI'S", group: 'newports' },
+
+	'gal-sitd-01.jpg': { alt: 'Behind the scenes of "Stuck in the Desert."', tag: 'STUCK IN THE DESERT', group: 'sitd' },
+	'gal-sitd-02.jpg': { alt: 'Behind the scenes of "Stuck in the Desert."', tag: 'STUCK IN THE DESERT', group: 'sitd' },
+	'gal-sitd-03.jpg': { alt: 'Behind the scenes of "Stuck in the Desert."', tag: 'STUCK IN THE DESERT', group: 'sitd' },
+
+	'gal-hangups-01.jpg': { alt: 'Film still from Hang-Ups.', tag: 'HANG-UPS', group: 'hangups' },
+	'gal-hangups-02.jpg': { alt: 'Film still from Hang-Ups.', tag: 'HANG-UPS', group: 'hangups' },
+
+	'gal-warriors-01.jpg': { alt: "Film still from A Warrior's Love of Flowers.", tag: 'A WARRIOR’S LOVE OF FLOWERS', group: 'warriors' },
+	'gal-warriors-02.jpg': { alt: "Film still from A Warrior's Love of Flowers.", tag: 'A WARRIOR’S LOVE OF FLOWERS', group: 'warriors' },
+
+	'gal-ourplace-01.jpg': { alt: 'Film still from Our Place.', tag: 'OUR PLACE', group: 'ourplace' },
+	'gal-ourplace-02.jpg': { alt: 'Film still from Our Place.', tag: 'OUR PLACE', group: 'ourplace' },
+};
+
+const grouped = new Map<string, { image: ImageMetadata; alt: string; tag: string }[]>();
+for (const [path, mod] of Object.entries(photoModules)) {
+	const filename = path.split('/').pop() ?? '';
+	const entry = captions[filename];
+	if (!entry) continue;
+	const list = grouped.get(entry.group) ?? [];
+	list.push({ image: mod.default, alt: entry.alt, tag: entry.tag });
+	grouped.set(entry.group, list);
+}
+
+// Interleave round-robin across groups so the same shoot never clumps together.
+const buckets = Array.from(grouped.values());
+const photos: { image: ImageMetadata; alt: string; tag: string }[] = [];
+let round = 0;
+while (photos.length < buckets.reduce((sum, b) => sum + b.length, 0)) {
+	for (const bucket of buckets) {
+		if (bucket[round]) photos.push(bucket[round]);
+	}
+	round++;
+}
+---
+
+<Layout
+	title="Music & Event Photography San Diego"
+	description="San Diego music, studio, and live event photography from JWMedia — stills from the same shows and sessions you see in our films."
+>
+	<section class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
+		<p class="text-sm font-semibold uppercase tracking-widest text-accent">Photo Gallery</p>
+		<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
+			Music Photography
+		</h1>
+		<p class="mt-4 max-w-2xl text-fg-muted">
+			Stills from the same shows, studio sessions, and sets you see in our films &mdash; click any
+			image to view it full-size.
+		</p>
+	</section>
+
+	<section class="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
+		<div class="columns-1 gap-4 sm:columns-2 lg:columns-3">
+			{
+				photos.map((photo, i) => (
+					<button
+						type="button"
+						class="gallery-item group relative mb-4 block w-full overflow-hidden rounded-lg border border-border"
+						data-index={i}
+					>
+						<Image
+							src={photo.image}
+							alt={photo.alt}
+							class="w-full transition-transform duration-500 group-hover:scale-105"
+							loading={i < 6 ? 'eager' : 'lazy'}
+						/>
+						{photo.tag && (
+							<span class="absolute left-3 top-3 rounded-full bg-bg/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent backdrop-blur-sm">
+								{photo.tag}
+							</span>
+						)}
+					</button>
+				))
+			}
+		</div>
+	</section>
+
+	<div
+		id="lightbox"
+		class="fixed inset-0 z-[60] hidden items-center justify-center bg-bg/95 p-6"
+		role="dialog"
+		aria-modal="true"
+	>
+		<button
+			id="lightbox-close"
+			type="button"
+			aria-label="Close"
+			class="absolute right-6 top-6 text-3xl text-fg hover:text-accent"
+		>
+			&times;
+		</button>
+		<button
+			id="lightbox-prev"
+			type="button"
+			aria-label="Previous photo"
+			class="absolute left-4 top-1/2 -translate-y-1/2 text-4xl text-fg hover:text-accent"
+		>
+			&#8249;
+		</button>
+		<img id="lightbox-image" src="" alt="" class="max-h-[85vh] max-w-full rounded-lg object-contain" />
+		<button
+			id="lightbox-next"
+			type="button"
+			aria-label="Next photo"
+			class="absolute right-4 top-1/2 -translate-y-1/2 text-4xl text-fg hover:text-accent"
+		>
+			&#8250;
+		</button>
+	</div>
+
+	<CtaBand
+		heading="Need photos to match your video?"
+		subheading="We shoot stills alongside every video production — ask us to add it to your package."
+	/>
+</Layout>
+
+<script>
+	const items = Array.from(document.querySelectorAll<HTMLButtonElement>('.gallery-item'));
+	const sources = items.map((item) => item.querySelector('img')?.src ?? '');
+
+	const lightbox = document.getElementById('lightbox');
+	const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement;
+	const closeBtn = document.getElementById('lightbox-close');
+	const prevBtn = document.getElementById('lightbox-prev');
+	const nextBtn = document.getElementById('lightbox-next');
+
+	let currentIndex = 0;
+
+	function open(index: number) {
+		currentIndex = index;
+		lightboxImage.src = sources[currentIndex];
+		lightbox?.classList.remove('hidden');
+		lightbox?.classList.add('flex');
+	}
+
+	function close() {
+		lightbox?.classList.add('hidden');
+		lightbox?.classList.remove('flex');
+	}
+
+	function show(delta: number) {
+		currentIndex = (currentIndex + delta + sources.length) % sources.length;
+		lightboxImage.src = sources[currentIndex];
+	}
+
+	items.forEach((item, index) => {
+		item.addEventListener('click', () => open(index));
+	});
+
+	closeBtn?.addEventListener('click', close);
+	prevBtn?.addEventListener('click', () => show(-1));
+	nextBtn?.addEventListener('click', () => show(1));
+	lightbox?.addEventListener('click', (e) => {
+		if (e.target === lightbox) close();
+	});
+
+	document.addEventListener('keydown', (e) => {
+		if (lightbox?.classList.contains('hidden')) return;
+		if (e.key === 'Escape') close();
+		if (e.key === 'ArrowLeft') show(-1);
+		if (e.key === 'ArrowRight') show(1);
+	});
+</script>

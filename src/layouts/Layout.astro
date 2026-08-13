@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	image?: string;
+}
+
+const { title, description, image = '/og-image.jpg' } = Astro.props;
+
+const siteName = 'JWMedia';
+const fullTitle = `${title} | ${siteName}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const imageURL = new URL(image, Astro.site);
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'VideoProductionCompany',
+	'@id': 'https://jwmedia.biz/#organization',
+	name: 'JWMedia',
+	legalName: 'JWMedia, LLC',
+	description:
+		'San Diego video production company specializing in music videos, narrative & documentary film, live event coverage, and corporate livestreaming.',
+	url: 'https://jwmedia.biz',
+	logo: imageURL.toString(),
+	image: imageURL.toString(),
+	email: 'jacobwillett2002@gmail.com',
+	address: {
+		'@type': 'PostalAddress',
+		addressLocality: 'San Diego',
+		addressRegion: 'CA',
+		addressCountry: 'US',
+	},
+	areaServed: 'San Diego, CA',
+	sameAs: [
+		'https://www.instagram.com/jwmedia.biz/',
+		'https://www.youtube.com/channel/UCVnhW-a6Mu7H3edWdgB6hXg',
+		'https://www.facebook.com/jacob.willett.2025',
+		'https://www.linkedin.com/in/jacob-willett-894b901aa/',
+	],
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:image" content={imageURL} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageURL} />
+
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body class="bg-bg text-fg font-sans antialiased">
+		<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>

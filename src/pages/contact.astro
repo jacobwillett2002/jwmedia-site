@@ -1,0 +1,147 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const socials = [
+	{ label: 'Instagram', href: 'https://www.instagram.com/jwmedia.biz/' },
+	{ label: 'YouTube', href: 'https://www.youtube.com/channel/UCVnhW-a6Mu7H3edWdgB6hXg' },
+	{ label: 'Facebook', href: 'https://www.facebook.com/jacob.willett.2025' },
+	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/jacob-willett-894b901aa/' },
+];
+---
+
+<Layout
+	title="Contact San Diego Video Production"
+	description="Get in touch with JWMedia for a free consultation on your next music video, documentary, live event, or corporate livestream in San Diego."
+>
+	<section class="mx-auto grid max-w-7xl gap-16 px-6 py-32 lg:grid-cols-2 lg:px-10">
+		<div>
+			<p class="text-sm font-semibold uppercase tracking-widest text-accent">Get In Touch</p>
+			<h1 class="mt-4 font-display text-4xl tracking-wide text-fg sm:text-5xl">
+				Let's make something worth watching.
+			</h1>
+			<p class="mt-4 max-w-md text-fg-muted">
+				Send our team a message for a free consultation about our film and video production
+				services. We'll get back to you within a day.
+			</p>
+
+			<div class="mt-10 space-y-4">
+				<a
+					href="mailto:jacobwillett2002@gmail.com"
+					class="block text-lg font-medium text-fg hover:text-accent"
+				>
+					jacobwillett2002@gmail.com
+				</a>
+				<div class="flex flex-wrap gap-4 pt-2">
+					{
+						socials.map((social) => (
+							<a
+								href={social.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-sm font-medium uppercase tracking-wide text-fg-muted hover:text-accent"
+							>
+								{social.label}
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</div>
+
+		<form id="contact-form" class="space-y-5" novalidate>
+			<div>
+				<label for="name" class="text-xs font-semibold uppercase tracking-widest text-fg-muted">
+					Your Name
+				</label>
+				<input
+					id="name"
+					name="name"
+					type="text"
+					required
+					class="mt-2 w-full rounded-md border border-border bg-bg-alt px-4 py-3 text-fg outline-none focus:border-accent"
+				/>
+			</div>
+
+			<div>
+				<label for="email" class="text-xs font-semibold uppercase tracking-widest text-fg-muted">
+					Your Email
+				</label>
+				<input
+					id="email"
+					name="email"
+					type="email"
+					required
+					class="mt-2 w-full rounded-md border border-border bg-bg-alt px-4 py-3 text-fg outline-none focus:border-accent"
+				/>
+			</div>
+
+			<div>
+				<label for="message" class="text-xs font-semibold uppercase tracking-widest text-fg-muted">
+					Your Message
+				</label>
+				<textarea
+					id="message"
+					name="message"
+					rows="5"
+					required
+					class="mt-2 w-full rounded-md border border-border bg-bg-alt px-4 py-3 text-fg outline-none focus:border-accent"
+				></textarea>
+			</div>
+
+			<div class="hidden">
+				<label for="company">Company</label>
+				<input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+			</div>
+
+			<button
+				type="submit"
+				class="w-full rounded-full bg-accent px-8 py-3 text-sm font-semibold uppercase tracking-wide text-bg transition-opacity hover:opacity-90 disabled:opacity-50"
+			>
+				Send Message
+			</button>
+
+			<p id="form-status" class="text-sm" role="status"></p>
+		</form>
+	</section>
+</Layout>
+
+<script>
+	const form = document.getElementById('contact-form') as HTMLFormElement;
+	const status = document.getElementById('form-status');
+	const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+	form.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		submitButton.disabled = true;
+		if (status) {
+			status.textContent = 'Sending...';
+			status.className = 'text-sm text-fg-muted';
+		}
+
+		try {
+			const response = await fetch('/api/contact', {
+				method: 'POST',
+				body: new FormData(form),
+			});
+			const result = await response.json();
+
+			if (result.ok) {
+				form.reset();
+				if (status) {
+					status.textContent = "Thanks — we'll be in touch soon.";
+					status.className = 'text-sm text-accent';
+				}
+			} else {
+				throw new Error(result.error ?? 'Something went wrong.');
+			}
+		} catch (err) {
+			if (status) {
+				status.textContent =
+					err instanceof Error ? err.message : 'Something went wrong. Please try again.';
+				status.className = 'text-sm text-red-400';
+			}
+		} finally {
+			submitButton.disabled = false;
+		}
+	});
+</script>

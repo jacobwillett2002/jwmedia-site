@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+
+const galleryImages = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/gallery/*.jpg',
+	{ eager: true },
+);
+
+interface Props {
+	title: string;
+	tag: string;
+	thumbnail?: string;
+	videoProvider?: 'vimeo' | 'youtube';
+	videoId?: string;
+	comingSoon?: boolean;
+}
+
+const { title, tag, thumbnail, videoProvider, videoId, comingSoon = false } = Astro.props;
+
+const isRemote = thumbnail?.startsWith('http') ?? false;
+const localImage = !thumbnail || isRemote
+	? null
+	: galleryImages[`/src/assets/gallery/${thumbnail}`]?.default;
+
+const watchHref =
+	videoId && videoProvider === 'vimeo'
+		? `https://vimeo.com/${videoId}`
+		: videoId && videoProvider === 'youtube'
+			? `https://www.youtube.com/watch?v=${videoId}`
+			: undefined;
+---
+
+<article class="group relative overflow-hidden rounded-lg border border-border bg-bg-alt">
+	<div class="relative aspect-video overflow-hidden">
+		{
+			isRemote && thumbnail ? (
+				<img
+					src={thumbnail}
+					alt={title}
+					loading="lazy"
+					class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+				/>
+			) : localImage ? (
+				<Image
+					src={localImage}
+					alt={title}
+					class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+				/>
+			) : (
+				<div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-bg-alt via-surface to-bg">
+					<span class="font-display text-3xl tracking-wide text-border">JWM</span>
+				</div>
+			)
+		}
+
+		<div class="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/10 to-transparent"></div>
+
+		{
+			comingSoon && (
+				<span class="absolute right-3 top-3 rounded-full bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-wide text-bg">
+					Coming Soon
+				</span>
+			)
+		}
+
+		{
+			watchHref && (
+				<a
+					href={watchHref}
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label={`Watch ${title}`}
+					class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+				>
+					<span class="flex h-14 w-14 items-center justify-center rounded-full bg-accent/90 text-bg">
+						<svg viewBox="0 0 24 24" fill="currentColor" class="ml-1 h-6 w-6">
+							<path d="M8 5v14l11-7z" />
+						</svg>
+					</span>
+				</a>
+			)
+		}
+	</div>
+
+	<div class="p-5">
+		<p class="text-xs font-semibold uppercase tracking-widest text-accent">{tag}</p>
+		<h3 class="mt-2 font-display text-xl tracking-wide text-fg">{title}</h3>
+	</div>
+</article>

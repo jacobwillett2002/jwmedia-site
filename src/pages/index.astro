@@ -1,0 +1,247 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import heroBg from '../assets/hero-bg.jpg';
+import aboutBg from '../assets/gallery/gal-sitd-01.jpg';
+
+const allProjects = await getCollection('projects');
+const featured = allProjects
+	.filter((p) => p.data.featured)
+	.sort((a, b) => a.data.order - b.data.order);
+
+const services = [
+	{
+		title: 'Music Cinematography',
+		description: 'Music videos, promos, and studio content built to move your sound. Our specialty.',
+		href: '/music-cinematography',
+	},
+	{
+		title: 'Narrative & Documentary',
+		description: 'Short films and documentaries today, with feature-length work on the horizon.',
+		href: '/narrative-and-documentary',
+	},
+	{
+		title: 'Live Sessions',
+		description: 'Multi-camera coverage of live sets and in-studio sessions, in 4K.',
+		href: '/live-sessions',
+	},
+	{
+		title: 'Photography',
+		description: 'Live show, studio, and event photography for artists and brands.',
+		href: '/photo-gallery',
+	},
+	{
+		title: 'Livestreaming & Corporate',
+		description: 'Multi-camera wireless livestream production for corporate events and conferences.',
+		href: '/contact',
+	},
+];
+
+const stats = [
+	{ label: '2026 San Diego Music Award', value: 'Best Video' },
+	{ label: 'Core Services', value: '5' },
+	{ label: 'Productions & Counting', value: '25+' },
+	{ label: 'Based In', value: 'San Diego' },
+];
+
+const partners = [
+	'The Gravities',
+	'More Truth',
+	'Static2Fresh',
+	'Riston Diggs',
+	'San Ombía',
+	'Brothers Burns',
+	'TrackOne Studio',
+	'SOMA San Diego',
+	'Black Star Polo',
+	'The Music Company',
+];
+
+const process = [
+	{ step: '01', title: 'Concept', description: 'We build the idea around your sound and goals.' },
+	{ step: '02', title: 'Production', description: 'On-location or in-studio, fully crewed shoots.' },
+	{ step: '03', title: 'Post', description: 'Edit, color, and sound design tuned for every platform.' },
+	{ step: '04', title: 'Rollout', description: 'Deliverables cut for release day and social.' },
+];
+---
+
+<Layout
+	title="San Diego Video Production Company"
+	description="JWMedia is a San Diego Music Award-winning video production company creating music videos, documentaries, live event coverage, and corporate livestreaming. Book a free consultation."
+>
+	<section class="relative flex min-h-[90vh] items-end overflow-hidden">
+		<Image
+			src={heroBg}
+			alt="JWMedia production still"
+			class="absolute inset-0 -z-10 h-full w-full object-cover"
+			widths={[640, 1280, 1920, 2560]}
+			sizes="100vw"
+			priority
+		/>
+		<div class="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/60 to-bg/20"></div>
+
+		<div class="mx-auto w-full max-w-7xl px-6 pb-20 pt-40 lg:px-10">
+			<p class="text-sm font-semibold uppercase tracking-widest text-accent">
+				2026 San Diego Music Award Winner
+			</p>
+			<h1 class="mt-4 max-w-3xl font-display text-5xl leading-[1.05] tracking-wide text-fg sm:text-6xl lg:text-7xl">
+				An all-in-one visual direction &amp; production team.
+			</h1>
+			<p class="mt-6 max-w-xl text-lg text-fg-muted">
+				Music videos are our specialty — but the same crew handles documentaries and short films,
+				live event coverage, corporate livestreaming, and photography across San Diego.
+			</p>
+			<div class="mt-8 flex flex-wrap gap-4">
+				<a
+					href="/contact"
+					class="rounded-full bg-accent px-8 py-3 text-sm font-semibold uppercase tracking-wide text-bg transition-opacity hover:opacity-90"
+				>
+					Book a Shoot
+				</a>
+				<a
+					href="/music-cinematography"
+					class="rounded-full border border-border px-8 py-3 text-sm font-semibold uppercase tracking-wide text-fg transition-colors hover:border-accent hover:text-accent"
+				>
+					See Our Work
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto max-w-4xl px-6 py-20 text-center lg:px-10">
+		<p class="font-display text-3xl leading-snug tracking-wide text-fg sm:text-4xl">
+			We make art for the people building San Diego's music scene.
+		</p>
+	</section>
+
+	<section class="relative overflow-hidden">
+		<Image
+			src={aboutBg}
+			alt=""
+			class="absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.12]"
+			widths={[640, 1280, 1920]}
+			sizes="100vw"
+		/>
+		<div class="absolute inset-0 -z-10 bg-gradient-to-b from-bg via-bg/95 to-bg"></div>
+
+		<div class="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+		<div class="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+			<div>
+				<p class="text-sm font-semibold uppercase tracking-widest text-accent">Who We Are</p>
+				<h2 class="mt-4 font-display text-3xl tracking-wide text-fg sm:text-4xl">
+					San Diego video production, in service of the scene.
+				</h2>
+				<p class="mt-6 text-fg-muted">
+					JWMedia started out shooting music videos for the San Diego scene, including a 2026 San
+					Diego Music Award for Best Video with The Gravities' "Stuck in the Desert." Music videos
+					are still the specialty — the same crew also covers live events, documentaries and short
+					films, corporate livestreaming, and photography for artists, venues, and brands across
+					the city.
+				</p>
+				<p class="mt-4 text-fg-muted">
+					We produce short films today, with feature-length work on the horizon. Whatever the
+					format, one team carries the project from first concept to final delivery.
+				</p>
+				<a
+					href="/about"
+					class="mt-6 inline-block text-sm font-medium text-accent hover:opacity-80"
+				>
+					More about JWMedia &rarr;
+				</a>
+			</div>
+
+			<div class="grid grid-cols-2 gap-6 content-start">
+				{
+					stats.map((stat) => (
+						<div class="rounded-lg border border-border bg-bg-alt p-5">
+							<p class="font-display text-3xl text-accent">{stat.value}</p>
+							<p class="mt-1 text-xs uppercase tracking-wide text-fg-muted">{stat.label}</p>
+						</div>
+					))
+				}
+			</div>
+		</div>
+
+		<div class="mt-16 border-t border-border pt-10">
+			<p class="text-xs font-semibold uppercase tracking-widest text-fg-muted">
+				Trusted by artists &amp; venues across San Diego
+			</p>
+			<div class="mt-5 flex flex-wrap gap-x-8 gap-y-3">
+				{
+					partners.map((partner) => (
+						<span class="font-display text-lg tracking-wide text-fg-muted">{partner}</span>
+					))
+				}
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section class="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
+		<div class="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+			<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">Selected Work</h2>
+			<a href="/music-cinematography" class="text-sm font-medium text-accent hover:opacity-80">
+				View all projects &rarr;
+			</a>
+		</div>
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{
+				featured.map((project) => (
+					<ProjectCard
+						title={project.data.title}
+						tag={project.data.tag}
+						thumbnail={project.data.thumbnail}
+						videoProvider={project.data.videoProvider}
+						videoId={project.data.videoId}
+						comingSoon={project.data.comingSoon}
+					/>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="border-y border-border bg-bg-alt">
+		<div class="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+			<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">What We Do</h2>
+			<p class="mt-3 max-w-2xl text-fg-muted">
+				Five services, one crew — music videos are the specialty, not the whole story.
+			</p>
+			<div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+				{
+					services.map((service) => (
+						<a href={service.href} class="group block">
+							<h3 class="font-display text-2xl tracking-wide text-fg transition-colors group-hover:text-accent">
+								{service.title}
+							</h3>
+							<p class="mt-3 text-sm text-fg-muted">{service.description}</p>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+		<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">Full-Scale, Start to Finish</h2>
+		<p class="mt-3 max-w-2xl text-fg-muted">
+			What began as a solo exploration of the San Diego music scene has grown into a full production
+			team. We cover every stage in-house.
+		</p>
+		<div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+			{
+				process.map((item) => (
+					<div>
+						<p class="font-display text-4xl text-accent">{item.step}</p>
+						<h3 class="mt-2 text-lg font-semibold text-fg">{item.title}</h3>
+						<p class="mt-2 text-sm text-fg-muted">{item.description}</p>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<CtaBand />
+</Layout>
