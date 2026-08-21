@@ -4,7 +4,7 @@ import { env } from 'cloudflare:workers';
 export const prerender = false;
 
 const TO_EMAIL = 'jacob@jwmedia.biz';
-const FROM_EMAIL = 'JWMedia Website <onboarding@resend.dev>';
+const FROM_EMAIL = 'JWMedia Website <website@jwmedia.biz>';
 
 export async function POST(context: APIContext) {
 	const apiKey = (env as Record<string, string>).RESEND_API_KEY;
