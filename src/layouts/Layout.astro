@@ -23,18 +23,19 @@ const jsonLd = {
 	name: 'JWMedia',
 	legalName: 'JWMedia, LLC',
 	description:
-		'San Diego video production company specializing in music videos, narrative & documentary film, live event coverage, and corporate livestreaming.',
+		'San Diego and Los Angeles video production company specializing in music videos, narrative & documentary film, live event coverage, and corporate livestreaming.',
 	url: 'https://jwmedia.biz',
 	logo: imageURL.toString(),
 	image: imageURL.toString(),
-	email: 'jacobwillett2002@gmail.com',
+	email: 'jacob@jwmedia.biz',
+	telephone: '+1-619-609-7557',
 	address: {
 		'@type': 'PostalAddress',
 		addressLocality: 'San Diego',
 		addressRegion: 'CA',
 		addressCountry: 'US',
 	},
-	areaServed: 'San Diego, CA',
+	areaServed: ['San Diego, CA', 'Los Angeles, CA'],
 	sameAs: [
 		'https://www.instagram.com/jwmedia.biz/',
 		'https://www.youtube.com/channel/UCVnhW-a6Mu7H3edWdgB6hXg',
@@ -78,6 +79,7 @@ const jsonLd = {
 		/>
 	</head>
 	<body class="bg-bg text-fg font-sans antialiased">
+		<div class="grain-overlay"></div>
 		<Header />
 		<main>
 			<slot />

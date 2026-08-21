@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "AqdE8ZNykuU",
   "thumbnail": "https://img.youtube.com/vi/AqdE8ZNykuU/hqdefault.jpg",
-  "description": "Full-set coverage of a Bizness live performance.",
+  "description": "A full-set live performance from Bizness, shot at O'side Sports Bar & Grill.",
+  "verifiedDescription": true,
   "featured": false,
   "order": 27
 }

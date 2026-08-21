@@ -1,0 +1,45 @@
+---
+interface Props {
+	items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="marquee overflow-hidden border-y border-border bg-bg-alt py-3">
+	<div class="marquee-track flex w-max whitespace-nowrap">
+		{
+			[0, 1].map((i) => (
+				<span class="flex items-center" aria-hidden={i === 1 ? 'true' : undefined}>
+					{items.map((item) => (
+						<span class="flex items-center px-2 font-display text-lg tracking-wide text-fg-muted">
+							{item}
+							<span class="mx-4 text-accent-gold">✦</span>
+						</span>
+					))}
+				</span>
+			))
+		}
+	</div>
+</div>
+
+<style>
+	.marquee-track {
+		animation: marquee-scroll 28s linear infinite;
+	}
+
+	@keyframes marquee-scroll {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(-50%);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.marquee-track {
+			animation: none;
+		}
+	}
+</style>

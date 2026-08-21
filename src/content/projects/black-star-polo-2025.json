@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "",
   "thumbnail": "bsp-2025-01.jpg",
-  "description": "Coverage of the 2025 Black Star Polo Bene-Fest, a benefit event blending music, community, and cause.",
+  "description": "Coverage of the 2025 Black Star Polo Bene-Fest, an annual benefit concert supporting free swim lessons and water-safety programs for underserved communities, featuring multiple San Diego Music Award-winning artists.",
+  "verifiedDescription": true,
   "featured": false,
-  "order": 10
+  "order": 16
 }

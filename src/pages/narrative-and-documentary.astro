@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CtaBand from '../components/CtaBand.astro';
+import BackdropSection from '../components/BackdropSection.astro';
+import heroBackdrop from '../assets/gallery/gal-sitd-03.jpg';
 
 const allProjects = await getCollection('projects');
 const narrativeProjects = allProjects
@@ -14,20 +16,26 @@ const comingSoon = allProjects
 ---
 
 <Layout
-	title="Short Film & Documentary Production San Diego"
-	description="Short film and documentary production in San Diego, directed by Jacob Willett and produced by JWMedia — with feature-length work on the horizon."
+	title="Short Film & Documentary Production San Diego & LA"
+	description="Short film and documentary production based in San Diego and Los Angeles, directed by Jacob Willett and produced by JWMedia — with feature-length work on the horizon."
 >
-	<section class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
-		<p class="text-sm font-semibold uppercase tracking-widest text-accent">Narrative &amp; Documentary</p>
-		<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
-			Short films and documentaries, directed by Jacob Willett.
-		</h1>
-		<p class="mt-4 max-w-2xl text-fg-muted">
-			Character-driven stories and documentary work that go beyond the music video — from dark
-			comedy shorts to long-form artist documentaries. We produce short films today, with
-			feature-length work on the horizon.
-		</p>
-	</section>
+	<BackdropSection image={heroBackdrop}>
+		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
+			<p class="text-sm font-semibold uppercase tracking-widest text-accent">Narrative &amp; Documentary</p>
+			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
+				Short films and documentaries, directed by Jacob Willett.
+			</h1>
+			<p class="mt-4 max-w-2xl text-fg-muted">
+				Character-driven stories and documentary work that go beyond the music video — surreal
+				comedies and queer satires are the specialty, alongside long-form artist documentaries. We
+				also produce for other creatives trying to get their film made — bring us the script.
+			</p>
+			<p class="mt-4 max-w-2xl text-fg-muted">
+				We produce short films today, with feature-length work on the horizon. Producers and
+				investors interested in our upcoming feature work are always welcome to reach out.
+			</p>
+		</div>
+	</BackdropSection>
 
 	<section class="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
 		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -40,6 +48,7 @@ const comingSoon = allProjects
 						videoProvider={project.data.videoProvider}
 						videoId={project.data.videoId}
 						comingSoon={project.data.comingSoon}
+						description={project.data.verifiedDescription ? project.data.description : undefined}
 					/>
 				))
 			}
@@ -60,6 +69,7 @@ const comingSoon = allProjects
 								videoProvider={project.data.videoProvider}
 								videoId={project.data.videoId}
 								comingSoon={project.data.comingSoon}
+								description={project.data.verifiedDescription ? project.data.description : undefined}
 							/>
 						))}
 					</div>

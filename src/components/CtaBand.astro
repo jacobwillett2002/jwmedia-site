@@ -6,11 +6,12 @@ interface Props {
 
 const {
 	heading = 'Ready to book your shoot?',
-	subheading = "Send us a few details about your project and we'll get back to you within a day.",
+	subheading = "Send us the song, the release date, and the budget — we'll tell you what fits, and what doesn't.",
 } = Astro.props;
 ---
 
-<section class="border-y border-border bg-bg-alt">
+<section class="relative border-y border-border bg-bg-alt">
+	<div class="horizon-rule absolute inset-x-0 top-0"></div>
 	<div
 		class="mx-auto flex max-w-7xl flex-col items-start gap-6 px-6 py-16 sm:flex-row sm:items-center sm:justify-between lg:px-10"
 	>

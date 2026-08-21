@@ -2,25 +2,29 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import CtaBand from '../components/CtaBand.astro';
+import BackdropSection from '../components/BackdropSection.astro';
 import jacobWillettPhoto from '../assets/team/jacob-willett.jpg';
 import jacobClementPhoto from '../assets/team/jacob-clement.jpg';
+import heroBackdrop from '../assets/gallery/sitd-bts-01.jpg';
 
 const team = [
 	{
 		name: 'Jacob Willett',
 		role: 'Founder & Director',
+		email: 'jacob@jwmedia.biz',
 		handle: '@jacobwillett_',
 		href: 'https://www.instagram.com/jacobwillett_/',
 		photo: jacobWillettPhoto,
-		bio: "Jacob Willett is the founder and director behind JWMedia, and a recent San Diego State University film production graduate. His music video for The Gravities' \"Stuck in the Desert\" won Best Video at the 2026 San Diego Music Awards — two weeks before he graduated, built up alongside school productions and restaurant work. Jacob leads every project from first concept through final cut, working closely with artists and bands to turn their sound into something worth watching.",
+		bio: "Jacob Willett is the founder and director behind JWMedia, and a recent San Diego State University film production graduate. In July 2025, he left his full-time job as a busser at Water Grill — juggled alongside a full course load at SDSU — to chase filmmaking full-time, and hasn't taken another job since. It was a leap of faith that led him into the San Diego scene shooting documentaries and multi-camera live coverage of indie shows before moving into music videos. The Gravities' \"Stuck in the Desert\" was the first music video he ever wrote and directed — made while he was still a film student at SDSU, it won Best Music Video at the San Diego Music Awards in May 2026, two weeks before he graduated. Beyond music videos, Jacob directs JWMedia's short films and documentaries, including 86'd, Our Place, and Hang-Ups, and serves as video lead and co-producer for Beach Break Sessions' multi-camera live coverage. He leads every project from first concept through final cut, working closely with artists and bands to turn their sound into something worth watching.",
 	},
 	{
 		name: 'Jacob Clement',
 		role: 'Photographer & Cinematographer',
+		email: 'nocornerscutphotography@gmail.com',
 		handle: '@nocornerscutphotography',
 		href: 'https://www.instagram.com/nocornerscutphotography/',
 		photo: jacobClementPhoto,
-		bio: 'Jacob Clement shoots alongside Jacob Willett on many of JWMedia’s music videos and productions, in addition to leading photography for weddings, music, events, and video across San Diego as No Corners Cut Photography. A San Diego Music Award-winning photographer in his own right, he brings the same eye for detail to every JWMedia shoot — from live shows to studio sessions to behind-the-scenes coverage.',
+		bio: 'Jacob Clement is an award-winning San Diego photographer and visual storyteller with seven years of experience and a Professional Certificate in Photography from UC San Diego Extension. He runs No Corners Cut Productions in partnership with JWMedia, and has contributed behind-the-scenes photography and camera work on Gravities and Resinators projects, including as co-cinematographer on The Resinators\' "Edge Sheeran." He\'s also the sole cinematographer and editor behind Raye Sundaze\'s music video, running that one start to finish on his own. Jacob and Jacob were friends back in elementary school, and reconnected years later at the Black Star Polo Bene-Fest — the same show that led to "Stuck in the Desert," where Clement served as co-cinematographer and stepped onto a film set for the very first time. Like Willett, it was a leap of faith that\'s since turned into a full-time career — he\'s left minimum-wage work behind to chase filmmaking and photography full-time. Jacob shoots alongside Jacob Willett on many of JWMedia’s productions, in addition to leading weddings, portraits, and music photography solo as No Corners Cut Photography.',
 	},
 ];
 
@@ -31,14 +35,19 @@ const pillars = [
 			'Every project starts with intentional storytelling and strong visual composition — not just coverage, a point of view.',
 	},
 	{
-		title: 'San Diego Rooted',
+		title: 'San Diego Rooted, World Curious',
 		description:
-			'Built inside the San Diego music scene, working closely with artists, labels, and promoters who trust us with their sound.',
+			"Built inside the San Diego music scene — with a real pull toward regional and international sounds, and an ear always open to the next scene worth chasing.",
 	},
 	{
 		title: 'Full-Scale, In-House',
 		description:
-			'From pre-production to social rollout, one team carries the project the whole way through — no hand-offs, no lost context.',
+			'Multi-camera rigs, wireless livestream gear, and drone coverage, run by one crew — pre-production through post, all in-house and local to San Diego.',
+	},
+	{
+		title: 'Always Growing',
+		description:
+			"Always learning, always scaling up — and looking ahead to mentoring and teaching the next wave of San Diego filmmakers.",
 	},
 ];
 
@@ -77,41 +86,46 @@ const process = [
 ---
 
 <Layout
-	title="About Our San Diego Production Team"
-	description="Meet JWMedia — a San Diego video production team of independent filmmakers, creative directors, cinematographers, and photographers behind our award-winning work."
+	title="About Our San Diego & LA Production Team"
+	description="Meet JWMedia — a San Diego and Los Angeles video production team of independent filmmakers, creative directors, cinematographers, and photographers behind our award-winning work."
 >
-	<section class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
-		<p class="text-sm font-semibold uppercase tracking-widest text-accent">About JWMedia</p>
-		<h1 class="mt-4 max-w-3xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
-			A filmmaker-first production team, built in San Diego.
-		</h1>
-	</section>
+	<BackdropSection image={heroBackdrop}>
+		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
+			<p class="text-sm font-semibold uppercase tracking-widest text-accent">About JWMedia</p>
+			<h1 class="mt-4 max-w-3xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
+				A filmmaker-first production team, built in San Diego — going wherever the music takes us.
+			</h1>
+		</div>
+	</BackdropSection>
 
 	<section class="mx-auto max-w-4xl px-6 pb-20 lg:px-10">
 		<div class="space-y-6 text-lg text-fg-muted">
 			<p>
 				JWMedia is a San Diego-based team of independent filmmakers, creative directors,
 				cinematographers, and editors. Music videos are our specialty — including a San Diego Music
-				Award for Best Video — but the same crew handles documentaries and short films, live event coverage,
-				corporate livestreaming, and photography for artists, venues, and brands.
+				Award for Best Music Video in May 2026 with The Gravities' "Stuck in the Desert" — but the
+				same crew handles documentaries and short films, live event coverage, corporate
+				livestreaming, and photography for artists, venues, and brands.
 			</p>
 			<p>
-				What began as a solo exploration of the San Diego music scene has grown into a scalable
-				production team, now operating as a registered LLC. We support artists, labels, and
-				producers across multiple markets, taking a project from a first conversation all the way
-				through to a social media rollout.
+				What began with a team of friends shooting documentaries and multi-camera live coverage of
+				indie shows around San Diego has grown into a scalable production team, now operating as a
+				registered LLC. We support artists, labels, and producers across multiple markets, taking a
+				project from a first conversation all the way through to a social media rollout.
 			</p>
 			<p>
 				At the core of everything is a filmmaker-first approach — intentional storytelling, strong
-				visual composition, and a commitment to elevating the artists and scenes we work inside of,
-				starting with San Diego.
+				visual composition, and a commitment to elevating the artists and scenes we work inside of.
 			</p>
 		</div>
 	</section>
 
 	<section class="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
 		<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">Meet the Team</h2>
-		<p class="mt-3 max-w-2xl text-fg-muted">The two people behind every JWMedia production.</p>
+		<p class="mt-3 max-w-2xl text-fg-muted">
+			Two independent filmmakers — JWMedia and No Corners Cut Productions — held to the same
+			standard: honest scope, intentional shots, and a clean handoff every time.
+		</p>
 
 		<div class="mt-12 grid gap-12 sm:grid-cols-2">
 			{
@@ -126,7 +140,10 @@ const process = [
 						/>
 						<div>
 							<h3 class="font-display text-2xl tracking-wide text-fg">{member.name}</h3>
-							<p class="text-xs font-semibold uppercase tracking-widest text-accent">{member.role}</p>
+							<a href={`mailto:${member.email}`} class="text-sm text-fg-muted hover:text-accent">
+								{member.email}
+							</a>
+							<p class="mt-1 text-xs font-semibold uppercase tracking-widest text-accent">{member.role}</p>
 							<p class="mt-3 text-sm text-fg-muted">{member.bio}</p>
 							<a
 								href={member.href}
@@ -145,7 +162,7 @@ const process = [
 
 	<section class="border-y border-border bg-bg-alt">
 		<div class="mx-auto max-w-7xl px-6 py-20 lg:px-10">
-			<div class="grid gap-10 sm:grid-cols-3">
+			<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
 				{
 					pillars.map((pillar) => (
 						<div>

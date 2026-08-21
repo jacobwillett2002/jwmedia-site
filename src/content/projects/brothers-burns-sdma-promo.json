@@ -1,11 +1,12 @@
 {
-  "title": "Brothers Burns — San Diego Music Award Promo",
+  "title": "Brothers Burns — San Diego Music Awards Promo",
   "tag": "PROMO",
   "category": "music",
   "videoProvider": "youtube",
   "videoId": "glUsREvs_Xk",
   "thumbnail": "https://img.youtube.com/vi/glUsREvs_Xk/hqdefault.jpg",
-  "description": "A San Diego Music Award promo piece produced for Brothers Burns.",
+  "description": "A San Diego Music Awards promo piece for The Brothers Burns, the hip-hop duo of brothers Burns 1 and Burns 2 with DJ Redlite — two-time San Diego Music Award winners for Best Hip-Hop/Rap Artist.",
+  "verifiedDescription": true,
   "featured": false,
-  "order": 25
+  "order": 14
 }

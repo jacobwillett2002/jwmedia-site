@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "USIvi_ddDf0",
   "thumbnail": "https://img.youtube.com/vi/USIvi_ddDf0/hqdefault.jpg",
-  "description": "A music video for San Ombía's \"Better Luck,\" built around mood and atmosphere as much as performance.",
+  "description": "A music video for San Ombía's \"Better Luck,\" directed, shot, and edited by Jacob Willett.",
+  "verifiedDescription": true,
   "featured": false,
-  "order": 18
+  "order": 8
 }

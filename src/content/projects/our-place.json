@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "eLlCql1pxIw",
   "thumbnail": "our-place-poster.jpg",
-  "description": "A devious romance emerges in the midst of a tragic breakup.",
-  "featured": false,
-  "order": 16
+  "description": "An award-winning short film: a devious romance emerges in the midst of a tragic breakup. A queer satire with a fully custom-composed score for live brass, organ, piano, and clarinet, inspired by John Waters and Divine's \"Female Trouble\" — the lead actress came into the studio to record vocals.",
+  "verifiedDescription": true,
+  "featured": true,
+  "order": 1
 }

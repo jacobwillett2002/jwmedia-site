@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "",
   "thumbnail": "studio-05.jpg",
-  "description": "An in-studio session with Michelin and collaborators at TrackOne, capturing the recording process as a standalone piece of content.",
+  "description": "An in-studio session with Michelin and collaborators at Track One Recording Studio in North County San Diego, capturing the recording process as a standalone piece of content.",
+  "verifiedDescription": true,
   "featured": false,
   "order": 7
 }

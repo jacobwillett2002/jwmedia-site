@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "uE68EBUDYeM",
   "thumbnail": "https://img.youtube.com/vi/uE68EBUDYeM/hqdefault.jpg",
-  "description": "Full-set 4K coverage of a Cotton Brain live performance.",
+  "description": "A full-set live performance from Cotton Brain, shot at a house show in San Diego.",
+  "verifiedDescription": true,
   "featured": false,
   "order": 26
 }

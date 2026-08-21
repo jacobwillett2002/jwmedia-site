@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "ZZNJZa2CbVM",
   "thumbnail": "https://img.youtube.com/vi/ZZNJZa2CbVM/hqdefault.jpg",
-  "description": "An unofficial visual for \"Chocolate Milk\" — a passion project built purely around the track, not commissioned by the artist.",
+  "description": "Part documentary, part music video: a rehearsal spirals into chaos when the unexpected crashes the room — until the band turns it into something worth keeping.",
+  "verifiedDescription": true,
   "featured": false,
-  "order": 21
+  "order": 11
 }

@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CtaBand from '../components/CtaBand.astro';
+import BackdropSection from '../components/BackdropSection.astro';
+import heroBackdrop from '../assets/gallery/more-sitd-05.jpg';
 
 const allProjects = await getCollection('projects');
 const liveProjects = allProjects
@@ -11,19 +13,21 @@ const liveProjects = allProjects
 ---
 
 <Layout
-	title="Live Concert & Event Videography San Diego"
-	description="Multi-camera live concert and event videography in San Diego — full-set coverage at SOMA, Sessions by the Bay, and studio sessions from JWMedia."
+	title="Live Concert & Event Videography San Diego & LA"
+	description="Multi-camera live concert and event videography in San Diego and Los Angeles — full-set coverage from Beach Break Sessions to Sessions by the Bay, and studio sessions from JWMedia."
 >
-	<section class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
-		<p class="text-sm font-semibold uppercase tracking-widest text-accent">Live Sessions</p>
-		<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
-			Full sets, in the room, in 4K.
-		</h1>
-		<p class="mt-4 max-w-2xl text-fg-muted">
-			Multi-camera coverage of live performances and in-studio sessions — from SOMA San Diego to
-			Sessions by the Bay.
-		</p>
-	</section>
+	<BackdropSection image={heroBackdrop}>
+		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
+			<p class="text-sm font-semibold uppercase tracking-widest text-accent">Live Sessions</p>
+			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
+				Full sets, in the room, in 4K.
+			</h1>
+			<p class="mt-4 max-w-2xl text-fg-muted">
+				Multi-camera coverage of live performances and in-studio sessions — up to 8 cameras for
+				Beach Break Sessions, full crews from Sessions by the Bay to SOMA San Diego.
+			</p>
+		</div>
+	</BackdropSection>
 
 	<section class="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
 		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -36,6 +40,7 @@ const liveProjects = allProjects
 						videoProvider={project.data.videoProvider}
 						videoId={project.data.videoId}
 						comingSoon={project.data.comingSoon}
+						description={project.data.verifiedDescription ? project.data.description : undefined}
 					/>
 				))
 			}

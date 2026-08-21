@@ -4,18 +4,19 @@
   --font-display: "Bebas Neue", "Oswald", sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
 
-  --color-bg: #0b0b0c;
-  --color-bg-alt: #141416;
-  --color-surface: #1c1c1f;
-  --color-fg: #f4f3ef;
-  --color-fg-muted: #9a978f;
-  --color-accent: #c2643f;
-  --color-accent-dim: #8f4726;
-  --color-border: #2a2a2d;
+  --color-bg: #120f0d;
+  --color-bg-alt: #1c1613;
+  --color-surface: #241d19;
+  --color-fg: #f4f1ec;
+  --color-fg-muted: #a39a8f;
+  --color-accent: #7c5c4a;
+  --color-accent-dim: #56402f;
+  --color-accent-gold: #c9a25c;
+  --color-border: #332922;
 }
 
 html {
-  background: var(--color-bg);
+  background: radial-gradient(ellipse 120% 55% at 50% -10%, #251b14 0%, var(--color-bg) 55%) fixed;
   color: var(--color-fg);
   scroll-behavior: smooth;
 }
@@ -27,4 +28,20 @@ body {
 ::selection {
   background: var(--color-accent);
   color: var(--color-bg);
+}
+
+.horizon-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent-gold) 50%, transparent);
+  opacity: 0.45;
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

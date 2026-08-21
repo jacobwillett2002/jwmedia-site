@@ -1,11 +1,12 @@
 {
-  "title": "The Naked I — Corporate Demo Reel",
-  "tag": "CORPORATE",
+  "title": "The Naked I — Demo Reel",
+  "tag": "DEMO REEL",
   "category": "music",
   "videoProvider": "youtube",
   "videoId": "",
   "thumbnail": "naked-i-01.jpg",
-  "description": "A corporate demo reel produced for The Naked I, showcasing brand story and product through a cinematic lens.",
+  "description": "A promotional demo reel for The Naked I, a San Diego rock band blending modern alternative rock with old-school funk and blues.",
+  "verifiedDescription": true,
   "featured": false,
-  "order": 12
+  "order": 18
 }

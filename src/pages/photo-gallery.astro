@@ -2,132 +2,186 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import CtaBand from '../components/CtaBand.astro';
+import BackdropSection from '../components/BackdropSection.astro';
 
 const photoModules = import.meta.glob<{ default: ImageMetadata }>('/src/assets/gallery/*.jpg', {
 	eager: true,
 });
 
-const captions: Record<string, { alt: string; tag: string; group: string }> = {
-	'studio-01.jpg': { alt: 'Portrait during a break in the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-02.jpg': { alt: 'Man wearing headphones in a warm-lit room.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-03.jpg': { alt: 'Two collaborators reviewing footage on a camera indoors.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-04.jpg': { alt: 'Man using a camera setup indoors.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-05.jpg': { alt: 'Person working in a music studio with headphones.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-06.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-07.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-08.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-09.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-10.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-11.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-12.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-13.jpg': { alt: 'Portrait during the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-14.jpg': { alt: 'Michelin, studio headshot.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'studio-15.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'gal-trackone-01.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-	'gal-trackone-02.jpg': { alt: 'Behind the scenes at the TrackOne studio session.', tag: 'STUDIO SESSION', group: 'trackone' },
-
-	'live-band-01.jpg': { alt: 'Live performance at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
-	'live-band-02.jpg': { alt: 'Drummer performing live at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
-	'live-band-03.jpg': { alt: 'Guitarist performing live at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
-	'live-band-04.jpg': { alt: 'Guitarist performing live at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
-	'live-band-05.jpg': { alt: 'Vocalist performing live at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
-	'gal-bsp-01.jpg': { alt: 'Live music at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
-	'gal-bsp-02.jpg': { alt: 'Live music at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
-	'gal-bsp-03.jpg': { alt: 'Live music at Black Star Polo Bene-Fest.', tag: 'BLACK STAR POLO', group: 'bsp' },
-
-	'gal-edge-01.jpg': { alt: 'Portrait from The Resinators — Edge Sheeran shoot.', tag: 'EDGE SHEERAN', group: 'edge' },
-	'gal-edge-02.jpg': { alt: 'On set for The Resinators — Edge Sheeran.', tag: 'EDGE SHEERAN', group: 'edge' },
-	'gal-edge-03.jpg': { alt: 'On set for The Resinators — Edge Sheeran.', tag: 'EDGE SHEERAN', group: 'edge' },
-
-	'gal-nakedi-01.jpg': { alt: 'On set for The Naked I corporate demo reel.', tag: 'THE NAKED I', group: 'nakedi' },
-	'gal-nakedi-02.jpg': { alt: 'On set for The Naked I corporate demo reel.', tag: 'THE NAKED I', group: 'nakedi' },
-
-	'gal-ragoo-01.jpg': { alt: 'On set for More Truth — Princess Ragoo.', tag: 'PRINCESS RAGOO', group: 'ragoo' },
-	'gal-ragoo-02.jpg': { alt: 'On set for More Truth — Princess Ragoo.', tag: 'PRINCESS RAGOO', group: 'ragoo' },
-
-	'gal-oside-01.jpg': { alt: "Hip-hop show at O'side Sports Bar & Grill.", tag: "O'SIDE SPORTS BAR", group: 'oside' },
-	'gal-oside-02.jpg': { alt: "Hip-hop show at O'side Sports Bar & Grill.", tag: "O'SIDE SPORTS BAR", group: 'oside' },
-	'gal-oside-03.jpg': { alt: "Hip-hop show at O'side Sports Bar & Grill.", tag: "O'SIDE SPORTS BAR", group: 'oside' },
-
-	'gal-newports-01.jpg': { alt: "Live music at Newports and Nelli's.", tag: "NEWPORTS AND NELLI'S", group: 'newports' },
-	'gal-newports-02.jpg': { alt: "Live music at Newports and Nelli's.", tag: "NEWPORTS AND NELLI'S", group: 'newports' },
-
-	'gal-sitd-01.jpg': { alt: 'Behind the scenes of "Stuck in the Desert."', tag: 'STUCK IN THE DESERT', group: 'sitd' },
-	'gal-sitd-02.jpg': { alt: 'Behind the scenes of "Stuck in the Desert."', tag: 'STUCK IN THE DESERT', group: 'sitd' },
-	'gal-sitd-03.jpg': { alt: 'Behind the scenes of "Stuck in the Desert."', tag: 'STUCK IN THE DESERT', group: 'sitd' },
-
-	'gal-hangups-01.jpg': { alt: 'Film still from Hang-Ups.', tag: 'HANG-UPS', group: 'hangups' },
-	'gal-hangups-02.jpg': { alt: 'Film still from Hang-Ups.', tag: 'HANG-UPS', group: 'hangups' },
-
-	'gal-warriors-01.jpg': { alt: "Film still from A Warrior's Love of Flowers.", tag: 'A WARRIOR’S LOVE OF FLOWERS', group: 'warriors' },
-	'gal-warriors-02.jpg': { alt: "Film still from A Warrior's Love of Flowers.", tag: 'A WARRIOR’S LOVE OF FLOWERS', group: 'warriors' },
-
-	'gal-ourplace-01.jpg': { alt: 'Film still from Our Place.', tag: 'OUR PLACE', group: 'ourplace' },
-	'gal-ourplace-02.jpg': { alt: 'Film still from Our Place.', tag: 'OUR PLACE', group: 'ourplace' },
-};
-
-const grouped = new Map<string, { image: ImageMetadata; alt: string; tag: string }[]>();
-for (const [path, mod] of Object.entries(photoModules)) {
-	const filename = path.split('/').pop() ?? '';
-	const entry = captions[filename];
-	if (!entry) continue;
-	const list = grouped.get(entry.group) ?? [];
-	list.push({ image: mod.default, alt: entry.alt, tag: entry.tag });
-	grouped.set(entry.group, list);
+function resolve(filename: string): ImageMetadata {
+	const mod = photoModules[`/src/assets/gallery/${filename}`];
+	if (!mod) throw new Error(`Missing gallery image: ${filename}`);
+	return mod.default;
 }
 
-// Interleave round-robin across groups so the same shoot never clumps together.
-const buckets = Array.from(grouped.values());
-const photos: { image: ImageMetadata; alt: string; tag: string }[] = [];
-let round = 0;
-while (photos.length < buckets.reduce((sum, b) => sum + b.length, 0)) {
-	for (const bucket of buckets) {
-		if (bucket[round]) photos.push(bucket[round]);
-	}
-	round++;
-}
+const sections = [
+	{
+		title: 'Stuck in the Desert',
+		tag: 'STUCK IN THE DESERT',
+		files: [
+			'sitd-bts-01.jpg', 'gal-sitd-01.jpg', 'gal-sitd-02.jpg', 'gal-sitd-03.jpg',
+			'more-sitd-03.jpg', 'more-sitd-04.jpg', 'more-sitd-05.jpg', 'more-sitd-06.jpg',
+			'more-sitd-08.jpg', 'more-sitd-09.jpg', 'more-sitd-10.jpg', 'more-sitd-11.jpg',
+			'more-sitd-12.jpg', 'more-sitd-14.jpg', 'more-sitd-15.jpg', 'more-sitd-16.jpg',
+			'more-sitd-17.jpg', 'more-sitd-18.jpg', 'more-sitd-19.jpg', 'more-sitd-20.jpg',
+			'hd-sitd-01.jpg', 'hd-sitd-02.jpg', 'hd-sitd-03.jpg', 'hd-sitd-04.jpg',
+			'hd-sitd-05.jpg', 'hd-sitd-06.jpg', 'hd-sitd-07.jpg', 'hd-sitd-08.jpg',
+			'hd-sitd-09.jpg', 'hd-sitd-10.jpg', 'hd-sitd-11.jpg', 'hd-sitd-12.jpg',
+			'hd-sitd-13.jpg', 'hd-sitd-14.jpg', 'sitd-money-01.jpg',
+		],
+	},
+	{
+		title: 'The Resinators — Edge Sheeran',
+		tag: 'EDGE SHEERAN',
+		files: [
+			'edge-sheeran-01.jpg', 'gal-edge-01.jpg', 'gal-edge-02.jpg', 'gal-edge-03.jpg',
+			'more-edge-02.jpg', 'more-edge-04.jpg', 'more-edge-05.jpg', 'more-edge-07.jpg',
+			'more-edge-08.jpg', 'more-edge-09.jpg',
+		],
+	},
+	{
+		title: 'Raye Sundaze — Summertime',
+		tag: 'RAYE SUNDAZE',
+		files: [
+			'raye-sundaze-01.jpg', 'raye-sundaze-02.jpg', 'raye-sundaze-03.jpg', 'raye-sundaze-04.jpg',
+			'raye-sundaze-05.jpg', 'raye-sundaze-06.jpg', 'raye-sundaze-07.jpg', 'raye-sundaze-08.jpg',
+			'raye-sundaze-09.jpg',
+		],
+	},
+	{
+		title: 'TrackOne Studio Session',
+		tag: 'STUDIO SESSION',
+		files: [
+			'studio-01.jpg', 'studio-02.jpg', 'studio-03.jpg', 'studio-04.jpg', 'studio-05.jpg',
+			'studio-06.jpg', 'studio-07.jpg', 'studio-08.jpg', 'studio-09.jpg', 'studio-10.jpg',
+			'studio-11.jpg', 'studio-12.jpg', 'studio-13.jpg', 'studio-14.jpg', 'studio-15.jpg',
+			'gal-trackone-01.jpg', 'gal-trackone-02.jpg',
+			'more-trackone-01.jpg', 'more-trackone-02.jpg', 'more-trackone-03.jpg', 'more-trackone-04.jpg',
+			'more-trackone-05.jpg', 'more-trackone-06.jpg', 'more-trackone-07.jpg', 'more-trackone-08.jpg',
+		],
+	},
+	{
+		title: 'Black Star Polo Bene-Fest',
+		tag: 'BLACK STAR POLO',
+		files: [
+			'bsp-2025-01.jpg', 'gal-bsp-01.jpg', 'gal-bsp-02.jpg', 'gal-bsp-03.jpg',
+			'more-bsp25-02.jpg', 'more-bsp25-03.jpg', 'more-bsp25-04.jpg', 'more-bsp25-05.jpg',
+			'more-bsp25-06.jpg', 'more-bsp25-07.jpg', 'more-bsp25-08.jpg', 'more-bsp25-09.jpg',
+			'more-bsp25-10.jpg', 'more-bsp25-11.jpg', 'more-bsp25-12.jpg', 'more-bsp25-13.jpg',
+			'more-bsp25-14.jpg', 'more-bsp25-15.jpg', 'more-bsp25-16.jpg', 'more-bsp25-17.jpg',
+			'more-bsp25-18.jpg', 'more-bsp25-19.jpg',
+			'live-band-01.jpg', 'live-band-02.jpg', 'live-band-03.jpg', 'live-band-04.jpg', 'live-band-05.jpg',
+			'more-bsp4-02.jpg', 'more-bsp4-03.jpg', 'more-bsp4-06.jpg', 'more-bsp4-07.jpg',
+			'more-bsp4-08.jpg', 'more-bsp4-09.jpg', 'more-bsp4-10.jpg', 'more-bsp4-11.jpg',
+		],
+	},
+	{
+		title: 'More Truth — Princess Ragoo',
+		tag: 'PRINCESS RAGOO',
+		files: [
+			'gal-ragoo-01.jpg', 'gal-ragoo-02.jpg',
+			'more-ragoo-01.jpg', 'more-ragoo-02.jpg', 'more-ragoo-03.jpg', 'more-ragoo-04.jpg',
+			'more-ragoo-05.jpg', 'more-ragoo-06.jpg', 'more-ragoo-07.jpg', 'more-ragoo-08.jpg',
+		],
+	},
+	{
+		title: "O'side Sports Bar & Grill",
+		tag: "O'SIDE SPORTS BAR",
+		files: [
+			'oside-01.jpg', 'gal-oside-01.jpg', 'gal-oside-02.jpg', 'gal-oside-03.jpg',
+			'more-oside-02.jpg', 'more-oside-04.jpg', 'more-oside-05.jpg', 'more-oside-06.jpg',
+			'more-oside-07.jpg', 'more-oside-08.jpg', 'more-oside-09.jpg',
+		],
+	},
+	{
+		title: "Newports and Nelli's",
+		tag: "NEWPORTS AND NELLI'S",
+		files: [
+			'newports-01.jpg', 'gal-newports-01.jpg', 'gal-newports-02.jpg',
+			'more-newports-02.jpg', 'more-newports-04.jpg', 'more-newports-05.jpg',
+		],
+	},
+	{
+		title: 'The Naked I',
+		tag: 'THE NAKED I',
+		files: [
+			'naked-i-01.jpg', 'gal-nakedi-01.jpg', 'gal-nakedi-02.jpg',
+			'more-nakedi-02.jpg', 'more-nakedi-03.jpg', 'more-nakedi-04.jpg',
+			'more-nakedi-06.jpg', 'more-nakedi-07.jpg', 'more-nakedi-08.jpg',
+		],
+	},
+	{
+		title: 'Hang-Ups',
+		tag: 'HANG-UPS',
+		files: [
+			'gal-hangups-01.jpg', 'gal-hangups-02.jpg',
+			'more-hangups-02.jpg', 'more-hangups-03.jpg', 'more-hangups-04.jpg', 'more-hangups-05.jpg',
+			'more-hangups-07.jpg', 'more-hangups-08.jpg', 'more-hangups-09.jpg', 'more-hangups-10.jpg',
+			'more-hangups-11.jpg',
+		],
+	},
+	{
+		title: "A Warrior's Love of Flowers",
+		tag: 'A WARRIOR’S LOVE OF FLOWERS',
+		files: [
+			'warriors-01.jpg', 'gal-warriors-01.jpg', 'gal-warriors-02.jpg',
+			'more-warriors-02.jpg', 'more-warriors-03.jpg', 'more-warriors-04.jpg',
+			'more-warriors-06.jpg', 'more-warriors-07.jpg', 'more-warriors-08.jpg', 'more-warriors-09.jpg',
+		],
+	},
+	{
+		title: 'Our Place',
+		tag: 'OUR PLACE',
+		files: [
+			'our-place-poster.jpg', 'gal-ourplace-01.jpg', 'gal-ourplace-02.jpg',
+			'more-ourplace-01.jpg', 'more-ourplace-02.jpg', 'more-ourplace-03.jpg',
+			'more-ourplace-05.jpg', 'more-ourplace-06.jpg', 'more-ourplace-07.jpg', 'more-ourplace-08.jpg',
+		],
+	},
+];
+
 ---
 
 <Layout
-	title="Music & Event Photography San Diego"
-	description="San Diego music, studio, and live event photography from JWMedia — stills from the same shows and sessions you see in our films."
+	title="Music & Event Photography San Diego & LA"
+	description="San Diego and Los Angeles music, studio, and live event photography from JWMedia — a full look at the work behind every project, organized by shoot."
 >
-	<section class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
-		<p class="text-sm font-semibold uppercase tracking-widest text-accent">Photo Gallery</p>
-		<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
-			Music Photography
-		</h1>
-		<p class="mt-4 max-w-2xl text-fg-muted">
-			Stills from the same shows, studio sessions, and sets you see in our films &mdash; click any
-			image to view it full-size.
-		</p>
-	</section>
-
-	<section class="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
-		<div class="columns-1 gap-4 sm:columns-2 lg:columns-3">
-			{
-				photos.map((photo, i) => (
-					<button
-						type="button"
-						class="gallery-item group relative mb-4 block w-full overflow-hidden rounded-lg border border-border"
-						data-index={i}
-					>
-						<Image
-							src={photo.image}
-							alt={photo.alt}
-							class="w-full transition-transform duration-500 group-hover:scale-105"
-							loading={i < 6 ? 'eager' : 'lazy'}
-						/>
-						{photo.tag && (
-							<span class="absolute left-3 top-3 rounded-full bg-bg/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent backdrop-blur-sm">
-								{photo.tag}
-							</span>
-						)}
-					</button>
-				))
-			}
+	<BackdropSection image={resolve('more-sitd-10.jpg')}>
+		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
+			<p class="text-sm font-semibold uppercase tracking-widest text-accent">Photo Gallery</p>
+			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
+				Music Photography
+			</h1>
+			<p class="mt-4 max-w-2xl text-fg-muted">
+				Stills from the same shows, studio sessions, and sets you see in our films, organized by
+				project &mdash; click any image to view it full-size.
+			</p>
 		</div>
-	</section>
+	</BackdropSection>
+
+	{
+		sections.map((section) => (
+			<section class="mx-auto max-w-7xl px-6 pb-16 lg:px-10">
+				<h2 class="mb-6 font-display text-2xl tracking-wide text-fg sm:text-3xl">{section.title}</h2>
+				<div class="columns-1 gap-4 sm:columns-2 lg:columns-3">
+					{section.files.map((filename, i) => (
+						<button
+							type="button"
+							class="gallery-item group relative mb-4 block w-full overflow-hidden border border-border"
+							data-src={filename}
+						>
+							<Image
+								src={resolve(filename)}
+								alt={`${section.title} — photo ${i + 1}`}
+								class="w-full transition-transform duration-500 group-hover:scale-105"
+								loading="lazy"
+							/>
+						</button>
+					))}
+				</div>
+			</section>
+		))
+	}
 
 	<div
 		id="lightbox"
@@ -151,7 +205,7 @@ while (photos.length < buckets.reduce((sum, b) => sum + b.length, 0)) {
 		>
 			&#8249;
 		</button>
-		<img id="lightbox-image" src="" alt="" class="max-h-[85vh] max-w-full rounded-lg object-contain" />
+		<img id="lightbox-image" src="" alt="" class="max-h-[85vh] max-w-full object-contain" />
 		<button
 			id="lightbox-next"
 			type="button"

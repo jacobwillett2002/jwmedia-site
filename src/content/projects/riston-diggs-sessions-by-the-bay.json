@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "5LAu_xhzPuA",
   "thumbnail": "https://img.youtube.com/vi/5LAu_xhzPuA/hqdefault.jpg",
-  "description": "A cinematic live music edit of Riston Diggs performing at Sessions by the Bay, Cannabis Lounge.",
+  "description": "A cinematic concert recap of Riston Diggs performing a stripped-down solo set at Sessions by the Bay, a cannabis lounge in National City.",
+  "verifiedDescription": true,
   "featured": false,
   "order": 31
 }

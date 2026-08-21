@@ -3,7 +3,7 @@ import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
-const TO_EMAIL = 'jacobwillett2002@gmail.com';
+const TO_EMAIL = 'jacob@jwmedia.biz';
 const FROM_EMAIL = 'JWMedia Website <onboarding@resend.dev>';
 
 export async function POST(context: APIContext) {
@@ -31,7 +31,7 @@ export async function POST(context: APIContext) {
 		return new Response(
 			JSON.stringify({
 				ok: false,
-				error: 'The contact form is not fully set up yet — please email jacobwillett2002@gmail.com directly.',
+				error: 'The contact form is not fully set up yet — please email jacob@jwmedia.biz directly.',
 			}),
 			{ status: 500 },
 		);

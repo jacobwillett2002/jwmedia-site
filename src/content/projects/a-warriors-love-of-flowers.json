@@ -5,8 +5,9 @@
   "videoProvider": "vimeo",
   "videoId": "",
   "thumbnail": "warriors-01.jpg",
-  "description": "A documentary capturing Fish and the Washroom Acoustics as they create their first album — five years in the making — shot against the backdrop of Atlanta's surf-rock scene. A portrait of promise that becomes a meditation on music, friendship, and the space in between.",
+  "description": "A documentary capturing Fish and the Washroom Acoustics as they create their first album — five years in the making — shot against the backdrop of Atlanta's surf-rock scene. The band broke up during filming, turning a portrait of promise into a meditation on music, friendship, and the space in between.",
+  "verifiedDescription": true,
   "featured": false,
-  "comingSoon": true,
-  "order": 17
+  "comingSoon": false,
+  "order": 6
 }

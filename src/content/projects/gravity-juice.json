@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "fxu83BkdaxQ",
   "thumbnail": "https://img.youtube.com/vi/fxu83BkdaxQ/hqdefault.jpg",
-  "description": "A promotional piece built around The Gravities' brand, made to travel alongside their music video releases.",
+  "description": "A promotional piece for The Gravities, shot and edited by Jacob Willett.",
+  "verifiedDescription": true,
   "featured": false,
-  "order": 23
+  "order": 12
 }

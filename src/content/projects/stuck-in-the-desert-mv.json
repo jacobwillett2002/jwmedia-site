@@ -4,8 +4,10 @@
   "category": "music",
   "videoProvider": "youtube",
   "videoId": "leWV_HcZ4kY",
-  "thumbnail": "https://i.vimeocdn.com/video/2066215759-79d602a4b01729ab2cfc1a62cb98a29274391e9d13396653219c952cb24b86e4-d.jpg",
-  "description": "Our San Diego Music Award-winning music video for The Gravities, shot on location in the desert outside San Diego — a full narrative concept built around the band's sound.",
+  "thumbnail": "https://img.youtube.com/vi/leWV_HcZ4kY/hqdefault.jpg",
+  "caseStudyHref": "/stuck-in-the-desert",
+  "description": "A cinematic, high-octane music video for The Gravities: when a bank robbery gets botched, the band has no choice but to destroy the money, or risk being killed. JWMedia's first official music video — the first time Jacob Willett wrote and directed a music video, made while he was still a film student at SDSU. Winner, Best Music Video at the San Diego Music Awards in May 2026.",
+  "verifiedDescription": true,
   "featured": true,
   "order": 1
 }

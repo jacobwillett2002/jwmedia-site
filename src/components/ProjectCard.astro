@@ -10,12 +10,25 @@ interface Props {
 	title: string;
 	tag: string;
 	thumbnail?: string;
+	thumbnailPosition?: string;
 	videoProvider?: 'vimeo' | 'youtube';
 	videoId?: string;
 	comingSoon?: boolean;
+	description?: string;
+	caseStudyHref?: string;
 }
 
-const { title, tag, thumbnail, videoProvider, videoId, comingSoon = false } = Astro.props;
+const {
+	title,
+	tag,
+	thumbnail,
+	thumbnailPosition = 'center',
+	videoProvider,
+	videoId,
+	comingSoon = false,
+	description,
+	caseStudyHref,
+} = Astro.props;
 
 const isRemote = thumbnail?.startsWith('http') ?? false;
 const localImage = !thumbnail || isRemote
@@ -30,7 +43,7 @@ const watchHref =
 			: undefined;
 ---
 
-<article class="group relative overflow-hidden rounded-lg border border-border bg-bg-alt">
+<article class="group relative overflow-hidden border border-border bg-bg-alt transition-colors duration-300 hover:border-accent-gold/50">
 	<div class="relative aspect-video overflow-hidden">
 		{
 			isRemote && thumbnail ? (
@@ -38,13 +51,15 @@ const watchHref =
 					src={thumbnail}
 					alt={title}
 					loading="lazy"
-					class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+					style={`object-position: ${thumbnailPosition};`}
+					class="h-full w-full object-cover grayscale-[15%] sepia-[10%] contrast-[1.03] transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0 group-hover:sepia-0"
 				/>
 			) : localImage ? (
 				<Image
 					src={localImage}
 					alt={title}
-					class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+					style={`object-position: ${thumbnailPosition};`}
+					class="h-full w-full object-cover grayscale-[15%] sepia-[10%] contrast-[1.03] transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0 group-hover:sepia-0"
 				/>
 			) : (
 				<div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-bg-alt via-surface to-bg">
@@ -83,7 +98,18 @@ const watchHref =
 	</div>
 
 	<div class="p-5">
-		<p class="text-xs font-semibold uppercase tracking-widest text-accent">{tag}</p>
+		<p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-accent">
+			<span class="h-px w-4 bg-accent-gold"></span>
+			{tag}
+		</p>
 		<h3 class="mt-2 font-display text-xl tracking-wide text-fg">{title}</h3>
+		{description && <p class="mt-2 text-sm text-fg-muted">{description}</p>}
+		{
+			caseStudyHref && (
+				<a href={caseStudyHref} class="mt-3 inline-block text-sm font-medium text-accent-gold hover:opacity-80">
+					Read the full story &rarr;
+				</a>
+			)
+		}
 	</div>
 </article>

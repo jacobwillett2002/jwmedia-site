@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "upAn7EgVHww",
   "thumbnail": "https://img.youtube.com/vi/upAn7EgVHww/hqdefault.jpg",
-  "description": "Multi-camera coverage of Mind's Eye's live set at SOMA San Diego, edited for both a full recap and short-form clips.",
+  "description": "Multi-camera coverage of Mind's Eye's live set at SOMA San Diego on October 30, 2025, edited for both a full recap and short-form clips.",
+  "verifiedDescription": true,
   "featured": true,
   "order": 8
 }

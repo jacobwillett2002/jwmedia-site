@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "FL7-tZductI",
   "thumbnail": "https://img.youtube.com/vi/FL7-tZductI/hqdefault.jpg",
-  "description": "A full-song 4K live performance of The Gravities' \"Grav Train.\"",
+  "description": "A full-song 4K live performance of The Gravities' \"Grav Train,\" filmed by a multi-camera crew across San Diego venues.",
+  "verifiedDescription": true,
   "featured": false,
   "order": 29
 }

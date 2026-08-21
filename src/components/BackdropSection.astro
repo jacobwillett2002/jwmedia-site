@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+	image: ImageMetadata;
+	class?: string;
+}
+
+const { image, class: className = '' } = Astro.props;
+---
+
+<section class:list={['relative overflow-hidden', className]}>
+	<Image
+		src={image}
+		alt=""
+		class="absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.14] grayscale-[15%] sepia-[20%] contrast-[1.1]"
+		widths={[640, 1280, 1920]}
+		sizes="100vw"
+	/>
+	<div class="absolute inset-0 -z-10 bg-gradient-to-b from-bg via-bg/95 to-bg"></div>
+	<div
+		class="absolute inset-0 -z-10"
+		style="background: radial-gradient(ellipse 85% 65% at 50% 25%, transparent 0%, rgba(10, 7, 6, 0.55) 100%);"
+	></div>
+	<slot />
+</section>

@@ -2,10 +2,11 @@
   "title": "The Resinators — Edge Sheeran",
   "tag": "MUSIC VIDEO",
   "category": "music",
-  "videoProvider": "vimeo",
-  "videoId": "",
-  "thumbnail": "edge-sheeran-01.jpg",
-  "description": "A high-energy official music video built around The Resinators' single, blending performance footage with narrative cutaways.",
+  "videoProvider": "youtube",
+  "videoId": "P8O5YzVO-QE",
+  "thumbnail": "edge-sheeran-slate.jpg",
+  "description": "A high-energy official music video, written and directed by The Resinators, shot by Jacob Willett and Jacob Clement.",
+  "verifiedDescription": true,
   "featured": true,
-  "order": 3
+  "order": 2
 }
