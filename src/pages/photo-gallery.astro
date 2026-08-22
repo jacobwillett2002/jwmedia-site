@@ -19,6 +19,7 @@ const sections = [
 		title: 'Stuck in the Desert',
 		tag: 'STUCK IN THE DESERT',
 		videoId: 'leWV_HcZ4kY',
+		artistLink: 'https://open.spotify.com/artist/7rKZX2oH4IyUtw05LqWm30',
 		files: [
 			'sitd-bts-01.jpg', 'gal-sitd-01.jpg', 'gal-sitd-02.jpg', 'gal-sitd-03.jpg',
 			'more-sitd-03.jpg', 'more-sitd-04.jpg', 'more-sitd-05.jpg', 'more-sitd-06.jpg',
@@ -37,6 +38,7 @@ const sections = [
 		title: 'The Resinators — Edge Sheeran',
 		tag: 'EDGE SHEERAN',
 		videoId: 'P8O5YzVO-QE',
+		artistLink: 'https://open.spotify.com/artist/1VtdAuKw3H3OLnHEM5FpxA',
 		files: [
 			'resinators-band-01.jpg', 'edge-sheeran-slate.jpg',
 			'edge-sheeran-01.jpg', 'gal-edge-01.jpg', 'gal-edge-02.jpg', 'gal-edge-03.jpg',
@@ -70,6 +72,7 @@ const sections = [
 		title: 'The Gravities — "Te Gusta" + "Flavours" (Live at Whiskey Girl)',
 		tag: 'WHISKEY GIRL',
 		videoId: 'lcbHivkK0W4',
+		artistLink: 'https://open.spotify.com/artist/7rKZX2oH4IyUtw05LqWm30',
 		files: [
 			'whiskey-girl-live-01.jpg', 'whiskey-girl-live-02.jpg', 'whiskey-girl-live-03.jpg',
 			'whiskey-girl-live-04.jpg', 'whiskey-girl-live-05.jpg', 'whiskey-girl-live-06.jpg',
@@ -78,6 +81,7 @@ const sections = [
 	{
 		title: 'Muffin But Good Vibes — Acoustic Sessions (Coming Soon)',
 		tag: 'MUFFIN BUT GOOD VIBES',
+		artistLink: 'https://www.instagram.com/muffinbutgoodvibes/',
 		files: ['mbgv-01.jpg', 'mbgv-02.jpg', 'mbgv-03.jpg', 'mbgv-04.jpg', 'mbgv-05.jpg', 'mbgv-06.jpg'],
 	},
 	{
@@ -206,6 +210,18 @@ const sections = [
 								class="text-sm font-medium text-accent-gold hover:opacity-80"
 							>
 								Watch on YouTube &rarr;
+							</a>
+						)
+					}
+					{
+						section.artistLink && (
+							<a
+								href={section.artistLink}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-sm font-medium text-accent hover:opacity-80"
+							>
+								{section.artistLink.includes('spotify.com') ? 'Listen on Spotify' : 'Follow on Instagram'} &rarr;
 							</a>
 						)
 					}

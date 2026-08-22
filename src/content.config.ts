@@ -14,6 +14,7 @@ const projects = defineCollection({
     thumbnailFit: z.enum(['cover', 'contain']).default('cover'),
     thumbnailPool: z.array(z.string()).optional(),
     posterBackdrop: z.string().optional(),
+    artistLink: z.string().optional(),
     caseStudyHref: z.string().optional(),
     description: z.string(),
     verifiedDescription: z.boolean().default(false),

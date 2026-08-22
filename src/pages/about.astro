@@ -16,9 +16,9 @@ const team = [
 		href: 'https://www.instagram.com/jacobwillett_/',
 		photo: jacobWillettPhoto,
 		bio: [
-			"Jacob Willett is a San Marcos native and San Marcos High School graduate. Film came later — a path he found closer to the 2020 lockdown and has stuck with ever since. Media came first, though: while studying film theory at Palomar College, he got his start at its student radio station, KKSM AM 1320, interviewing artists like Paul Cherry, Brad Stank, 79.5, and Ditch Days. The radio work is what bridged his love of music into filmmaking.",
+			"Jacob Willett is a San Marcos native and San Marcos High School graduate. Film came later — a path he found closer to the 2020 lockdown and has stuck with ever since. Media came first, though: while studying film theory at Palomar College, he got his start at its student radio station, KKSM AM 1320, interviewing artists like <a href=\"https://open.spotify.com/artist/1xbu7UyVdZxwIiNfLcUKqn\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-accent-gold hover:opacity-80\">Paul Cherry</a>, <a href=\"https://open.spotify.com/artist/6BkeI9oZkqskZ4XMwy5OFl\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-accent-gold hover:opacity-80\">Brad Stank</a>, <a href=\"https://open.spotify.com/artist/2czOrtIVegf3rq5pabX21O\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-accent-gold hover:opacity-80\">79.5</a>, and <a href=\"https://open.spotify.com/artist/3B3nEiNlMRAHeSF9hfVyi2\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-accent-gold hover:opacity-80\">Ditch Days</a>. The radio work is what bridged his love of music into filmmaking.",
 			"He holds a Bachelor's in Television, Film & New Media from San Diego State University — emphasis in Film Production, minor in Digital & Social Media Studies — building on an Associate's Degree from Palomar College. Like most of his time through college, that meant working restaurant jobs — in July 2025, while still carrying a full course load at SDSU, he left his job as a busser at a fine-dining restaurant in the Gaslamp Quarter to chase filmmaking full-time, and hasn't taken another job since.",
-			"The leap paid off: The Gravities' \"Stuck in the Desert,\" the first music video he ever wrote and directed, won Best Music Video at the San Diego Music Awards in May 2026, two weeks before he graduated. Beyond music videos, Jacob directs JWMedia's short films and documentaries — including 86'd, Our Place, and Hang-Ups — and serves as video lead and co-editor, alongside Jacob Clement, for Beach Break Sessions' multi-camera live coverage. He leads every project from first concept through final cut, working closely with artists and bands to turn their sound into something worth watching.",
+			"The leap paid off: <a href=\"https://open.spotify.com/artist/7rKZX2oH4IyUtw05LqWm30\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-accent-gold hover:opacity-80\">The Gravities</a>' \"Stuck in the Desert,\" the first music video he ever wrote and directed, won Best Music Video at the San Diego Music Awards in May 2026, two weeks before he graduated. Beyond music videos, Jacob directs JWMedia's short films and documentaries — including 86'd, Our Place, and Hang-Ups — and serves as video lead and co-editor, alongside Jacob Clement, for Beach Break Sessions' multi-camera live coverage. He leads every project from first concept through final cut, working closely with artists and bands to turn their sound into something worth watching.",
 		],
 	},
 	{
@@ -30,7 +30,7 @@ const team = [
 		photo: jacobClementPhoto,
 		bio: [
 			"Jacob Clement is a cinematographer and co-producer for JWMedia, and a seven-year award-winning San Diego photographer with a Professional Certificate in Photography from UC San Diego Extension — his background is rooted in Lightroom and Photoshop, built largely shooting weddings. Editing and color grading in DaVinci Resolve Studio, JWMedia's edit suite, came more recently, as he's taken on a bigger role across Gravities and Resinators projects.",
-			"He and Willett met as kids at Discovery Elementary School, reconnecting years later at the Black Star Polo Bene-Fest — the same show that led to \"Stuck in the Desert,\" where Clement handled behind-the-scenes and key photography. He's since gone camera-to-color on other Gravities and Resinators work: co-cinematographer on The Resinators' \"Edge Sheeran,\" and sole cinematographer, editor, and colorist on Raye Sundaze's music video. What started as a leap of faith alongside his childhood friend has turned into a full-time career for him too.",
+			"He and Willett met as kids at Discovery Elementary School, reconnecting years later at the Black Star Polo Bene-Fest — the same show that led to \"Stuck in the Desert,\" where Clement handled behind-the-scenes and key photography. He's since gone camera-to-color on other Gravities and Resinators work: co-cinematographer on <a href=\"https://open.spotify.com/artist/1VtdAuKw3H3OLnHEM5FpxA\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-accent-gold hover:opacity-80\">The Resinators</a>' \"Edge Sheeran,\" and sole cinematographer, editor, and colorist on Raye Sundaze's music video. What started as a leap of faith alongside his childhood friend has turned into a full-time career for him too.",
 			"He runs No Corners Cut Productions in partnership with JWMedia, and also leads weddings, portraits, and music photography solo as No Corners Cut Photography.",
 		],
 	},
@@ -155,7 +155,7 @@ const process = [
 							</a>
 							<p class="mt-1 text-xs font-semibold uppercase tracking-widest text-accent">{member.role}</p>
 							<div class="mt-3 space-y-3 text-sm text-fg-muted">
-								{member.bio.map((paragraph) => <p>{paragraph}</p>)}
+								{member.bio.map((paragraph) => <p set:html={paragraph} />)}
 							</div>
 							<a
 								href={member.href}
