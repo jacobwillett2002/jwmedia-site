@@ -18,6 +18,7 @@ const sections = [
 	{
 		title: 'Stuck in the Desert',
 		tag: 'STUCK IN THE DESERT',
+		videoId: 'leWV_HcZ4kY',
 		files: [
 			'sitd-bts-01.jpg', 'gal-sitd-01.jpg', 'gal-sitd-02.jpg', 'gal-sitd-03.jpg',
 			'more-sitd-03.jpg', 'more-sitd-04.jpg', 'more-sitd-05.jpg', 'more-sitd-06.jpg',
@@ -33,6 +34,7 @@ const sections = [
 	{
 		title: 'The Resinators — Edge Sheeran',
 		tag: 'EDGE SHEERAN',
+		videoId: 'P8O5YzVO-QE',
 		files: [
 			'resinators-band-01.jpg', 'edge-sheeran-slate.jpg',
 			'edge-sheeran-01.jpg', 'gal-edge-01.jpg', 'gal-edge-02.jpg', 'gal-edge-03.jpg',
@@ -63,9 +65,13 @@ const sections = [
 		],
 	},
 	{
-		title: 'The Gravities — Whiskey Girl',
+		title: 'The Gravities — "Te Gusta" + "Flavours" (Live at Whiskey Girl)',
 		tag: 'WHISKEY GIRL',
-		files: ['whiskey-girl-live-01.jpg', 'whiskey-girl-live-02.jpg'],
+		videoId: 'lcbHivkK0W4',
+		files: [
+			'whiskey-girl-live-01.jpg', 'whiskey-girl-live-02.jpg', 'whiskey-girl-live-03.jpg',
+			'whiskey-girl-live-04.jpg', 'whiskey-girl-live-05.jpg', 'whiskey-girl-live-06.jpg',
+		],
 	},
 	{
 		title: 'Muffin But Good Vibes — Acoustic Sessions (Coming Soon)',
@@ -75,6 +81,7 @@ const sections = [
 	{
 		title: 'Black Star Polo Bene-Fest',
 		tag: 'BLACK STAR POLO',
+		videoId: 'mAN5vPm9GOI',
 		files: [
 			'bsp-2025-01.jpg', 'gal-bsp-01.jpg', 'gal-bsp-02.jpg', 'gal-bsp-03.jpg',
 			'more-bsp25-02.jpg', 'more-bsp25-03.jpg', 'more-bsp25-04.jpg', 'more-bsp25-05.jpg',
@@ -90,6 +97,7 @@ const sections = [
 	{
 		title: 'More Truth — Princess Ragoo',
 		tag: 'PRINCESS RAGOO',
+		videoId: 'CADs3bxE6Q8',
 		files: [
 			'gal-ragoo-01.jpg', 'gal-ragoo-02.jpg',
 			'more-ragoo-01.jpg', 'more-ragoo-02.jpg', 'more-ragoo-03.jpg', 'more-ragoo-04.jpg',
@@ -101,7 +109,7 @@ const sections = [
 		tag: "O'SIDE SPORTS BAR",
 		files: [
 			'oside-01.jpg', 'gal-oside-01.jpg', 'gal-oside-02.jpg', 'gal-oside-03.jpg',
-			'more-oside-02.jpg', 'more-oside-04.jpg', 'more-oside-05.jpg', 'more-oside-06.jpg',
+			'more-oside-02.jpg', 'more-oside-05.jpg', 'more-oside-06.jpg',
 			'more-oside-07.jpg', 'more-oside-08.jpg', 'more-oside-09.jpg',
 		],
 	},
@@ -110,7 +118,7 @@ const sections = [
 		tag: "NEWPORTS AND NELLI'S",
 		files: [
 			'newports-01.jpg', 'gal-newports-01.jpg', 'gal-newports-02.jpg',
-			'more-newports-02.jpg', 'more-newports-04.jpg', 'more-newports-05.jpg',
+			'more-newports-02.jpg', 'more-newports-05.jpg',
 		],
 	},
 	{
@@ -125,16 +133,26 @@ const sections = [
 	{
 		title: 'Hang-Ups',
 		tag: 'HANG-UPS',
+		videoId: 'y9VKP_CNEbU',
 		files: [
-			'gal-hangups-01.jpg', 'gal-hangups-02.jpg',
-			'more-hangups-02.jpg', 'more-hangups-03.jpg', 'more-hangups-04.jpg', 'more-hangups-05.jpg',
+			'hangups-poster.jpg', 'gal-hangups-02.jpg',
 			'more-hangups-07.jpg', 'more-hangups-08.jpg', 'more-hangups-09.jpg', 'more-hangups-10.jpg',
 			'more-hangups-11.jpg',
 		],
 	},
 	{
+		title: 'DEFICIT',
+		tag: 'DEFICIT',
+		videoId: 'VsOAtIoY-vg',
+		files: [
+			'deficit-poster.jpg', 'gal-hangups-01.jpg',
+			'more-hangups-02.jpg', 'more-hangups-03.jpg', 'more-hangups-04.jpg', 'more-hangups-05.jpg',
+		],
+	},
+	{
 		title: "A Warrior's Love of Flowers",
 		tag: 'A WARRIOR’S LOVE OF FLOWERS',
+		videoId: '2hx46m8f8V0',
 		files: [
 			'warriors-01.jpg', 'gal-warriors-01.jpg', 'gal-warriors-02.jpg',
 			'more-warriors-02.jpg', 'more-warriors-03.jpg', 'more-warriors-04.jpg',
@@ -144,6 +162,7 @@ const sections = [
 	{
 		title: 'Our Place',
 		tag: 'OUR PLACE',
+		videoId: 'eLlCql1pxIw',
 		files: [
 			'our-place-poster.jpg', 'gal-ourplace-01.jpg', 'gal-ourplace-02.jpg',
 			'more-ourplace-01.jpg', 'more-ourplace-02.jpg', 'more-ourplace-03.jpg',
@@ -174,7 +193,21 @@ const sections = [
 	{
 		sections.map((section) => (
 			<section class="mx-auto max-w-7xl px-6 pb-16 lg:px-10">
-				<h2 class="mb-6 font-display text-2xl tracking-wide text-fg sm:text-3xl">{section.title}</h2>
+				<div class="mb-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+					<h2 class="font-display text-2xl tracking-wide text-fg sm:text-3xl">{section.title}</h2>
+					{
+						section.videoId && (
+							<a
+								href={`https://www.youtube.com/watch?v=${section.videoId}`}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-sm font-medium text-accent-gold hover:opacity-80"
+							>
+								Watch on YouTube &rarr;
+							</a>
+						)
+					}
+				</div>
 				<div class="columns-1 gap-4 sm:columns-2 lg:columns-3">
 					{section.files.map((filename, i) => (
 						<button
