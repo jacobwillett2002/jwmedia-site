@@ -19,6 +19,7 @@ html {
   background: radial-gradient(ellipse 120% 55% at 50% -10%, #251b14 0%, var(--color-bg) 55%) fixed;
   color: var(--color-fg);
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
@@ -28,6 +29,18 @@ body {
 ::selection {
   background: var(--color-accent);
   color: var(--color-bg);
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+input:-webkit-autofill:hover,
+textarea:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-bg-alt) inset !important;
+  -webkit-text-fill-color: var(--color-fg) !important;
+  caret-color: var(--color-fg);
+  transition: background-color 9999s ease-in-out 0s;
 }
 
 .horizon-rule {
