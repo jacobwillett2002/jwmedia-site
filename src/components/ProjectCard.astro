@@ -40,7 +40,9 @@ const {
 
 const artistLinkLabel = artistLink?.includes('spotify.com')
 	? 'Listen on Spotify'
-	: 'Follow on Instagram';
+	: artistLink?.includes('instagram.com')
+		? 'Follow on Instagram'
+		: 'Learn More';
 
 const isRemote = thumbnail?.startsWith('http') ?? false;
 const localImage = !thumbnail || isRemote

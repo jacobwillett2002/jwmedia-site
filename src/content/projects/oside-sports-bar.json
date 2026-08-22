@@ -5,7 +5,8 @@
   "videoProvider": "youtube",
   "videoId": "",
   "thumbnail": "oside-01.jpg",
-  "description": "Full event coverage of a hip-hop show at O'side Sports Bar & Grill, built for artist promo and venue marketing.",
+  "description": "Full event coverage of a hip-hop show at O'side Sports Bar & Grill, put on through KOAT Records, built for artist promo and venue marketing.",
+  "verifiedDescription": true,
   "featured": false,
   "order": 15
 }
