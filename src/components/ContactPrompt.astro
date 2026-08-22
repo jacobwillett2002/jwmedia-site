@@ -1,0 +1,65 @@
+---
+// Dismissible, low-key prompt nudging visitors toward booking — not a hard-sell popup.
+// Shows once per session, after real engagement (scroll depth or a delay), never on /contact itself.
+---
+
+<div
+	id="contact-prompt"
+	class="fixed bottom-6 right-6 z-40 hidden max-w-sm translate-y-4 border border-border bg-bg-alt p-5 opacity-0 shadow-2xl transition-all duration-500 ease-out"
+	role="complementary"
+	aria-label="Contact prompt"
+>
+	<button
+		id="contact-prompt-close"
+		type="button"
+		aria-label="Dismiss"
+		class="absolute right-2 top-2 p-1 text-fg-muted transition-colors hover:text-fg"
+	>
+		<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+			<path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.5" />
+		</svg>
+	</button>
+	<p class="pr-4 text-sm text-fg">
+		Got a project in mind? <span class="text-fg-muted">San Diego to label-budget — we scope to fit.</span>
+	</p>
+	<a
+		href="/contact"
+		class="mt-3 inline-block text-sm font-medium text-accent-gold hover:opacity-80"
+	>
+		Book a free consultation &rarr;
+	</a>
+</div>
+
+<script>
+	const KEY = 'jwm-contact-prompt-seen';
+	const prompt = document.getElementById('contact-prompt');
+	if (prompt && !sessionStorage.getItem(KEY) && !location.pathname.startsWith('/contact')) {
+		let shown = false;
+		const reveal = () => {
+			if (shown) return;
+			shown = true;
+			prompt.classList.remove('hidden');
+			requestAnimationFrame(() => {
+				prompt.classList.remove('translate-y-4', 'opacity-0');
+			});
+			sessionStorage.setItem(KEY, '1');
+		};
+
+		const onScroll = () => {
+			const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight || 1);
+			if (scrolled > 0.35) {
+				reveal();
+				window.removeEventListener('scroll', onScroll);
+			}
+		};
+		window.addEventListener('scroll', onScroll, { passive: true });
+		const timer = setTimeout(reveal, 15000);
+
+		document.getElementById('contact-prompt-close')?.addEventListener('click', () => {
+			clearTimeout(timer);
+			window.removeEventListener('scroll', onScroll);
+			prompt.classList.add('translate-y-4', 'opacity-0');
+			setTimeout(() => prompt.classList.add('hidden'), 500);
+		});
+	}
+</script>
