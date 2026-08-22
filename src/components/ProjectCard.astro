@@ -13,6 +13,7 @@ interface Props {
 	thumbnailPosition?: string;
 	thumbnailFit?: 'cover' | 'contain';
 	thumbnailPool?: string[];
+	posterBackdrop?: string;
 	videoProvider?: 'vimeo' | 'youtube';
 	videoId?: string;
 	comingSoon?: boolean;
@@ -27,6 +28,7 @@ const {
 	thumbnailPosition = 'center',
 	thumbnailFit = 'cover',
 	thumbnailPool,
+	posterBackdrop,
 	videoProvider,
 	videoId,
 	comingSoon = false,
@@ -42,6 +44,10 @@ const localImage = !thumbnail || isRemote
 const poolImages = (thumbnailPool ?? [])
 	.map((f) => galleryImages[`/src/assets/gallery/${f}`]?.default)
 	.filter((img): img is ImageMetadata => Boolean(img));
+
+const backdropImage = posterBackdrop
+	? galleryImages[`/src/assets/gallery/${posterBackdrop}`]?.default
+	: undefined;
 
 const watchHref =
 	videoId && videoProvider === 'vimeo'
@@ -87,7 +93,7 @@ const watchHref =
 			) : localImage && thumbnailFit === 'contain' ? (
 				<>
 					<Image
-						src={localImage}
+						src={backdropImage ?? localImage}
 						alt=""
 						aria-hidden="true"
 						width={480}
