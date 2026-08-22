@@ -11,6 +11,7 @@ interface Props {
 	tag: string;
 	thumbnail?: string;
 	thumbnailPosition?: string;
+	thumbnailFit?: 'cover' | 'contain';
 	videoProvider?: 'vimeo' | 'youtube';
 	videoId?: string;
 	comingSoon?: boolean;
@@ -23,6 +24,7 @@ const {
 	tag,
 	thumbnail,
 	thumbnailPosition = 'center',
+	thumbnailFit = 'cover',
 	videoProvider,
 	videoId,
 	comingSoon = false,
@@ -54,6 +56,21 @@ const watchHref =
 					style={`object-position: ${thumbnailPosition};`}
 					class="h-full w-full object-cover grayscale-[15%] sepia-[10%] contrast-[1.03] transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0 group-hover:sepia-0"
 				/>
+			) : localImage && thumbnailFit === 'contain' ? (
+				<>
+					<Image
+						src={localImage}
+						alt=""
+						aria-hidden="true"
+						class="absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-50 blur-2xl"
+					/>
+					<div class="absolute inset-0 bg-bg/50" />
+					<Image
+						src={localImage}
+						alt={title}
+						class="relative h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+					/>
+				</>
 			) : localImage ? (
 				<Image
 					src={localImage}

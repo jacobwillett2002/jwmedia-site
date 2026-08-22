@@ -11,6 +11,7 @@ const projects = defineCollection({
     videoId: z.string().optional(),
     thumbnail: z.string().optional(),
     thumbnailPosition: z.string().optional(),
+    thumbnailFit: z.enum(['cover', 'contain']).default('cover'),
     caseStudyHref: z.string().optional(),
     description: z.string(),
     verifiedDescription: z.boolean().default(false),

@@ -3,12 +3,12 @@
   "tag": "MUSIC VIDEO",
   "category": "music",
   "videoProvider": "youtube",
-  "videoId": "vuUwBa-rA_I",
+  "videoId": "",
   "thumbnail": "raye-sundaze-01.jpg",
   "thumbnailPosition": "center 18%",
-  "description": "A summer music video for Raye Sundaze, shot around San Diego's Mission Bay.",
+  "description": "A summer music video for Raye Sundaze, shot on the same San Diego streets where he battled addiction before getting clean — the song he wrote about coming out the other side. Releasing soon.",
   "verifiedDescription": true,
   "featured": true,
-  "comingSoon": false,
+  "comingSoon": true,
   "order": 3
 }
