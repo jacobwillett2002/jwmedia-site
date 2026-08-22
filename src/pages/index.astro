@@ -18,7 +18,7 @@ import aboutBg from '../assets/gallery/gal-sitd-01.jpg';
 const allProjects = await getCollection('projects');
 const featured = allProjects
 	.filter((p) => p.data.featured)
-	.sort((a, b) => a.data.order - b.data.order);
+	.sort((a, b) => a.data.featuredOrder - b.data.featuredOrder);
 
 // Rounds down to the nearest 5 so the stat stays true as projects are added,
 // without needing a manual bump for every single new file.
@@ -138,7 +138,8 @@ const process = [
 				<p class="mt-6 text-fg-muted">
 					JWMedia started out shooting documentaries and multi-camera live coverage of indie shows
 					around San Diego. Music videos became the specialty from there — including a San Diego
-					Music Award for Best Music Video in May 2026 with The Gravities' "Stuck in the Desert."
+					Music Award for Best Music Video in May 2026 with The Gravities'{' '}
+					<a href="/stuck-in-the-desert" class="text-accent hover:opacity-80">"Stuck in the Desert."</a>{' '}
 					The same crew still covers live events, documentaries and short films, corporate
 					livestreaming, and photography for artists, venues, and brands across the city.
 				</p>

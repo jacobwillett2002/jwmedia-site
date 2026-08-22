@@ -9,6 +9,7 @@
   "description": "A summer music video for Raye Sundaze, shot on the same San Diego streets where he battled addiction before getting clean — the song he wrote about coming out the other side. Releasing soon.",
   "verifiedDescription": true,
   "featured": true,
+  "featuredOrder": 5,
   "comingSoon": true,
   "order": 3
 }

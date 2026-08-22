@@ -8,5 +8,6 @@
   "description": "An official music video for More Truth, shot and edited by Jacob Willett.",
   "verifiedDescription": true,
   "featured": true,
+  "featuredOrder": 9,
   "order": 6
 }

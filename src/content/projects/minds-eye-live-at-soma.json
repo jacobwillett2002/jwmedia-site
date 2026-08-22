@@ -8,5 +8,6 @@
   "description": "Multi-camera coverage of Mind's Eye's live set at SOMA San Diego on October 30, 2025, edited for both a full recap and short-form clips.",
   "verifiedDescription": true,
   "featured": true,
+  "featuredOrder": 8,
   "order": 8
 }

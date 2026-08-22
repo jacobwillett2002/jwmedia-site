@@ -15,7 +15,11 @@ const team = [
 		handle: '@jacobwillett_',
 		href: 'https://www.instagram.com/jacobwillett_/',
 		photo: jacobWillettPhoto,
-		bio: "Jacob Willett is the founder and director behind JWMedia. He holds a Bachelor's in Television, Film & New Media from San Diego State University — emphasis in Film Production, minor in Digital & Social Media Studies — building on an Associate's Degree from Palomar College. He got his start shooting documentaries and multi-camera live coverage of indie shows around San Diego before moving into music videos. In July 2025, while still carrying a full course load at SDSU, he left his job as a busser at Water Grill to chase filmmaking full-time, and hasn't taken another job since. The leap paid off: The Gravities' \"Stuck in the Desert,\" the first music video he ever wrote and directed, won Best Music Video at the San Diego Music Awards in May 2026, two weeks before he graduated. Beyond music videos, Jacob directs JWMedia's short films and documentaries — including 86'd, Our Place, and Hang-Ups — and serves as video lead and co-producer for Beach Break Sessions' multi-camera live coverage. He leads every project from first concept through final cut, working closely with artists and bands to turn their sound into something worth watching.",
+		bio: [
+			"Jacob Willett grew up in San Marcos, graduating from San Marcos High School after starting out at Discovery Elementary — where he first met a young Jacob Clement, before the two lost touch when Willett moved on to San Elijo Middle School. He played water polo from 6th grade all the way through high school. Film came later: a path he found closer to the 2020 lockdown and has chased ever since, giving him a sense of purpose he didn't know he was missing. Media came first, though — he got his start at KKSM AM 1320, Palomar College's student radio station, interviewing artists like Paul Cherry, Brad Stank, 79.5, and Ditch Days, which is where his passion for the fusion of music and film first took hold.",
+			"He holds a Bachelor's in Television, Film & New Media from San Diego State University — emphasis in Film Production, minor in Digital & Social Media Studies — building on an Associate's Degree from Palomar College. In July 2025, while still carrying a full course load at SDSU, he left his job as a busser at Water Grill to chase filmmaking full-time, and hasn't taken another job since.",
+			"The leap paid off: The Gravities' \"Stuck in the Desert,\" the first music video he ever wrote and directed, won Best Music Video at the San Diego Music Awards in May 2026, two weeks before he graduated. Beyond music videos, Jacob directs JWMedia's short films and documentaries — including 86'd, Our Place, and Hang-Ups — and serves as video lead and co-producer for Beach Break Sessions' multi-camera live coverage. He leads every project from first concept through final cut, working closely with artists and bands to turn their sound into something worth watching.",
+		],
 	},
 	{
 		name: 'Jacob Clement',
@@ -24,7 +28,11 @@ const team = [
 		handle: '@nocornerscutphotography',
 		href: 'https://www.instagram.com/nocornerscutphotography/',
 		photo: jacobClementPhoto,
-		bio: 'Jacob Clement is a cinematographer, editor, colorist, and co-producer for JWMedia, alongside seven years as an award-winning San Diego photographer with a Professional Certificate in Photography from UC San Diego Extension. He runs No Corners Cut Productions in partnership with JWMedia, working camera-to-color on Gravities and Resinators projects — co-cinematographer on The Resinators\' "Edge Sheeran," sole cinematographer, editor, and colorist on Raye Sundaze\'s music video, and behind-the-scenes and key photography for "Stuck in the Desert." He and Willett were friends back in elementary school, reconnecting years later at the Black Star Polo Bene-Fest — the same show that led to "Stuck in the Desert" — and it\'s since turned into a full-time career for him too. Skilled in Lightroom and Photoshop as well as DaVinci Resolve Studio, JWMedia\'s edit suite across every production, he also leads weddings, portraits, and music photography solo as No Corners Cut Photography.',
+		bio: [
+			"Jacob Clement is a cinematographer and co-producer for JWMedia, and a seven-year award-winning San Diego photographer with a Professional Certificate in Photography from UC San Diego Extension — his background is rooted in Lightroom and Photoshop, built largely shooting weddings. Editing and color grading in DaVinci Resolve Studio, JWMedia's edit suite, came more recently, as he's taken on a bigger role across Gravities and Resinators projects.",
+			"He and Willett met as kids at Discovery Elementary School, reconnecting years later at the Black Star Polo Bene-Fest — the same show that led to \"Stuck in the Desert,\" where Clement handled behind-the-scenes and key photography. He's since gone camera-to-color on other Gravities and Resinators work: co-cinematographer on The Resinators' \"Edge Sheeran,\" and sole cinematographer, editor, and colorist on Raye Sundaze's music video. What started as a leap of faith alongside his childhood friend has turned into a full-time career for him too.",
+			"He runs No Corners Cut Productions in partnership with JWMedia, and also leads weddings, portraits, and music photography solo as No Corners Cut Photography.",
+		],
 	},
 ];
 
@@ -103,8 +111,9 @@ const process = [
 			<p>
 				JWMedia is a San Diego-based team of independent filmmakers, creative directors,
 				cinematographers, and editors. Music videos are our specialty — including a San Diego Music
-				Award for Best Music Video in May 2026 with The Gravities' "Stuck in the Desert" — but the
-				same crew handles documentaries and short films, live event coverage, corporate
+				Award for Best Music Video in May 2026 with The Gravities'{' '}
+				<a href="/stuck-in-the-desert" class="text-accent hover:opacity-80">"Stuck in the Desert"</a>{' '}
+				— but the same crew handles documentaries and short films, live event coverage, corporate
 				livestreaming, and photography for artists, venues, and brands.
 			</p>
 			<p>
@@ -145,7 +154,9 @@ const process = [
 								{member.email}
 							</a>
 							<p class="mt-1 text-xs font-semibold uppercase tracking-widest text-accent">{member.role}</p>
-							<p class="mt-3 text-sm text-fg-muted">{member.bio}</p>
+							<div class="mt-3 space-y-3 text-sm text-fg-muted">
+								{member.bio.map((paragraph) => <p>{paragraph}</p>)}
+							</div>
 							<a
 								href={member.href}
 								target="_blank"

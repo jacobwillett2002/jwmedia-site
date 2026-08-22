@@ -62,12 +62,15 @@ const watchHref =
 						src={localImage}
 						alt=""
 						aria-hidden="true"
+						width={480}
 						class="absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-50 blur-2xl"
 					/>
 					<div class="absolute inset-0 bg-bg/50" />
 					<Image
 						src={localImage}
 						alt={title}
+						widths={[400, 700, 1000]}
+						sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 						class="relative h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
 					/>
 				</>
@@ -75,6 +78,8 @@ const watchHref =
 				<Image
 					src={localImage}
 					alt={title}
+					widths={[400, 700, 1000]}
+					sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 					style={`object-position: ${thumbnailPosition};`}
 					class="h-full w-full object-cover grayscale-[15%] sepia-[10%] contrast-[1.03] transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0 group-hover:sepia-0"
 				/>

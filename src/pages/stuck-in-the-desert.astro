@@ -32,7 +32,7 @@ const facts = [
 	{ label: 'Artist', value: 'The Gravities' },
 	{ label: 'Written & Directed By', value: 'Jacob Willett' },
 	{ label: 'Camera', value: 'RED V-Raptor, 8K' },
-	{ label: 'Cinematography', value: 'Austin Harris' },
+	{ label: 'Cinematography', value: 'Austin Harris', href: 'https://www.imdb.com/name/nm4491827/' },
 	{ label: 'Location', value: 'Duck Camp, Imperial Valley, CA' },
 	{ label: 'Shoot Length', value: 'One day' },
 	{ label: 'Award', value: 'Best Music Video, San Diego Music Awards, May 2026' },
@@ -55,7 +55,7 @@ const facts = [
 		<div class="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/50 to-bg/10"></div>
 		<div class="mx-auto w-full max-w-7xl px-6 pb-16 pt-40 lg:px-10">
 			<p class="text-sm font-semibold uppercase tracking-widest text-accent-gold">
-				May 2026 · San Diego Music Awards — Best Music Video
+				May 2026 · San Diego Music Awards — <span class="gold-shimmer">Best Music Video</span>
 			</p>
 			<h1 class="mt-4 max-w-3xl font-display text-5xl leading-[1.05] tracking-wide text-fg sm:text-6xl lg:text-7xl">
 				Stuck in the Desert
@@ -120,13 +120,28 @@ const facts = [
 					Behind the camera was Austin Harris, a cinematographer whose credits include drone and
 					1st AC work on Hollywood features like Black Panther, Baby Driver, and Barbarian —
 					brought on for this shoot, but the writing, direction, and production were entirely
-					JWMedia's. The rest of the crew was mostly film students. Jacob's dad and his lifelong
-					best friend ran gun, live-ammunition, fire, and boat safety on set.
+					JWMedia's. The rest of the crew was mostly film students, and Riston Diggs — the San
+					Diego hip-hop/rock-hop artist and two-time San Diego Music Award winner featured
+					elsewhere on this site — plays one of the two on-screen robbers. Jacob's dad, Jeff
+					Willett, and his lifelong best friend, Travis Trotter, pulled double duty: running gun,
+					live-ammunition, fire, and boat safety on set, and playing the bodyguards facing the
+					robbers down.
 				</p>
 				<p>
 					It was Jacob Clement's first time on a film set, too — his own leap of faith, taken
-					alongside his childhood friend's. Both of them have since left their jobs behind to
-					chase this full-time.
+					alongside his childhood friend's. He handled behind-the-scenes and key photography
+					throughout the shoot; both of them have since left their jobs behind to chase this
+					full-time.
+				</p>
+				<p>
+					The video moves fast: Isaac and Riston stash the cash at Duck Camp, blast wads of it
+					into the air with a clay-pigeon launcher, torch the rest at an abandoned naval base,
+					dump loose bills at a junkyard, toss more off the side of an old fishing boat out on the
+					Salton Sea, and close it out with the full band performing on top of the van and a
+					drummer stationed on a nearby dune — right before the gasoline trail ignites in slow
+					motion for the final blaze. An announcer's voiceover introduces Isaac mid-song as "the
+					biggest... the baddest guitar player in all the land" — the kind of over-the-top,
+					not-taking-itself-too-seriously energy the whole video runs on.
 				</p>
 				<p>
 					"Stuck in the Desert" won Best Music Video at the 2026 San Diego Music Awards on May 6 at
@@ -141,6 +156,16 @@ const facts = [
 						<div class="border border-border bg-bg-alt p-4">
 							<p class="text-xs uppercase tracking-wide text-fg-muted">{fact.label}</p>
 							<p class="mt-1 font-display text-lg tracking-wide text-fg">{fact.value}</p>
+							{fact.href && (
+								<a
+									href={fact.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="mt-1 inline-block text-xs font-medium text-accent hover:opacity-80"
+								>
+									View on IMDb &rarr;
+								</a>
+							)}
 						</div>
 					))
 				}
@@ -156,11 +181,12 @@ const facts = [
 			</h2>
 			<p class="mt-6 text-lg text-fg-muted">
 				"Stuck in the Desert" was nominated for Best Music Video alongside Almost Monday
-				("enjoy the ride"), Eric Sage ("Rise Up San Diego"), KBong ("Good News"), Cheyenne Benton
-				("Lessons"), Emilia Vaughn ("Rock Music, Girl Secrets"), and Doah's Daydream ("Girls
-				Girl"). Almost Monday alone pulls in millions of monthly Spotify listeners. Eric Sage is
-				signed to Pacific Records, and "Rise Up San Diego" debuted as the San Diego Gulls' new
-				anthem in a packed arena.
+				("enjoy the ride"), Emilia Vaughn ("Rock Music, Girl Secrets"), Eric Sage ("Rise Up San
+				Diego"), KBong ("Good News"), Cheyenne Benton ("Lessons"), and Doah's Daydream ("Girls
+				Girl"). Almost Monday alone pulls in millions of monthly Spotify listeners, and Emilia
+				Vaughn's submission was one of the field's most-viewed — arguably the toughest real
+				competition in the category. Eric Sage, for his part, is signed to Pacific Records, and
+				"Rise Up San Diego" debuted as the San Diego Gulls' new anthem in a packed arena.
 			</p>
 			<p class="mt-4 text-lg text-fg-muted">
 				The Gravities went into that room with about 150 monthly listeners and JWMedia's first
@@ -185,6 +211,8 @@ const facts = [
 						<Image
 							src={resolve(filename)}
 							alt={`Stuck in the Desert — behind the scenes photo ${i + 1}`}
+							widths={[400, 700, 1000]}
+							sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 							class="w-full transition-transform duration-500 group-hover:scale-105"
 							loading="lazy"
 						/>
