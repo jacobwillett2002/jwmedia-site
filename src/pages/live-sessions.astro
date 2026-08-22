@@ -8,7 +8,7 @@ import heroBackdrop from '../assets/gallery/more-sitd-05.jpg';
 
 const allProjects = await getCollection('projects');
 const liveProjects = allProjects
-	.filter((p) => p.data.category === 'live')
+	.filter((p) => p.data.category === 'live' && !p.data.unlisted)
 	.sort((a, b) => a.data.order - b.data.order);
 ---
 

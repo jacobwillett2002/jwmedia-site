@@ -17,7 +17,7 @@ import aboutBg from '../assets/gallery/gal-sitd-01.jpg';
 
 const allProjects = await getCollection('projects');
 const featured = allProjects
-	.filter((p) => p.data.featured)
+	.filter((p) => p.data.featured && !p.data.unlisted)
 	.sort((a, b) => a.data.featuredOrder - b.data.featuredOrder);
 
 // Rounds down to the nearest 5 so the stat stays true as projects are added,

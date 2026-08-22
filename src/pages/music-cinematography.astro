@@ -8,7 +8,7 @@ import heroBackdrop from '../assets/gallery/gal-sitd-02.jpg';
 
 const allProjects = await getCollection('projects');
 const musicProjects = allProjects
-	.filter((p) => p.data.category === 'music')
+	.filter((p) => p.data.category === 'music' && !p.data.unlisted)
 	.sort((a, b) => a.data.order - b.data.order);
 ---
 

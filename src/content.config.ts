@@ -21,6 +21,7 @@ const projects = defineCollection({
     featured: z.boolean().default(false),
     featuredOrder: z.number().default(0),
     comingSoon: z.boolean().default(false),
+    unlisted: z.boolean().default(false),
     order: z.number().default(0),
   }),
 });
