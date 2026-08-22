@@ -5,6 +5,7 @@
   "videoProvider": "youtube",
   "videoId": "",
   "thumbnail": "naked-i-01.jpg",
+  "thumbnailFit": "contain",
   "description": "A promotional demo reel for The Naked I, a San Diego rock band founded in 2013 blending modern alternative rock with old-school funk and blues — three-time San Diego Music Award nominees with airplay on 91X.",
   "verifiedDescription": true,
   "featured": false,
