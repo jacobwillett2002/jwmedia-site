@@ -12,6 +12,7 @@ interface Props {
 	thumbnail?: string;
 	thumbnailPosition?: string;
 	thumbnailFit?: 'cover' | 'contain';
+	thumbnailPool?: string[];
 	videoProvider?: 'vimeo' | 'youtube';
 	videoId?: string;
 	comingSoon?: boolean;
@@ -25,6 +26,7 @@ const {
 	thumbnail,
 	thumbnailPosition = 'center',
 	thumbnailFit = 'cover',
+	thumbnailPool,
 	videoProvider,
 	videoId,
 	comingSoon = false,
@@ -37,6 +39,10 @@ const localImage = !thumbnail || isRemote
 	? null
 	: galleryImages[`/src/assets/gallery/${thumbnail}`]?.default;
 
+const poolImages = (thumbnailPool ?? [])
+	.map((f) => galleryImages[`/src/assets/gallery/${f}`]?.default)
+	.filter((img): img is ImageMetadata => Boolean(img));
+
 const watchHref =
 	videoId && videoProvider === 'vimeo'
 		? `https://vimeo.com/${videoId}`
@@ -48,7 +54,29 @@ const watchHref =
 <article class="group relative overflow-hidden border border-border bg-bg-alt transition-colors duration-300 hover:border-accent-gold/50">
 	<div class="relative aspect-video overflow-hidden">
 		{
-			isRemote && thumbnail ? (
+			poolImages.length > 0 ? (
+				<div class="thumbnail-pool absolute inset-0">
+					{poolImages.map((img, i) => (
+						<div class:list={['pool-slide absolute inset-0', i === 0 ? '' : 'hidden']}>
+							<Image
+								src={img}
+								alt=""
+								aria-hidden="true"
+								width={480}
+								class="absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-50 blur-2xl"
+							/>
+							<div class="absolute inset-0 bg-bg/50" />
+							<Image
+								src={img}
+								alt={title}
+								widths={[400, 700, 1000]}
+								sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+								class="relative h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+							/>
+						</div>
+					))}
+				</div>
+			) : isRemote && thumbnail ? (
 				<img
 					src={thumbnail}
 					alt={title}
@@ -135,3 +163,12 @@ const watchHref =
 		}
 	</div>
 </article>
+
+<script>
+	document.querySelectorAll<HTMLElement>('.thumbnail-pool').forEach((pool) => {
+		const slides = pool.querySelectorAll<HTMLElement>('.pool-slide');
+		if (slides.length <= 1) return;
+		const chosen = Math.floor(Math.random() * slides.length);
+		slides.forEach((slide, i) => slide.classList.toggle('hidden', i !== chosen));
+	});
+</script>
