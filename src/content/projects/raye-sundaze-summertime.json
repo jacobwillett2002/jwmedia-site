@@ -3,14 +3,14 @@
   "tag": "MUSIC VIDEO",
   "category": "music",
   "videoProvider": "youtube",
-  "videoId": "",
+  "videoId": "x30lQ3zJkvQ",
   "thumbnail": "raye-sundaze-01.jpg",
   "thumbnailPosition": "center 18%",
-  "description": "A summer music video for Raye Sundaze, shot on the same San Diego streets where he battled addiction before getting clean — the song he wrote about coming out the other side. Releasing soon.",
+  "description": "A summer music video for Raye Sundaze, shot on the same San Diego streets where he battled addiction before getting clean — from the barbershop to the waterfront, the song he wrote about coming out the other side.",
   "verifiedDescription": true,
   "artistLink": "https://open.spotify.com/artist/1imLRX9z8B8xAaLwhamHWy",
   "featured": true,
   "featuredOrder": 5,
-  "comingSoon": true,
+  "comingSoon": false,
   "order": 3
 }
