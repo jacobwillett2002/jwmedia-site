@@ -1,0 +1,90 @@
+---
+// Full-bleed hero background: a slow crossfade between film stills, each with
+// a gentle Ken Burns drift (driven by src/scripts/motion.ts).
+//
+// To swap stills, edit the `reelSlides` list in src/pages/index.astro.
+// To use a real looping showreel instead, set `reelVideo` there (see the note
+// beside it). The first still stays as the poster, the fallback if the video
+// can't play, and what visitors who prefer reduced motion see.
+import { Image, getImage } from 'astro:assets';
+
+export interface ReelSlide {
+	image: ImageMetadata;
+	alt: string;
+	title: string;
+	/** object-position for the crop, e.g. "30% 50%" — matters most on phones */
+	position?: string;
+	/** where the slow zoom heads toward */
+	origin?: string;
+	/** extra drift during the zoom, e.g. "-2%" */
+	kx?: string;
+	ky?: string;
+}
+
+interface Props {
+	slides: ReelSlide[];
+	video?: string;
+	/** milliseconds each still is held before the next fades in */
+	hold?: number;
+}
+
+const { slides, video, hold = 6500 } = Astro.props;
+const poster = video ? (await getImage({ src: slides[0].image, width: 1920, format: 'webp' })).src : undefined;
+---
+
+<div
+	class="absolute inset-0 -z-10 overflow-hidden bg-bg"
+	data-reel
+	data-parallax-media
+	data-hold={hold}
+	style={`--hold:${hold}ms`}
+>
+	{
+		slides.map((slide, i) => (
+			<div
+				class:list={['reel-slide', i === 0 && 'is-active']}
+				data-reel-slide
+				data-title={slide.title}
+				style={`--origin:${slide.origin ?? '50% 50%'};--kx:${slide.kx ?? '0px'};--ky:${slide.ky ?? '0px'}`}
+			>
+				{i === 0 ? (
+					<Image
+						src={slide.image}
+						alt={slide.alt}
+						widths={[828, 1280, 1920, 2560]}
+						sizes="100vw"
+						class="h-full w-full object-cover"
+						style={`object-position:${slide.position ?? 'center'}`}
+						priority
+					/>
+				) : (
+					<Image
+						src={slide.image}
+						alt={slide.alt}
+						widths={[828, 1280, 1920, 2560]}
+						sizes="100vw"
+						class="h-full w-full object-cover"
+						style={`object-position:${slide.position ?? 'center'}`}
+						loading="lazy"
+						decoding="async"
+					/>
+				)}
+			</div>
+		))
+	}
+	{
+		video && (
+			<video
+				class="reel-video absolute inset-0 h-full w-full object-cover"
+				src={video}
+				poster={poster}
+				muted
+				loop
+				playsinline
+				preload="metadata"
+				aria-hidden="true"
+				data-reel-video
+			/>
+		)
+	}
+</div>

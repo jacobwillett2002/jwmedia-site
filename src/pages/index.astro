@@ -1,19 +1,71 @@
 ---
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import MarqueeTicker from '../components/MarqueeTicker.astro';
+import HeroReel, { type ReelSlide } from '../components/HeroReel.astro';
+import SplitWords from '../components/SplitWords.astro';
 
 const tickerItems = [
 	'San Diego Music Awards Winner',
 	'Label-Ready Productions',
 	'San Diego, California',
 ];
-import heroBg from '../assets/hero-bg.jpg';
 import aboutBg from '../assets/gallery/gal-sitd-01.jpg';
+import reelFire from '../assets/gallery/sitd-night-fire-01.jpg';
+import reelRaye from '../assets/gallery/raye-sundaze-08.jpg';
+import reelLive from '../assets/gallery/live-band-02.jpg';
+import reelDeficit from '../assets/gallery/more-hangups-02.jpg';
+import reelDuo from '../assets/gallery/sitd-duo-guns-01.jpg';
+
+// Hero reel: stills from our own films, crossfading with a slow drift.
+// Reorder, swap, or add stills here (any image in src/assets/gallery works).
+const reelSlides: ReelSlide[] = [
+	{
+		image: reelFire,
+		alt: 'Lighting the gasoline trail on the set of Stuck in the Desert',
+		title: 'Stuck in the Desert',
+		position: '42% 60%',
+		origin: '45% 65%',
+	},
+	{
+		image: reelRaye,
+		alt: 'A BMX rider in the air above a San Diego skatepark, from Raye Sundaze — Summertime',
+		title: 'Raye Sundaze — Summertime',
+		position: '32% 30%',
+		origin: '30% 25%',
+		kx: '1.5%',
+	},
+	{
+		image: reelLive,
+		alt: 'A drummer under red and blue stage light at the Black Star Polo Bene-Fest',
+		title: 'Black Star Polo Bene-Fest',
+		position: '62% 40%',
+		origin: '60% 40%',
+		kx: '-1.5%',
+	},
+	{
+		image: reelDeficit,
+		alt: 'A lone figure at a late-night bus stop, from the short film DEFICIT',
+		title: 'DEFICIT',
+		origin: '50% 55%',
+	},
+	{
+		image: reelDuo,
+		alt: 'Two robbers back to back with revolvers, from Stuck in the Desert',
+		title: 'Stuck in the Desert',
+		position: '50% 35%',
+		origin: '50% 30%',
+		ky: '-1%',
+	},
+];
+
+// Optional: a real looping showreel instead of the stills. Export a short muted
+// MP4 (H.264, 1080p, ~10–15s, a few MB), put it in /public, and set this to e.g.
+// '/reel.mp4'. The stills stay as the poster and the fallback.
+const reelVideo: string | undefined = undefined;
 
 const allProjects = await getCollection('projects');
 const featured = allProjects
@@ -76,45 +128,104 @@ const process = [
 	title="San Diego & LA Video Production Company"
 	description="JWMedia is a San Diego Music Award-winning video production company based in San Diego and working throughout Los Angeles, creating music videos, documentaries, live event coverage, and corporate livestreaming. Book a free consultation."
 >
-	<section class="relative flex min-h-[90vh] items-end overflow-hidden">
-		<Image
-			src={heroBg}
-			alt="JWMedia production still"
-			class="absolute inset-0 -z-10 h-full w-full object-cover"
-			widths={[640, 1280, 1920, 2560]}
-			sizes="100vw"
-			priority
-		/>
+	<section class="relative isolate flex min-h-[90vh] items-end overflow-hidden" data-parallax-hero>
+		<HeroReel slides={reelSlides} video={reelVideo} />
 		<div class="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/60 to-bg/20"></div>
+		<div class="absolute inset-0 -z-10 hidden bg-gradient-to-r from-bg/80 via-bg/30 to-transparent lg:block"></div>
+		<div class="absolute inset-0 -z-10 bg-bg/35 lg:hidden"></div>
 
-		<div class="mx-auto w-full max-w-7xl px-6 pb-20 pt-40 lg:px-10">
-			<a
-				href="/stuck-in-the-desert"
-				class="inline-block text-sm font-semibold uppercase tracking-widest text-accent-gold hover:opacity-80"
+		<div
+			class="mx-auto w-full max-w-7xl px-6 pb-20 pt-40 lg:px-10 xl:flex xl:items-end xl:justify-between xl:gap-12"
+			data-parallax-content
+		>
+			<div class="min-w-0">
+				<a
+					href="/stuck-in-the-desert"
+					data-reveal
+					data-delay="80"
+					class="inline-block text-sm font-semibold uppercase tracking-widest text-accent-gold hover:opacity-80"
+				>
+					May 2026 · San Diego Music Awards — Best Music Video, "Stuck in the Desert" &rarr;
+				</a>
+				<h1
+					data-split
+					aria-label="We make art with the people building San Diego's music scene."
+					data-delay="180"
+					class="mt-4 max-w-3xl font-display text-5xl leading-[1.05] tracking-wide text-fg sm:text-6xl lg:text-7xl"
+				>
+					<SplitWords text="We make art with the people building San Diego's music scene." />
+				</h1>
+				<p class="mt-6 max-w-xl text-lg text-fg-muted" data-reveal data-delay="650">
+					Music videos are our specialty — the same crew also handles documentaries and short films,
+					live event coverage, corporate livestreaming, and photography, based in San Diego and
+					ready to travel for the right scene.
+				</p>
+				<div class="mt-8 flex flex-wrap gap-4" data-reveal data-delay="800">
+					<a
+						href="/contact"
+						class="btn-sheen rounded-full bg-accent px-8 py-3 text-sm font-semibold uppercase tracking-wide text-bg transition-opacity hover:opacity-90"
+					>
+						Book a Shoot
+					</a>
+					<a
+						href="/music-cinematography"
+						class="rounded-full border border-border px-8 py-3 text-sm font-semibold uppercase tracking-wide text-fg transition-colors hover:border-accent hover:text-accent"
+					>
+						See Our Work
+					</a>
+				</div>
+			</div>
+
+			<div
+				class="reel-ui w-72 shrink-0 self-start border border-fg/10 bg-bg/50 px-5 pb-3 pt-4 backdrop-blur-md"
+				data-reveal="fade"
+				data-delay="1100"
 			>
-				May 2026 · San Diego Music Awards — Best Music Video, "Stuck in the Desert" &rarr;
-			</a>
-			<h1 class="mt-4 max-w-3xl font-display text-5xl leading-[1.05] tracking-wide text-fg sm:text-6xl lg:text-7xl">
-				We make art with the people building San Diego's music scene.
-			</h1>
-			<p class="mt-6 max-w-xl text-lg text-fg-muted">
-				Music videos are our specialty — the same crew also handles documentaries and short films,
-				live event coverage, corporate livestreaming, and photography, based in San Diego and
-				ready to travel for the right scene.
-			</p>
-			<div class="mt-8 flex flex-wrap gap-4">
-				<a
-					href="/contact"
-					class="rounded-full bg-accent px-8 py-3 text-sm font-semibold uppercase tracking-wide text-bg transition-opacity hover:opacity-90"
-				>
-					Book a Shoot
-				</a>
-				<a
-					href="/music-cinematography"
-					class="rounded-full border border-border px-8 py-3 text-sm font-semibold uppercase tracking-wide text-fg transition-colors hover:border-accent hover:text-accent"
-				>
-					See Our Work
-				</a>
+				<div class="flex items-center justify-between">
+					<p class="text-xs font-semibold uppercase tracking-widest text-fg-muted">
+						Now Showing{
+							!reelVideo && (
+								<>
+									&nbsp;<span class="text-fg/40">·</span>&nbsp;<span data-reel-index>01</span>&nbsp;/&nbsp;
+									{String(reelSlides.length).padStart(2, '0')}
+								</>
+							)
+						}
+					</p>
+					<button
+						type="button"
+						class="reel-pause -mr-1 p-1 text-fg-muted transition-colors hover:text-fg"
+						aria-label={reelVideo ? 'Pause hero video' : 'Pause hero slideshow'}
+						aria-pressed="false"
+						data-reel-pause
+						data-state="playing"
+					>
+						<svg class="reel-pause-icon h-3.5 w-3.5" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+							<rect x="2.5" y="1.5" width="3" height="11" rx="0.5"></rect>
+							<rect x="8.5" y="1.5" width="3" height="11" rx="0.5"></rect>
+						</svg>
+						<svg class="reel-play-icon h-3.5 w-3.5" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+							<path d="M3.5 1.8v10.4L12 7z"></path>
+						</svg>
+					</button>
+				</div>
+				<p class="mt-2 font-display text-2xl tracking-wide text-fg" data-reel-title>
+					{reelVideo ? 'JWMedia Showreel' : reelSlides[0].title}
+				</p>
+				<div class:list={['mt-3 flex gap-1.5', reelVideo && 'hidden']}>
+					{
+						reelSlides.map((slide, i) => (
+							<button
+								type="button"
+								class="reel-dot"
+								data-reel-dot={i}
+								aria-label={`Show still ${i + 1} of ${reelSlides.length}: ${slide.title}`}
+							>
+								<span class="reel-dot-fill" />
+							</button>
+						))
+					}
+				</div>
 			</div>
 		</div>
 	</section>
@@ -124,7 +235,7 @@ const process = [
 	<BackdropSection image={aboutBg}>
 		<div class="mx-auto max-w-7xl px-6 py-24 lg:px-10">
 		<div class="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
-			<div>
+			<div data-reveal>
 				<p class="text-sm font-semibold uppercase tracking-widest text-accent">Who We Are</p>
 				<h2 class="mt-4 font-display text-3xl tracking-wide text-fg sm:text-4xl">
 					San Diego video production, in service of the scene.
@@ -152,9 +263,19 @@ const process = [
 			<div class="grid grid-cols-2 gap-6 content-start">
 				{
 					stats.map((stat, i) => (
-						<div class="border border-border bg-bg-alt p-5">
+						<div
+							data-reveal
+							class="border border-border bg-bg-alt p-5 transition-colors duration-300 hover:border-accent-gold/40"
+						>
 							<p class:list={['font-display text-3xl', i === 0 ? 'gold-shimmer' : 'text-accent']}>
-								{stat.value}
+								{/^\d/.test(stat.value) ? (
+									<>
+										<span class="sr-only">{stat.value}</span>
+										<span aria-hidden="true" data-count>{stat.value}</span>
+									</>
+								) : (
+									stat.value
+								)}
 							</p>
 							<p class="mt-1 text-xs uppercase tracking-wide text-fg-muted">{stat.label}</p>
 						</div>
@@ -167,7 +288,7 @@ const process = [
 	</BackdropSection>
 
 	<section class="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
-		<div class="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+		<div class="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between" data-reveal>
 			<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">Selected Work</h2>
 			<a href="/music-cinematography" class="text-sm font-medium text-accent hover:opacity-80">
 				View all projects &rarr;
@@ -198,16 +319,19 @@ const process = [
 
 	<section class="border-y border-border bg-bg-alt">
 		<div class="mx-auto max-w-7xl px-6 py-20 lg:px-10">
-			<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">What We Do</h2>
-			<p class="mt-3 max-w-2xl text-fg-muted">
-				Six services, one crew — music videos are the specialty, not the whole story.
-			</p>
+			<div data-reveal>
+				<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">What We Do</h2>
+				<p class="mt-3 max-w-2xl text-fg-muted">
+					Six services, one crew — music videos are the specialty, not the whole story.
+				</p>
+			</div>
 			<div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 				{
 					services.map((service) => (
-						<a href={service.href} class="group block">
+						<a href={service.href} class="group block" data-reveal>
 							<h3 class="font-display text-2xl tracking-wide text-fg transition-colors group-hover:text-accent">
 								{service.title}
+								<span class="svc-arrow" aria-hidden="true">&rarr;</span>
 							</h3>
 							<p class="mt-3 text-sm text-fg-muted">{service.description}</p>
 						</a>
@@ -218,15 +342,18 @@ const process = [
 	</section>
 
 	<section class="mx-auto max-w-7xl px-6 py-24 lg:px-10">
-		<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">Full-Scale, Start to Finish</h2>
-		<p class="mt-3 max-w-2xl text-fg-muted">
-			What began with a team of friends covering the San Diego music scene has grown into a full
-			production team. We cover every stage in-house.
-		</p>
+		<div data-reveal>
+			<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">Full-Scale, Start to Finish</h2>
+			<p class="mt-3 max-w-2xl text-fg-muted">
+				What began with a team of friends covering the San Diego music scene has grown into a full
+				production team. We cover every stage in-house.
+			</p>
+		</div>
 		<div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
 			{
 				process.map((item) => (
-					<div>
+					<div data-reveal>
+						<span class="mb-5 block h-px w-full bg-accent-gold/40" data-reveal="line" aria-hidden="true" />
 						<p class="font-display text-4xl text-accent">{item.step}</p>
 						<h3 class="mt-2 text-lg font-semibold text-fg">{item.title}</h3>
 						<p class="mt-2 text-sm text-fg-muted">{item.description}</p>

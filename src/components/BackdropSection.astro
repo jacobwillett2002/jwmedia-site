@@ -9,7 +9,9 @@ interface Props {
 const { image, class: className = '' } = Astro.props;
 ---
 
-<section class:list={['relative overflow-hidden', className]}>
+<!-- `isolate` gives the -z-10 backdrop layers their own stacking context; without it
+     they render underneath the page background and never show. -->
+<section class:list={['relative isolate overflow-hidden', className]}>
 	<Image
 		src={image}
 		alt=""

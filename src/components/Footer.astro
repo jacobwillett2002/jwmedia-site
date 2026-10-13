@@ -20,10 +20,10 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="relative border-t border-border bg-bg-alt">
-	<div class="horizon-rule absolute inset-x-0 top-0"></div>
+	<div class="horizon-rule absolute inset-x-0 top-0" data-reveal="line-center"></div>
 	<div class="mx-auto max-w-7xl px-6 py-16 lg:px-10">
 		<div class="grid gap-12 lg:grid-cols-3">
-			<div>
+			<div data-reveal>
 				<p class="font-display text-2xl tracking-wide text-fg">
 					JW<span class="text-accent">MEDIA</span>
 				</p>
@@ -42,7 +42,7 @@ const year = new Date().getFullYear();
 				</a>
 			</div>
 
-			<div>
+			<div data-reveal>
 				<p class="text-xs font-semibold uppercase tracking-widest text-fg-muted">Pages</p>
 				<ul class="mt-4 space-y-2">
 					{
@@ -57,7 +57,7 @@ const year = new Date().getFullYear();
 				</ul>
 			</div>
 
-			<div>
+			<div data-reveal>
 				<p class="text-xs font-semibold uppercase tracking-widest text-fg-muted">Follow</p>
 				<ul class="mt-4 space-y-2">
 					{

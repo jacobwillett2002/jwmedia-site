@@ -65,7 +65,10 @@ const watchHref =
 			: undefined;
 ---
 
-<article class="group relative overflow-hidden border border-border bg-bg-alt transition-colors duration-300 hover:border-accent-gold/50">
+<article
+	data-reveal
+	class="project-card group relative overflow-hidden border border-border bg-bg-alt transition-colors duration-300 hover:border-accent-gold/50 [&.is-active]:border-accent-gold/50"
+>
 	<div class="relative aspect-video overflow-hidden">
 		{
 			poolImages.length > 0 ? (
@@ -85,7 +88,7 @@ const watchHref =
 								alt={title}
 								widths={[400, 700, 1000]}
 								sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-								class="relative h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+								class="relative h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105 group-[.is-active]:scale-105"
 							/>
 						</div>
 					))}
@@ -96,7 +99,7 @@ const watchHref =
 					alt={title}
 					loading="lazy"
 					style={`object-position: ${thumbnailPosition};`}
-					class="h-full w-full object-cover grayscale-[15%] sepia-[10%] contrast-[1.03] transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0 group-hover:sepia-0"
+					class="h-full w-full object-cover grayscale-[15%] sepia-[10%] contrast-[1.03] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0 group-hover:sepia-0 group-[.is-active]:scale-105 group-[.is-active]:grayscale-0 group-[.is-active]:sepia-0"
 				/>
 			) : localImage && thumbnailFit === 'contain' ? (
 				<>
@@ -113,7 +116,7 @@ const watchHref =
 						alt={title}
 						widths={[400, 700, 1000]}
 						sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-						class="relative h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+						class="relative h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105 group-[.is-active]:scale-105"
 					/>
 				</>
 			) : localImage ? (
@@ -123,7 +126,7 @@ const watchHref =
 					widths={[400, 700, 1000]}
 					sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 					style={`object-position: ${thumbnailPosition};`}
-					class="h-full w-full object-cover grayscale-[15%] sepia-[10%] contrast-[1.03] transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0 group-hover:sepia-0"
+					class="h-full w-full object-cover grayscale-[15%] sepia-[10%] contrast-[1.03] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0 group-hover:sepia-0 group-[.is-active]:scale-105 group-[.is-active]:grayscale-0 group-[.is-active]:sepia-0"
 				/>
 			) : (
 				<div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-bg-alt via-surface to-bg">
@@ -149,9 +152,12 @@ const watchHref =
 					target="_blank"
 					rel="noopener noreferrer"
 					aria-label={`Watch ${title}`}
-					class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+					data-video-id={videoId}
+					data-video-provider={videoProvider}
+					data-video-title={title}
+					class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.is-active]:opacity-100 focus-visible:opacity-100"
 				>
-					<span class="flex h-14 w-14 items-center justify-center rounded-full bg-accent/90 text-bg">
+					<span class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/90 text-bg shadow-lg shadow-black/40 transition-transform duration-500 ease-out group-hover:scale-100 group-[.is-active]:scale-100">
 						<svg viewBox="0 0 24 24" fill="currentColor" class="ml-1 h-6 w-6">
 							<path d="M8 5v14l11-7z" />
 						</svg>
@@ -163,7 +169,7 @@ const watchHref =
 
 	<div class="p-5">
 		<p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-accent">
-			<span class="h-px w-4 bg-accent-gold"></span>
+			<span class="h-px w-4 bg-accent-gold transition-all duration-500 ease-out group-hover:w-8 group-[.is-active]:w-8"></span>
 			{tag}
 		</p>
 		<h3 class="mt-2 font-display text-xl tracking-wide text-fg">{title}</h3>

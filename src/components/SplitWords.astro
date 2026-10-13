@@ -1,0 +1,20 @@
+---
+// Splits a headline into words so they can rise into place one after another
+// (see .sw in src/styles/motion.css). Put it inside a heading that has
+// `data-split` and `aria-label` set to the same sentence, so screen readers
+// announce it as one phrase. Without JavaScript it renders as normal text.
+interface Props {
+	text: string;
+}
+
+const { text } = Astro.props;
+const words = text.trim().split(/\s+/);
+---
+
+<span class="sw-words">{
+	words.map((word, i) => (
+		<Fragment>
+			<span class="sw"><span style={`--i:${i}`}>{word}</span></span>{i < words.length - 1 ? ' ' : ''}
+		</Fragment>
+	))
+}</span>

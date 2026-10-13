@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Lightbox from '../components/Lightbox.astro';
+import SplitWords from '../components/SplitWords.astro';
 import heroBackdrop from '../assets/gallery/hd-sitd-08.jpg';
 
 const photoModules = import.meta.glob<{ default: ImageMetadata }>('/src/assets/gallery/*.jpg', {
@@ -43,31 +45,42 @@ const facts = [
 	title="Stuck in the Desert — The Gravities"
 	description="The story behind JWMedia's award-winning debut music video for The Gravities: written the night the song was first heard, shot in a single day at a family desert camp, and named Best Music Video at the 2026 San Diego Music Awards."
 >
-	<section class="relative flex min-h-[70vh] items-end overflow-hidden">
-		<Image
-			src={heroBackdrop}
-			alt="The Gravities on location for Stuck in the Desert"
-			class="absolute inset-0 -z-10 h-full w-full object-cover"
-			widths={[640, 1280, 1920, 2560]}
-			sizes="100vw"
-			priority
-		/>
+	<div class="read-progress" data-read-progress aria-hidden="true"></div>
+
+	<section class="relative isolate flex min-h-[70vh] items-end overflow-hidden" data-parallax-hero>
+		<div class="absolute inset-0 -z-10 overflow-hidden" data-parallax-media>
+			<Image
+				src={heroBackdrop}
+				alt="The Gravities on location for Stuck in the Desert"
+				class="h-full w-full object-cover"
+				widths={[640, 1280, 1920, 2560]}
+				sizes="100vw"
+				priority
+				data-settle
+			/>
+		</div>
 		<div class="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/50 to-bg/10"></div>
-		<div class="mx-auto w-full max-w-7xl px-6 pb-16 pt-40 lg:px-10">
-			<p class="text-sm font-semibold uppercase tracking-widest text-accent-gold">
+		<div class="absolute inset-0 -z-10 bg-bg/35 lg:hidden"></div>
+		<div class="mx-auto w-full max-w-7xl px-6 pb-16 pt-40 lg:px-10" data-parallax-content>
+			<p class="text-sm font-semibold uppercase tracking-widest text-accent-gold" data-reveal data-delay="250">
 				May 2026 · San Diego Music Awards — <span class="gold-shimmer">Best Music Video</span>
 			</p>
-			<h1 class="mt-4 max-w-3xl font-display text-5xl leading-[1.05] tracking-wide text-fg sm:text-6xl lg:text-7xl">
-				Stuck in the Desert
+			<h1
+				class="mt-4 max-w-3xl font-display text-5xl leading-[1.05] tracking-wide text-fg sm:text-6xl lg:text-7xl"
+				data-split
+				aria-label="Stuck in the Desert"
+				data-delay="400"
+			>
+				<SplitWords text="Stuck in the Desert" />
 			</h1>
-			<p class="mt-6 max-w-xl text-lg text-fg-muted">
+			<p class="mt-6 max-w-xl text-lg text-fg-muted" data-reveal data-delay="700">
 				The Gravities, JWMedia's first official music video — and the first time Jacob Willett
 				ever wrote and directed one.
 			</p>
 		</div>
 	</section>
 
-	<section class="mx-auto max-w-5xl px-6 pt-16 lg:px-10">
+	<section class="mx-auto max-w-5xl px-6 pt-16 lg:px-10" data-reveal>
 		<div class="aspect-video w-full overflow-hidden border border-border bg-bg-alt">
 			<iframe
 				class="h-full w-full"
@@ -85,15 +98,15 @@ const facts = [
 	<section class="mx-auto max-w-5xl px-6 py-16 lg:px-10">
 		<div class="grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
 			<div class="space-y-6 text-lg text-fg-muted">
-				<p>
+				<p data-reveal>
 					When a bank robbery gets botched, The Gravities have no choice but to destroy the money,
 					or risk being killed. It's a cinematic, high-octane premise for JWMedia's first official
 					music video — and it almost didn't happen the way anyone planned.
 				</p>
-				<p>
-					In July 2025, Jacob Willett left his full-time job as a busser at Water Grill — juggled
-					alongside a full course load at SDSU — to chase filmmaking full-time, a leap of faith
-					with no guarantee it would work out. A few weeks later, at the Black Star Polo Bene-Fest
+				<p data-reveal>
+					In July 2025, Jacob Willett set out to make filmmaking his focus — juggled
+					alongside a full course load at SDSU — with no guarantee it would work out.
+					A few weeks later, at the Black Star Polo Bene-Fest
 					in mid-August, he reconnected with Jacob Clement,
 					a childhood friend from elementary school who now runs No Corners Cut Productions
 					alongside him and was there that day too, shooting BTS and photography for the bands.
@@ -102,14 +115,14 @@ const facts = [
 					to African and African-American communities that don't always have access to the pool —
 					a cause that hit home for Jacob, who played water polo in high school.
 				</p>
-				<p>
+				<p data-reveal>
 					Not long after, he went out to film a rehearsal with The Gravities for the Black Star
 					Polo documentary he was producing.
 					That's the first time he heard "Stuck in the Desert." He went home that night and wrote
 					the treatment. He was still a film student at SDSU, and this was the first time he'd ever
 					written and directed a music video.
 				</p>
-				<p>
+				<p data-reveal>
 					The band shot it in a single day at the end of September, at Duck Camp — a family
 					property out in the desert near Westmorland, California, next to a stretch of farmland
 					in the Imperial Valley. Jacob's dad and grandfather built it from a dirt lot decades ago
@@ -117,7 +130,7 @@ const facts = [
 					place for him — they'd have "Smokey and the Bandit" running on a loop in the trailer,
 					which is why it's playing on the TV in the film.
 				</p>
-				<p>
+				<p data-reveal>
 					Behind the camera was Austin Harris, a cinematographer whose credits include drone and
 					1st AC work on Hollywood features like Black Panther, Baby Driver, and Barbarian —
 					brought on for this shoot, but the writing, direction, and production were entirely
@@ -128,13 +141,12 @@ const facts = [
 					live-ammunition, fire, and boat safety on set, and playing the bodyguards facing the
 					robbers down.
 				</p>
-				<p>
+				<p data-reveal>
 					It was Jacob Clement's first time on a film set, too — his own leap of faith, taken
 					alongside his childhood friend's. He handled behind-the-scenes and key photography
-					throughout the shoot; both of them have since left their jobs behind to chase this
-					full-time.
+					throughout the shoot.
 				</p>
-				<p>
+				<p data-reveal>
 					The video moves fast: Isaac and Riston blast wads of cash into the air with a
 					clay-pigeon launcher at Duck Camp, cutting between performance and action shots at a
 					junkyard and aboard a boat on the Salton Sea, before closing it out with Sam Triston
@@ -144,17 +156,19 @@ const facts = [
 					biggest... the baddest guitar player in all the land" — the kind of over-the-top,
 					not-taking-itself-too-seriously energy the whole video runs on.
 				</p>
-				<p>
+				<p data-reveal>
 					"Stuck in the Desert" won Best Music Video at the 2026 San Diego Music Awards on May 6 at
-					Humphreys Concerts by the Bay — two weeks before Jacob graduated, and less than a year
-					after he walked away from a steady paycheck to bet on this instead.
+					Humphreys Concerts by the Bay, two weeks before Jacob graduated.
 				</p>
 			</div>
 
 			<div class="grid grid-cols-2 gap-6 content-start">
 				{
 					facts.map((fact) => (
-						<div class="border border-border bg-bg-alt p-4">
+						<div
+							class="border border-border bg-bg-alt p-4 transition-colors duration-300 hover:border-accent-gold/40"
+							data-reveal
+						>
 							<p class="text-xs uppercase tracking-wide text-fg-muted">{fact.label}</p>
 							<p class="mt-1 font-display text-lg tracking-wide text-fg">{fact.value}</p>
 							{fact.href && (
@@ -176,11 +190,13 @@ const facts = [
 
 	<section class="border-y border-border bg-bg-alt">
 		<div class="mx-auto max-w-4xl px-6 py-16 lg:px-10">
-			<p class="text-sm font-semibold uppercase tracking-widest text-accent-gold">The Underdog</p>
-			<h2 class="mt-4 font-display text-3xl tracking-wide text-fg sm:text-4xl">
-				A 150-listener band, up against label money.
-			</h2>
-			<p class="mt-6 text-lg text-fg-muted">
+			<div data-reveal>
+				<p class="text-sm font-semibold uppercase tracking-widest text-accent-gold">The Underdog</p>
+				<h2 class="mt-4 font-display text-3xl tracking-wide text-fg sm:text-4xl">
+					A 150-listener band, up against label money.
+				</h2>
+			</div>
+			<p class="mt-6 text-lg text-fg-muted" data-reveal>
 				"Stuck in the Desert" was nominated for Best Music Video alongside <a href="https://open.spotify.com/artist/42FzVuyJH8YbkhzWSR2n8E" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">Almost Monday</a> (<a href="https://www.youtube.com/watch?v=nNYOk4y8RsA" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">"enjoy the ride"</a>), <a href="https://open.spotify.com/artist/4VgJ0UD0zECXTaxPsEpbwk" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">Emilia Vaughn</a> (<a href="https://www.youtube.com/watch?v=Ff5LKfTa1Ik" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">"Rock Music, Girl Secrets"</a>), <a href="https://open.spotify.com/artist/74WQEtTjMD1HpRnx6xDXpQ" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">Eric Sage</a> (<a href="https://www.youtube.com/watch?v=-6EO8RuSyjo" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">"Rise Up San Diego"</a>), <a href="https://open.spotify.com/artist/2dzSec5CF9xQeW53ZJ5RHq" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">KBong</a> (<a href="https://www.youtube.com/watch?v=UUiBgIkKr_c" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">"Good News"</a>), <a href="https://open.spotify.com/artist/3kulsLvu2CrpfHhc3tV5Jl" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">Cheyenne Benton</a> ("Lessons"), and <a href="https://open.spotify.com/artist/3gsBeIlFaBqLxT4LKdnuGH" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">Doah's Daydream</a> (<a href="https://www.youtube.com/watch?v=vlSWV8XjoQ0" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">"Girls Girl"</a>).
 				Almost Monday alone pulls in millions of monthly Spotify listeners, and Emilia
 				Vaughn — a Berklee College of Music student with over 16,000 monthly Spotify listeners —
@@ -189,18 +205,20 @@ const facts = [
 				to Pacific Records, and "Rise Up San Diego" debuted as the San Diego Gulls' new anthem in
 				a packed arena.
 			</p>
-			<p class="mt-4 text-lg text-fg-muted">
+			<p class="mt-4 text-lg text-fg-muted" data-reveal>
 				<a href="https://open.spotify.com/artist/7rKZX2oH4IyUtw05LqWm30" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80">The Gravities</a> went into that room with about 150 monthly listeners and JWMedia's first
-				music video, written the night Jacob first heard the song. They won anyway.
+				music video, written the night Jacob first heard the song. <span class="ink-underline text-fg">They won anyway.</span>
 			</p>
 		</div>
 	</section>
 
 	<section class="mx-auto max-w-7xl px-6 pb-24 pt-24 lg:px-10">
-		<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">On Set</h2>
-		<p class="mt-3 max-w-2xl text-fg-muted">
-			Real stills from the one-day shoot at Duck Camp — click any image to view it full-size.
-		</p>
+		<div data-reveal>
+			<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">On Set</h2>
+			<p class="mt-3 max-w-2xl text-fg-muted">
+				Real stills from the one-day shoot at Duck Camp — click any image to view it full-size.
+			</p>
+		</div>
 		<div class="mt-10 columns-1 gap-4 sm:columns-2 lg:columns-3">
 			{
 				stills.map((filename, i) => (
@@ -208,13 +226,15 @@ const facts = [
 						type="button"
 						class="gallery-item group relative mb-4 block w-full overflow-hidden border border-border"
 						data-src={filename}
+						data-reveal="img"
+						data-caption="On Set"
 					>
 						<Image
 							src={resolve(filename)}
 							alt={`Stuck in the Desert — behind the scenes photo ${i + 1}`}
 							widths={[400, 700, 1000]}
 							sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-							class="w-full transition-transform duration-500 group-hover:scale-105"
+							class="w-full transition-transform duration-700 ease-out group-hover:scale-105"
 							loading="lazy"
 						/>
 					</button>
@@ -223,89 +243,10 @@ const facts = [
 		</div>
 	</section>
 
-	<div
-		id="lightbox"
-		class="fixed inset-0 z-[60] hidden items-center justify-center bg-bg/95 p-6"
-		role="dialog"
-		aria-modal="true"
-	>
-		<button
-			id="lightbox-close"
-			type="button"
-			aria-label="Close"
-			class="absolute right-6 top-6 text-3xl text-fg hover:text-accent"
-		>
-			&times;
-		</button>
-		<button
-			id="lightbox-prev"
-			type="button"
-			aria-label="Previous photo"
-			class="absolute left-4 top-1/2 -translate-y-1/2 text-4xl text-fg hover:text-accent"
-		>
-			&#8249;
-		</button>
-		<img id="lightbox-image" src="" alt="" class="max-h-[85vh] max-w-full object-contain" />
-		<button
-			id="lightbox-next"
-			type="button"
-			aria-label="Next photo"
-			class="absolute right-4 top-1/2 -translate-y-1/2 text-4xl text-fg hover:text-accent"
-		>
-			&#8250;
-		</button>
-	</div>
+	<Lightbox />
 
 	<CtaBand
 		heading="Want a video that actually tells a story?"
 		subheading="Send us the song, the release date, and the budget — we'll tell you what fits, and what doesn't."
 	/>
 </Layout>
-
-<script>
-	const items = Array.from(document.querySelectorAll<HTMLButtonElement>('.gallery-item'));
-	const sources = items.map((item) => item.querySelector('img')?.src ?? '');
-
-	const lightbox = document.getElementById('lightbox');
-	const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement;
-	const closeBtn = document.getElementById('lightbox-close');
-	const prevBtn = document.getElementById('lightbox-prev');
-	const nextBtn = document.getElementById('lightbox-next');
-
-	let currentIndex = 0;
-
-	function open(index: number) {
-		currentIndex = index;
-		lightboxImage.src = sources[currentIndex];
-		lightbox?.classList.remove('hidden');
-		lightbox?.classList.add('flex');
-	}
-
-	function close() {
-		lightbox?.classList.add('hidden');
-		lightbox?.classList.remove('flex');
-	}
-
-	function show(delta: number) {
-		currentIndex = (currentIndex + delta + sources.length) % sources.length;
-		lightboxImage.src = sources[currentIndex];
-	}
-
-	items.forEach((item, index) => {
-		item.addEventListener('click', () => open(index));
-	});
-
-	closeBtn?.addEventListener('click', close);
-	prevBtn?.addEventListener('click', () => show(-1));
-	nextBtn?.addEventListener('click', () => show(1));
-	lightbox?.addEventListener('click', (e) => {
-		if (e.target === lightbox) close();
-	});
-
-	document.addEventListener('keydown', (e) => {
-		if (lightbox?.classList.contains('hidden')) return;
-		if (e.key === 'Escape') close();
-		if (e.key === 'ArrowLeft') show(-1);
-		if (e.key === 'ArrowRight') show(1);
-	});
-</script>
