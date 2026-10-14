@@ -4,16 +4,21 @@
 // To make the preview start almost at once, the preview player is loaded quietly (hidden and
 // paused) for cards that sit on screen for a moment. Hovering then only has to press play, and the
 // player stays hidden until YouTube reports it is actually playing, so its buttons never show.
-// At most MAX_LIVE players are kept loaded; the one used longest ago is let go first.
+// At most MAX_LIVE players are kept loaded; the one used longest ago is let go first. Each one is
+// a full YouTube player, so keeping this small keeps scrolling smooth and leaves bandwidth for
+// the page's photos.
 //
 // Each card can set where its preview starts with "previewStart" (seconds) in its project file.
 
-const MAX_LIVE = 6;
+const MAX_LIVE = 3;
 const POP = 1.15; // how much larger a card grows on hover
 const HEADER = 73; // height of the fixed menu bar
 
 const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
+const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+const saveData = connection?.saveData === true;
+// On a slow connection, don't load players in the background; a hover still loads one.
+const slowConnection = /(^|-)2g$|^3g$/.test(connection?.effectiveType ?? '');
 
 interface Preview {
 	card: HTMLElement;
@@ -165,7 +170,7 @@ function settle(p: Preview) {
 
 if (canHover) {
 	const nearby =
-		'IntersectionObserver' in window && !saveData
+		'IntersectionObserver' in window && !saveData && !slowConnection
 			? new IntersectionObserver(
 					(entries) => {
 						for (const entry of entries) {

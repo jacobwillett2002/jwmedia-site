@@ -4,6 +4,7 @@
 // Add "uploadDate": "YYYY-MM-DD" to a project file to make it eligible for video results.
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
+import { capWidth } from '../../lib/images';
 import Layout from '../../layouts/Layout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
@@ -95,7 +96,7 @@ const artistLinkLabel = data.artistLink?.includes('spotify.com')
 			<button type="button" class="group absolute inset-0 block h-full w-full" aria-label={`Play ${data.title}`}>
 				{
 					localThumb ? (
-						<Image src={localThumb} alt="" widths={[828, 1280, 1920]} sizes="(min-width: 1152px) 1088px, 100vw" class="h-full w-full object-cover" loading="eager" />
+						<Image src={localThumb} alt="" width={capWidth(localThumb, 1920)} widths={[828, 1280, 1920]} sizes="(min-width: 1152px) 1088px, 100vw" class="h-full w-full object-cover" loading="eager" />
 					) : (
 						<img src={remoteThumb ?? ytThumb} alt="" class="h-full w-full object-cover" />
 					)

@@ -264,6 +264,17 @@ function runStills(reel: HTMLElement) {
 		}
 	};
 
+	// Stills after the first are rendered without their image address (see HeroReel.astro), so
+	// they don't download alongside the first one. Give a still its address when it's next up.
+	const hydrate = (slide: HTMLElement | undefined) => {
+		const img = slide?.querySelector<HTMLImageElement>('img[data-srcset]');
+		if (!img) return;
+		img.srcset = img.dataset.srcset!;
+		img.src = img.dataset.src!;
+		delete img.dataset.srcset;
+		delete img.dataset.src;
+	};
+
 	const isPaused = () => userPaused || hiddenPaused || offscreenPaused;
 
 	const schedule = (ms: number) => {
@@ -277,6 +288,7 @@ function runStills(reel: HTMLElement) {
 		if (n === current || transitioning) return;
 		const prev = slides[current];
 		const next = slides[n];
+		hydrate(next);
 		const img = next.querySelector('img');
 		if (next.dataset.broken) {
 			// A still that failed to load: skip straight past it.
@@ -296,6 +308,8 @@ function runStills(reel: HTMLElement) {
 			transitioning = false;
 			updateUi(n);
 			schedule(hold);
+			// Start fetching the still after this one while this one is on screen.
+			hydrate(slides[(n + 1) % slides.length]);
 		};
 
 		if (!img || (img.complete && img.naturalWidth > 0)) {
@@ -350,12 +364,9 @@ function runStills(reel: HTMLElement) {
 		{ threshold: 0 },
 	).observe(reel);
 
-	// Warm up the next stills once the page has finished loading.
-	const warm = () =>
-		slides.slice(1).forEach((s) => {
-			const img = s.querySelector('img');
-			if (img) img.loading = 'eager';
-		});
+	// Once the page has finished loading, fetch the second still (each later one is fetched while
+	// the one before it is showing).
+	const warm = () => hydrate(slides[1]);
 	if (document.readyState === 'complete') warm();
 	else window.addEventListener('load', warm, { once: true });
 

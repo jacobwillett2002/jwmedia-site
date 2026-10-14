@@ -7,6 +7,7 @@
 // beside it). The first still stays as the poster, the fallback if the video
 // can't play, and what visitors who prefer reduced motion see.
 import { Image, getImage } from 'astro:assets';
+import { capWidth } from '../lib/images';
 
 export interface ReelSlide {
 	image: ImageMetadata;
@@ -30,6 +31,16 @@ interface Props {
 
 const { slides, video, hold = 6500 } = Astro.props;
 const poster = video ? (await getImage({ src: slides[0].image, width: 1920, format: 'webp' })).src : undefined;
+
+const WIDTHS = [828, 1280, 1920, 2560];
+// Only the first still loads with the page. The others carry their image addresses in data-
+// attributes and motion.ts fills them in one at a time, just before each is shown, so the
+// page's first photo isn't sharing the connection with four others nobody can see yet.
+const later = await Promise.all(
+	slides.slice(1).map((slide) =>
+		getImage({ src: slide.image, width: capWidth(slide.image, 1920), widths: WIDTHS, sizes: '100vw' }),
+	),
+);
 ---
 
 <div
@@ -51,21 +62,23 @@ const poster = video ? (await getImage({ src: slides[0].image, width: 1920, form
 					<Image
 						src={slide.image}
 						alt={slide.alt}
-						widths={[828, 1280, 1920, 2560]}
+						width={capWidth(slide.image, 1920)}
+						widths={WIDTHS}
 						sizes="100vw"
 						class="h-full w-full object-cover"
 						style={`object-position:${slide.position ?? 'center'}`}
 						priority
 					/>
 				) : (
-					<Image
-						src={slide.image}
-						alt={slide.alt}
-						widths={[828, 1280, 1920, 2560]}
+					<img
+						data-src={later[i - 1].src}
+						data-srcset={later[i - 1].srcSet.attribute}
 						sizes="100vw"
+						alt={slide.alt}
+						width={later[i - 1].attributes.width}
+						height={later[i - 1].attributes.height}
 						class="h-full w-full object-cover"
 						style={`object-position:${slide.position ?? 'center'}`}
-						loading="lazy"
 						decoding="async"
 					/>
 				)}
