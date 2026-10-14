@@ -11,7 +11,7 @@ export const startingPrices = {
 	live: 1000, // Live sessions and demo tapings
 	events: 2500, // Conferences, corporate events and multi-camera livestreams
 	photo: 600, // Photography
-	podcast: 600, // Podcast production
+	podcast: 1000, // Podcast production: on location, three cameras switched live (mobile crews charge $600 raw, $1,200 edited)
 	narrative: null, // Short films and documentaries: quoted per project
 } as const;
 
