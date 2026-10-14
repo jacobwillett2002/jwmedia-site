@@ -51,25 +51,13 @@ const pillars = [
 	{
 		title: 'Full-Scale, In-House',
 		description:
-			'From a one-day demo taping to five-figure, label-ready productions — cinema cameras, multi-camera live rigs, a full lighting package and our own generator power, all edited and color-graded in DaVinci Resolve Studio. One crew runs it from pre-production through post, in-house and local to San Diego.',
+			'From a one-day demo taping to five-figure, label-ready productions — multi-camera rigs, wireless livestream gear, and drone coverage, all edited and color-graded in DaVinci Resolve Studio. One crew runs it from pre-production through post, in-house and local to San Diego.',
 	},
 	{
 		title: 'Always Growing',
 		description:
 			"Always learning, always scaling up — and looking ahead to mentoring and teaching the next wave of San Diego filmmakers.",
 	},
-];
-
-// Gear JWMedia owns and brings to every shoot (bigger productions add rented cinema packages).
-const kit = [
-	{ group: 'Cameras', items: 'Blackmagic Pocket Cinema 6K Pro · Canon EOS R6 Mark II · Panasonic Lumix S5II · DJI Osmo Action 5 Pro' },
-	{ group: 'Lenses', items: 'DZOFilm Pictor 20–55mm T2.8 cine zoom · Sigma 18–35mm f/1.8 Art · Canon 24–70mm f/2.8L II · Canon 70–200mm f/2.8L IS II · Tilta Nucleus-M wireless follow focus' },
-	{ group: 'Lighting', items: 'ARRI Compact HMIs, 1200W ×2 and 575W ×3, flicker-free · Mole-Richardson fixtures · Aputure MC RGBWW ×4 · GVM 150W with lantern · GVM bi-color panels ×3 · Neewer RGB mat' },
-	{ group: 'Grip', items: 'C-stands · combo stands · sandbags · flag kit · 40×40 opal diffusion frame · diffusion and bounce' },
-	{ group: 'Power', items: '2,400W generator for locations without power · V-mount batteries' },
-	{ group: 'Live & multi-camera', items: 'ATEM Mini Pro ISO switching, streaming and per-camera recording · Hollyland Cosmo C1 wireless video · Hollyland Mars M1 monitors ×4 · 21.5″ director’s monitor' },
-	{ group: 'Audio', items: 'Zoom H6 · Rode Wireless GO II · Deity TC-1 timecode' },
-	{ group: 'Post', items: 'DaVinci Resolve Studio for edit, color and finishing' },
 ];
 
 const process = [
@@ -200,26 +188,6 @@ const process = [
 				}
 			</div>
 		</div>
-	</section>
-
-	<section class="mx-auto max-w-7xl px-6 pt-24 lg:px-10">
-		<div data-reveal>
-			<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">In-House Kit</h2>
-			<p class="mt-3 max-w-2xl text-fg-muted">
-				Our own gear, on every shoot — from HMIs and a generator for a desert location to a four-camera
-				live switcher for a venue. Bigger productions add rented cinema camera and lens packages.
-			</p>
-		</div>
-		<dl class="mt-10 grid gap-x-10 gap-y-6 border-t border-border pt-8 sm:grid-cols-2">
-			{
-				kit.map((row) => (
-					<div data-reveal>
-						<dt class="text-xs font-semibold uppercase tracking-widest text-accent-gold">{row.group}</dt>
-						<dd class="mt-2 text-sm text-fg-muted">{row.items}</dd>
-					</div>
-				))
-			}
-		</dl>
 	</section>
 
 	<section class="mx-auto max-w-7xl px-6 py-24 lg:px-10">
