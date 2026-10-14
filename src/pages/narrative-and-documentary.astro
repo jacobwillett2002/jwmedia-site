@@ -1,10 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import ServiceSchema from '../components/ServiceSchema.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
+import StartingAt from '../components/StartingAt.astro';
 import heroBackdrop from '../assets/gallery/gal-sitd-03.jpg';
 
 const allProjects = await getCollection('projects');
@@ -20,12 +22,13 @@ const comingSoon = allProjects
 	title="Short Film & Documentary Production San Diego & LA"
 	description="Short film and documentary production based in San Diego and Los Angeles, directed by Jacob Willett and produced by JWMedia — with feature-length work on the horizon."
 >
+	<ServiceSchema slot="head" name="Short Film & Documentary Production" serviceType="Film production" description="Short films, documentaries and artist documentaries directed by Jacob Willett and produced by JWMedia." />
 	<BackdropSection image={heroBackdrop}>
 		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
-			<p class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">Narrative &amp; Documentary</p>
-			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl" data-split aria-label="Short films and documentaries, directed by Jacob Willett." data-delay="200">
+			<h1 class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">Short Film &amp; Documentary Production</h1>
+			<h2 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl" data-split aria-label="Short films and documentaries, directed by Jacob Willett." data-delay="200">
 				<SplitWords text="Short films and documentaries, directed by Jacob Willett." />
-			</h1>
+			</h2>
 			<p class="mt-4 max-w-2xl text-fg-muted" data-reveal data-delay="600">
 				Character-driven stories and documentary work that go beyond the music video — surreal
 				comedy and queer anti-romance are the specialty, alongside long-form artist documentaries. We
@@ -35,6 +38,7 @@ const comingSoon = allProjects
 				Short films are where we live right now, with feature-length work already taking shape.
 				Producers and investors interested in our upcoming feature work are always welcome to reach out.
 			</p>
+			<StartingAt service="narrative" delay={840} />
 		</div>
 	</BackdropSection>
 
@@ -53,6 +57,7 @@ const comingSoon = allProjects
 						videoProvider={project.data.videoProvider}
 						videoId={project.data.videoId}
 						previewStart={project.data.previewStart}
+						slug={project.id}
 						comingSoon={project.data.comingSoon}
 						description={project.data.verifiedDescription ? project.data.description : undefined}
 					/>
@@ -77,6 +82,7 @@ const comingSoon = allProjects
 								videoProvider={project.data.videoProvider}
 								videoId={project.data.videoId}
 								previewStart={project.data.previewStart}
+								slug={project.id}
 								comingSoon={project.data.comingSoon}
 								description={project.data.verifiedDescription ? project.data.description : undefined}
 							/>

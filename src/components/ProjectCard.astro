@@ -18,6 +18,8 @@ interface Props {
 	videoProvider?: 'vimeo' | 'youtube';
 	videoId?: string;
 	previewStart?: number;
+	/** project file name; links the title to the video's own page */
+	slug?: string;
 	comingSoon?: boolean;
 	description?: string;
 	caseStudyHref?: string;
@@ -35,6 +37,7 @@ const {
 	videoProvider,
 	videoId,
 	previewStart = 10,
+	slug,
 	comingSoon = false,
 	description,
 	caseStudyHref,
@@ -58,6 +61,8 @@ const poolImages = (thumbnailPool ?? [])
 const backdropImage = posterBackdrop
 	? galleryImages[`/src/assets/gallery/${posterBackdrop}`]?.default
 	: undefined;
+
+const pageHref = slug && videoProvider === 'youtube' && videoId && !comingSoon ? `/work/${slug}` : undefined;
 
 const watchHref =
 	videoId && videoProvider === 'vimeo'
@@ -176,7 +181,9 @@ const watchHref =
 			<span class="h-px w-4 bg-accent-gold transition-all duration-500 ease-out group-hover:w-8 group-[.is-active]:w-8"></span>
 			{tag}
 		</p>
-		<h3 class="mt-2 font-display text-xl tracking-wide text-fg">{title}</h3>
+		<h3 class="mt-2 font-display text-xl tracking-wide text-fg">
+			{pageHref ? <a href={pageHref} class="transition-colors hover:text-accent-gold">{title}</a> : title}
+		</h3>
 		{description && <p class="mt-2 text-sm text-fg-muted">{description}</p>}
 		{
 			caseStudyHref && (

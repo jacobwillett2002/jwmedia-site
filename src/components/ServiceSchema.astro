@@ -1,0 +1,51 @@
+---
+// Search-engine details for a service page: what the service is, where it's offered, the starting
+// price (from src/data/pricing.ts), and the page's place in the site (breadcrumb).
+import { startingPrices, type PricedService } from '../data/pricing';
+
+interface Props {
+	name: string;
+	serviceType: string;
+	description: string;
+	price?: PricedService;
+}
+
+const { name, serviceType, description, price } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site).toString();
+const from = price ? startingPrices[price] : null;
+
+const schema = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'Service',
+		name,
+		serviceType,
+		description,
+		url,
+		provider: { '@id': 'https://jwmedia.biz/#organization' },
+		areaServed: [
+			{ '@type': 'City', name: 'San Diego' },
+			{ '@type': 'City', name: 'Los Angeles' },
+			{ '@type': 'State', name: 'California' },
+		],
+		...(from !== null && {
+			offers: {
+				'@type': 'Offer',
+				url,
+				priceCurrency: 'USD',
+				priceSpecification: { '@type': 'PriceSpecification', minPrice: from, priceCurrency: 'USD' },
+			},
+		}),
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://jwmedia.biz/' },
+			{ '@type': 'ListItem', position: 2, name, item: url },
+		],
+	},
+];
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

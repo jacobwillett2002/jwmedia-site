@@ -2,14 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
+import Reviews from '../components/Reviews.astro';
+import { budgetRanges } from '../data/pricing';
 import heroBackdrop from '../assets/gallery/hd-sitd-13.jpg';
 
 const services = [
 	'Music video',
 	'Live session or concert',
+	'Event or livestream',
 	'Narrative or documentary',
 	'Photography',
-	'Event or livestream',
+	'Animation',
+	'Podcast',
 	'Something else',
 ];
 
@@ -37,8 +41,8 @@ const socials = [
 				services. We'll get back to you within a day.
 			</p>
 			<p class="mt-3 max-w-md text-sm text-fg-muted" data-reveal data-delay="620">
-				Virtual consultations are always free. A 50% deposit secures your date, due within two
-				weeks of booking.
+				Virtual consultations are always free. A 50% deposit at booking secures your date, and the
+				rest is due on delivery.
 			</p>
 
 			<div class="mt-10 space-y-4" data-reveal data-delay="720">
@@ -113,11 +117,22 @@ const socials = [
 				</div>
 			</div>
 
-			<div>
-				<label for="date" class="text-xs font-semibold uppercase tracking-widest text-fg-muted">
-					Shoot or release date <span class="normal-case tracking-normal">(if you have one)</span>
-				</label>
-				<input id="date" name="date" type="text" placeholder="e.g. late March, or not sure yet" class="mt-2 w-full border border-border bg-bg-alt px-4 py-3 text-fg outline-none transition-colors duration-300 focus:border-accent" />
+			<div class="grid gap-5 sm:grid-cols-2">
+				<div>
+					<label for="date" class="text-xs font-semibold uppercase tracking-widest text-fg-muted">
+						Date <span class="normal-case tracking-normal">(if you have one)</span>
+					</label>
+					<input id="date" name="date" type="text" placeholder="e.g. late March, or not sure" class="mt-2 w-full border border-border bg-bg-alt px-4 py-3 text-fg outline-none transition-colors duration-300 focus:border-accent" />
+				</div>
+				<div>
+					<label for="budget" class="text-xs font-semibold uppercase tracking-widest text-fg-muted">
+						Budget <span class="normal-case tracking-normal">(optional)</span>
+					</label>
+					<select id="budget" name="budget" class="mt-2 w-full border border-border bg-bg-alt px-4 py-3 text-fg outline-none transition-colors duration-300 focus:border-accent">
+						<option value="">Choose a range</option>
+						{budgetRanges.map((range) => <option>{range}</option>)}
+					</select>
+				</div>
 			</div>
 
 			<div>
@@ -155,6 +170,8 @@ const socials = [
 		</form>
 		</div>
 	</BackdropSection>
+
+	<Reviews heading="Don't take our word for it" linkWhenEmpty />
 </Layout>
 
 <script>
@@ -168,7 +185,7 @@ const socials = [
 
 	/* ---------- what they type is kept in this browser until it is sent ---------- */
 	const DRAFT = 'jwm_contact_draft';
-	const KEPT = ['name', 'email', 'phone', 'service', 'date', 'message'];
+	const KEPT = ['name', 'email', 'phone', 'service', 'date', 'budget', 'message'];
 	const DRAFT_DAYS = 60;
 	const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 	try {

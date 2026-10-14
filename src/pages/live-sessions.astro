@@ -1,10 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import ServiceSchema from '../components/ServiceSchema.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
+import StartingAt from '../components/StartingAt.astro';
 import heroBackdrop from '../assets/gallery/more-sitd-05.jpg';
 
 const allProjects = await getCollection('projects');
@@ -17,16 +19,18 @@ const liveProjects = allProjects
 	title="Live Concert & Event Videography San Diego & LA"
 	description="Multi-camera live concert and event videography in San Diego and Los Angeles — full-set coverage from Beach Break Sessions to Sessions by the Bay, and studio sessions from JWMedia."
 >
+	<ServiceSchema slot="head" name="Live Concert Videography" serviceType="Live concert and session videography" description="Multi-camera live concert, live session and in-studio performance videos, synced to the board mix and edited in-house." price="live" />
 	<BackdropSection image={heroBackdrop}>
 		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
-			<p class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">Live Sessions</p>
-			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl" data-split aria-label="Full sets, in the room, in 4K." data-delay="200">
+			<h1 class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">Live Concert Videography · San Diego</h1>
+			<h2 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl" data-split aria-label="Full sets, in the room, in 4K." data-delay="200">
 				<SplitWords text="Full sets, in the room, in 4K." />
-			</h1>
+			</h2>
 			<p class="mt-4 max-w-2xl text-fg-muted" data-reveal data-delay="520">
 				Multi-camera coverage of live performances and in-studio sessions — up to 8 cameras for
 				Beach Break Sessions, full crews from Sessions by the Bay to SOMA San Diego.
 			</p>
+			<StartingAt service="live" delay={640} note="A single set or in-studio session. Headline shows and concert films scale from there." />
 		</div>
 	</BackdropSection>
 
@@ -44,6 +48,7 @@ const liveProjects = allProjects
 						videoProvider={project.data.videoProvider}
 						videoId={project.data.videoId}
 						previewStart={project.data.previewStart}
+						slug={project.id}
 						comingSoon={project.data.comingSoon}
 						description={project.data.verifiedDescription ? project.data.description : undefined}
 					/>

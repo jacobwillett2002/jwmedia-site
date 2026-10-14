@@ -1,0 +1,67 @@
+---
+// Quotes from Google reviews, with links to read them all and to leave one.
+// Edit src/data/reviews.ts; nothing shows until real reviews are added there.
+import { googleProfileUrl, googleReviewUrl, reviews } from '../data/reviews';
+
+interface Props {
+	heading?: string;
+	/** how many quotes to show */
+	limit?: number;
+	/** with no quotes yet, still show a one-line link to the Google reviews */
+	linkWhenEmpty?: boolean;
+}
+
+const { heading = 'What artists say', limit = 3, linkWhenEmpty = false } = Astro.props;
+const shown = reviews.slice(0, limit);
+---
+
+{
+	shown.length > 0 && (
+		<section class="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+			<div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between" data-reveal>
+				<div>
+					<p class="text-sm font-semibold uppercase tracking-widest text-accent">Google reviews</p>
+					<h2 class="mt-2 font-display text-3xl tracking-wide text-fg sm:text-4xl">{heading}</h2>
+				</div>
+				{googleProfileUrl && (
+					<a href={googleProfileUrl} target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-accent-gold hover:opacity-80">
+						Read all reviews on Google &rarr;
+					</a>
+				)}
+			</div>
+			<div class:list={['mt-10 grid gap-6', shown.length > 1 && 'md:grid-cols-2', shown.length > 2 && 'lg:grid-cols-3']}>
+				{shown.map((review) => (
+					<figure class="flex flex-col border border-border bg-bg-alt p-6" data-reveal>
+						<p class="text-accent-gold" aria-label="5 stars">★★★★★</p>
+						<blockquote class="mt-4 flex-1 text-fg">
+							<p>&ldquo;{review.quote}&rdquo;</p>
+						</blockquote>
+						<figcaption class="mt-5 text-sm">
+							<span class="font-semibold text-fg">{review.name}</span>
+							{review.project && <span class="block text-fg-muted">{review.project}</span>}
+						</figcaption>
+					</figure>
+				))}
+			</div>
+			{googleReviewUrl && (
+				<p class="mt-8 text-sm text-fg-muted" data-reveal>
+					Worked with us?{' '}
+					<a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-accent-gold hover:opacity-80">
+						Leave a review on Google &rarr;
+					</a>
+				</p>
+			)}
+		</section>
+	)
+}
+
+{
+	shown.length === 0 && linkWhenEmpty && googleProfileUrl && (
+		<p class="mx-auto max-w-7xl px-6 pb-16 text-sm text-fg-muted lg:px-10" data-reveal>
+			Worked with us before?{' '}
+			<a href={googleProfileUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-accent-gold hover:opacity-80">
+				Read and leave reviews on Google &rarr;
+			</a>
+		</p>
+	)
+}

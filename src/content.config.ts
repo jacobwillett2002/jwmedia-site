@@ -11,6 +11,8 @@ const projects = defineCollection({
     videoId: z.string().optional(),
     /** Seconds into the video where the silent hover preview starts (desktop). Defaults to 10. */
     previewStart: z.number().min(0).optional(),
+    /** The YouTube upload date (YYYY-MM-DD). Lets Google show the video in search results. */
+    uploadDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
     thumbnail: z.string().optional(),
     thumbnailPosition: z.string().optional(),
     thumbnailFit: z.enum(['cover', 'contain']).default('cover'),

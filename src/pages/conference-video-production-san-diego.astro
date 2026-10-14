@@ -1,0 +1,185 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceSchema from '../components/ServiceSchema.astro';
+import CtaBand from '../components/CtaBand.astro';
+import BackdropSection from '../components/BackdropSection.astro';
+import SplitWords from '../components/SplitWords.astro';
+import StartingAt from '../components/StartingAt.astro';
+import heroBackdrop from '../assets/gallery/studio-05.jpg';
+
+// Conference, corporate event and livestream coverage. Kept apart from the music work on purpose:
+// an events planner shouldn't have to scroll past bands to find what they came for.
+
+const covers = [
+	{
+		title: 'Every session, recorded clean',
+		description:
+			'Multiple cameras on the stage and the room, with each angle recorded separately so every talk can be re-cut afterward. Speaker audio comes straight from the venue sound desk.',
+	},
+	{
+		title: 'Livestreams that stay up',
+		description:
+			'Three to five cameras switched live by a technical director, with board audio, graphics and lower thirds, sent to YouTube, Twitch, Facebook or Instagram. Full recordings are delivered after the event.',
+	},
+	{
+		title: 'Wireless camera links',
+		description:
+			'Cameras send their picture to the switcher wirelessly, so there are no cables across aisles or the stage, and setup and teardown fit tight room turnovers.',
+	},
+	{
+		title: 'Session edits, ready to post',
+		description:
+			'After the event, each talk is cut with title cards and speaker names, with captions if you need them, then delivered for your on-demand library or members site.',
+	},
+	{
+		title: 'A highlight film',
+		description:
+			'A short recap of the event, made for next year’s promotion, sponsors, and social media.',
+	},
+	{
+		title: 'Photography on the side',
+		description: 'Stills of speakers, panels and the room, shot alongside the video so one crew covers both.',
+	},
+];
+
+const steps = [
+	{ step: '01', title: 'Scope call', description: 'Your agenda, rooms, tracks and what you need delivered. Free, usually 20 minutes.' },
+	{ step: '02', title: 'Venue check', description: 'Power, sound desk, internet and sight lines, confirmed with the venue before the day.' },
+	{ step: '03', title: 'Event day', description: 'We set up before doors, record and stream every session, and pack down after the last one.' },
+	{ step: '04', title: 'Delivery', description: 'Session edits and the highlight film on the schedule we agreed before the event.' },
+];
+
+const faqs = [
+	{
+		q: 'How is a conference priced?',
+		a: 'Livestream packages run $3,000 to $5,500 for three to five cameras switched by a technical director, with full recordings delivered afterward. Larger, multi-room or multi-day events are quoted from our day rates, with editing billed by the day. Final pricing is confirmed in writing after a free scope call.',
+	},
+	{
+		q: 'Do you need the venue’s internet?',
+		a: 'A wired venue connection is best, so we check it with the venue ahead of time. Where the internet can’t be trusted, bonded cellular streaming is available at cost.',
+	},
+	{
+		q: 'Can you cover more than one room at once?',
+		a: 'Yes, with a crew and setup for each room. Tell us how many tracks run at the same time and we’ll scope it.',
+	},
+	{
+		q: 'Where do you work?',
+		a: 'We’re based in San Diego and cover Los Angeles and the rest of Southern California, and we travel nationwide. The first 30 miles each way are included; travel beyond that is billed separately.',
+	},
+	{
+		q: 'How do we book?',
+		a: 'Send the dates and agenda through the contact page. A 50% deposit at booking secures the date, and the rest is due on delivery. Quotes are valid for 60 days.',
+	},
+];
+
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqs.map((item) => ({
+		'@type': 'Question',
+		name: item.q,
+		acceptedAnswer: { '@type': 'Answer', text: item.a },
+	})),
+};
+---
+
+<Layout
+	title="Conference Video & Livestream Production San Diego"
+	description="Multi-camera conference recording, livestreaming and session editing in San Diego and Los Angeles. Every talk recorded clean, streamed live, and cut for your on-demand library."
+>
+	<ServiceSchema slot="head" name="Conference Video & Livestream Production" serviceType="Event video production and livestreaming" description="Multi-camera conference recording, livestreaming and session editing for conferences, annual meetings and corporate events." price="events" />
+	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+
+	<BackdropSection image={heroBackdrop}>
+		<div class="mx-auto max-w-7xl px-6 pb-16 pt-32 lg:px-10">
+			<h1 class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">
+				Conference Video &amp; Livestream Production · San Diego
+			</h1>
+			<h2
+				class="mt-4 max-w-3xl font-display text-4xl tracking-wide text-fg sm:text-5xl"
+				data-split
+				aria-label="Every session recorded, streamed and ready to share."
+				data-delay="200"
+			>
+				<SplitWords text="Every session recorded, streamed and ready to share." />
+			</h2>
+			<p class="mt-4 max-w-2xl text-fg-muted" data-reveal data-delay="560">
+				Multi-camera recording and livestreaming for conferences, annual meetings and corporate events
+				in San Diego and Los Angeles. You get the event live for remote attendees, then every talk edited
+				and ready for your on-demand library.
+			</p>
+			<p class="mt-3 max-w-2xl text-sm text-fg-muted" data-reveal data-delay="660">
+				The same crew behind the 2026 San Diego Music Awards’ Best Music Video, bringing that eye to the
+				stage, the speakers and the room.
+			</p>
+			<StartingAt service="events" delay={760} note="For a multi-camera livestream. Recording-only and multi-room events are quoted from day rates." />
+			<a
+				href="/contact?service=Event%20or%20livestream"
+				data-reveal
+				data-delay="860"
+				class="btn-sheen mt-8 inline-block rounded-full bg-accent px-8 py-3 text-sm font-semibold uppercase tracking-wide text-bg transition-opacity hover:opacity-90"
+			>
+				Get a quote for your event
+			</a>
+		</div>
+	</BackdropSection>
+
+	<section class="mx-auto max-w-7xl px-6 pb-20 lg:px-10">
+		<div data-reveal>
+			<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">What we cover</h2>
+			<p class="mt-3 max-w-2xl text-fg-muted">Pick what your event needs. Most combine recording, a livestream and session edits.</p>
+		</div>
+		<div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+			{
+				covers.map((item) => (
+					<div data-reveal>
+						<span class="mb-5 block h-px w-full bg-accent-gold/40" data-reveal="line" aria-hidden="true" />
+						<h3 class="font-display text-2xl tracking-wide text-fg">{item.title}</h3>
+						<p class="mt-3 text-sm text-fg-muted">{item.description}</p>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="border-y border-border bg-bg-alt">
+		<div class="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+			<div data-reveal>
+				<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">How it works</h2>
+			</div>
+			<div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+				{
+					steps.map((item) => (
+						<div data-reveal>
+							<p class="font-display text-4xl text-accent">{item.step}</p>
+							<h3 class="mt-2 text-lg font-semibold text-fg">{item.title}</h3>
+							<p class="mt-2 text-sm text-fg-muted">{item.description}</p>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto max-w-3xl px-6 py-20 lg:px-10">
+		<h2 class="font-display text-3xl tracking-wide text-fg sm:text-4xl" data-reveal>Questions</h2>
+		<div class="mt-8 divide-y divide-border border-y border-border">
+			{
+				faqs.map((item) => (
+					<details class="group py-5" data-reveal>
+						<summary class="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-medium text-fg">
+							{item.q}
+							<span class="text-accent-gold transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
+						</summary>
+						<p class="mt-3 text-fg-muted">{item.a}</p>
+					</details>
+				))
+			}
+		</div>
+	</section>
+
+	<CtaBand
+		heading="Have an event on the calendar?"
+		subheading="Send the dates, the agenda and how many rooms. We’ll come back with a clear quote."
+	/>
+</Layout>

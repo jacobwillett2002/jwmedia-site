@@ -45,6 +45,23 @@ const facts = [
 	title="Stuck in the Desert — The Gravities"
 	description="The story behind JWMedia's award-winning debut music video for The Gravities: written the night the song was first heard, shot in a single day at a family desert camp, and named Best Music Video at the 2026 San Diego Music Awards."
 >
+	<script
+		type="application/ld+json"
+		slot="head"
+		set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'VideoObject',
+			name: 'Stuck in the Desert — The Gravities (Official Music Video)',
+			description:
+				'The Gravities’ music video "Stuck in the Desert," written and directed by Jacob Willett and produced by JWMedia. Winner of Best Music Video at the 2026 San Diego Music Awards.',
+			thumbnailUrl: ['https://i.ytimg.com/vi/leWV_HcZ4kY/maxresdefault.jpg', 'https://i.ytimg.com/vi/leWV_HcZ4kY/hqdefault.jpg'],
+			embedUrl: 'https://www.youtube.com/embed/leWV_HcZ4kY',
+			url: 'https://jwmedia.biz/stuck-in-the-desert',
+			award: 'Best Music Video, 2026 San Diego Music Awards',
+			director: { '@type': 'Person', name: 'Jacob Willett' },
+			creator: { '@id': 'https://jwmedia.biz/#organization' },
+		})}
+	/>
 	<div class="read-progress" data-read-progress aria-hidden="true"></div>
 
 	<section class="relative isolate flex min-h-[70vh] items-end overflow-hidden" data-parallax-hero>

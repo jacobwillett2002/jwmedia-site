@@ -22,6 +22,7 @@ const PAGE_NAMES: Record<string, string> = {
 	'/photo-gallery': 'Photo Gallery',
 	'/about': 'About',
 	'/stuck-in-the-desert': 'Stuck in the Desert story',
+	'/conference-video-production-san-diego': 'Conferences & Livestreams',
 };
 
 const text = (value: unknown, max: number) =>
@@ -84,7 +85,7 @@ export function describeJourney(raw: unknown): string {
 	const seen: string[] = [];
 	for (const page of journey.pages) {
 		if (page.p === '/contact') continue;
-		const name = PAGE_NAMES[page.p] ?? page.p;
+		const name = PAGE_NAMES[page.p] ?? (page.p.startsWith('/work/') ? `Video: ${page.p.slice(6)}` : page.p);
 		if (!seen.includes(name)) seen.push(name);
 	}
 	if (seen.length) lines.push(`Looked at: ${seen.join(', ')}`);

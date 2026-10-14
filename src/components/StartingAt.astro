@@ -1,0 +1,24 @@
+---
+// "Starting at $750" for a service page hero. The numbers live in src/data/pricing.ts.
+import { money, startingPrices, type PricedService } from '../data/pricing';
+
+interface Props {
+	service: PricedService;
+	note?: string;
+	delay?: number;
+}
+
+const { service, note = 'Every quote is scoped to the project.', delay = 640 } = Astro.props;
+const price = startingPrices[service];
+---
+
+{
+	price !== null && (
+
+		<p class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1" data-reveal data-delay={delay}>
+			<span class="text-xs font-semibold uppercase tracking-widest text-fg-muted">Starting at</span>
+			<span class="font-display text-3xl tracking-wide text-accent-gold">{money(price)}</span>
+			<span class="text-sm text-fg-muted">{note}</span>
+		</p>
+	)
+}

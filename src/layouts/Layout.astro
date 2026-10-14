@@ -4,14 +4,18 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ContactPrompt from '../components/ContactPrompt.astro';
 import VideoModal from '../components/VideoModal.astro';
+import { googleProfileUrl } from '../data/reviews';
+import { startingPrices } from '../data/pricing';
 
 interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	/** Open Graph type, e.g. 'video.other' on a video's own page */
+	ogType?: string;
 }
 
-const { title, description, image = '/og-image.jpg' } = Astro.props;
+const { title, description, image = '/og-image.jpg', ogType = 'website' } = Astro.props;
 
 const siteName = 'JWMedia';
 const fullTitle = `${title} | ${siteName}`;
@@ -20,7 +24,9 @@ const imageURL = new URL(image, Astro.site);
 
 const jsonLd = {
 	'@context': 'https://schema.org',
-	'@type': 'VideoProductionCompany',
+	// ProfessionalService is schema.org's type for a local service business; video production is its field.
+	'@type': 'ProfessionalService',
+	additionalType: 'https://en.wikipedia.org/wiki/Video_production',
 	'@id': 'https://jwmedia.biz/#organization',
 	name: 'JWMedia',
 	legalName: 'JWMedia, LLC',
@@ -38,11 +44,44 @@ const jsonLd = {
 		addressCountry: 'US',
 	},
 	areaServed: ['San Diego, CA', 'Los Angeles, CA'],
+	priceRange: '$$$',
+	founder: { '@type': 'Person', name: 'Jacob Willett', jobTitle: 'Director' },
+	award: 'Best Music Video, 2026 San Diego Music Awards (The Gravities, "Stuck in the Desert")',
+	knowsAbout: [
+		'Music video production',
+		'Music videography',
+		'Cinematography',
+		'Film production',
+		'Short film production',
+		'Documentary filmmaking',
+		'Live concert videography',
+		'Multi-camera live sessions',
+		'Livestream production',
+		'Conference video production',
+		'Concert photography',
+		'Color grading',
+	],
+	hasOfferCatalog: {
+		'@type': 'OfferCatalog',
+		name: 'Video production services',
+		itemListElement: [
+			['Music video production', '/music-cinematography', startingPrices.music],
+			['Live concert videography', '/live-sessions', startingPrices.live],
+			['Conference video and livestream production', '/conference-video-production-san-diego', startingPrices.events],
+			['Short film and documentary production', '/narrative-and-documentary', startingPrices.narrative],
+			['Music and concert photography', '/photo-gallery', startingPrices.photo],
+		].map(([name, path, from]) => ({
+			'@type': 'Offer',
+			itemOffered: { '@type': 'Service', name, url: `https://jwmedia.biz${path}` },
+			...(from !== null && { priceSpecification: { '@type': 'PriceSpecification', minPrice: from, priceCurrency: 'USD' } }),
+		})),
+	},
 	sameAs: [
 		'https://www.instagram.com/jwmedia.biz/',
 		'https://www.youtube.com/channel/UCVnhW-a6Mu7H3edWdgB6hXg',
 		'https://www.facebook.com/jacob.willett.2025',
 		'https://www.linkedin.com/in/jacob-willett-894b901aa/',
+		...(googleProfileUrl ? [googleProfileUrl] : []),
 	],
 };
 ---
@@ -59,7 +98,7 @@ const jsonLd = {
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalURL} />
 
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:site_name" content={siteName} />
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
@@ -98,6 +137,7 @@ const jsonLd = {
 			href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
+		<slot name="head" />
 	</head>
 	<body class="bg-bg text-fg font-sans antialiased">
 		<div class="grain-overlay"></div>

@@ -1,9 +1,12 @@
 ---
+import { googleProfileUrl } from '../data/reviews';
+
 const socials = [
 	{ label: 'Instagram', href: 'https://www.instagram.com/jwmedia.biz/' },
 	{ label: 'YouTube', href: 'https://www.youtube.com/channel/UCVnhW-a6Mu7H3edWdgB6hXg' },
 	{ label: 'Facebook', href: 'https://www.facebook.com/jacob.willett.2025' },
 	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/jacob-willett-894b901aa/' },
+	...(googleProfileUrl ? [{ label: 'Google Reviews', href: googleProfileUrl }] : []),
 ];
 
 const pages = [
@@ -11,6 +14,7 @@ const pages = [
 	{ href: '/music-cinematography', label: 'Music Cinematography' },
 	{ href: '/narrative-and-documentary', label: 'Narrative & Documentary' },
 	{ href: '/live-sessions', label: 'Live Sessions' },
+	{ href: '/conference-video-production-san-diego', label: 'Conferences & Livestreams' },
 	{ href: '/photo-gallery', label: 'Photo Gallery' },
 	{ href: '/about', label: 'About' },
 	{ href: '/contact', label: 'Contact' },

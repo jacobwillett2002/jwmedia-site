@@ -132,6 +132,7 @@ export function likelyService(): string {
 		[/^\/stuck-in-the-desert/, 'Music video'],
 		[/^\/narrative-and-documentary/, 'Narrative or documentary'],
 		[/^\/live-sessions/, 'Live session or concert'],
+		[/^\/conference-video-production/, 'Event or livestream'],
 		[/^\/photo-gallery/, 'Photography'],
 	];
 	for (const page of [...journey.pages].reverse()) {
