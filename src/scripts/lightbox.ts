@@ -49,6 +49,8 @@ function setup(lightbox: HTMLElement, lightboxImage: HTMLImageElement) {
 		// Let the browser paint it once before fading in.
 		requestAnimationFrame(() => requestAnimationFrame(() => lightbox.classList.add('is-open')));
 		closeBtn?.focus({ preventScroll: true });
+		warm(index + 1);
+		warm(index - 1);
 	}
 
 	function close() {
@@ -65,27 +67,60 @@ function setup(lightbox: HTMLElement, lightboxImage: HTMLImageElement) {
 		else hide();
 	}
 
+	// Moving between photos: the next photo is fetched while the current one stays up, then a copy of
+	// the current one fades out drifting the way it leaves while the next fades in from the other side.
+	// Never a blank screen while a big photo downloads. (Fade only, no drift, for reduced motion.)
+	const ghost = document.getElementById('lightbox-ghost') as HTMLImageElement | null;
+	let ghostTimer = 0;
+	function leaveWithGhost() {
+		if (!ghost || !lightboxImage.currentSrc) return;
+		const frame = lightbox.getBoundingClientRect();
+		const rect = lightboxImage.getBoundingClientRect();
+		if (!rect.width) return;
+		window.clearTimeout(ghostTimer);
+		ghost.classList.remove('is-leaving');
+		ghost.src = lightboxImage.currentSrc;
+		Object.assign(ghost.style, {
+			left: `${rect.left - frame.left}px`,
+			top: `${rect.top - frame.top}px`,
+			width: `${rect.width}px`,
+			height: `${rect.height}px`,
+			opacity: getComputedStyle(lightboxImage).opacity,
+		});
+		void ghost.offsetWidth;
+		ghost.style.opacity = '';
+		ghost.classList.add('is-leaving');
+		ghostTimer = window.setTimeout(() => ghost.removeAttribute('src'), 650);
+	}
+
+	function warm(index: number) {
+		const near = new Image();
+		near.src = sources[(index + sources.length) % sources.length];
+	}
+
 	function show(delta: number) {
+		const dir = delta > 0 ? 1 : -1;
 		currentIndex = (currentIndex + delta + sources.length) % sources.length;
 		const src = sources[currentIndex];
 		setMeta(currentIndex);
-		if (!animated()) {
-			lightboxImage.src = src;
-			return;
-		}
-		// Dim the current photo, swap the source (the browser keeps showing the old
-		// photo until the new one has arrived), then brighten once it's decoded.
-		// Never a blank screen while a big photo downloads.
 		const token = ++swapToken;
-		lightboxImage.classList.add('is-loading');
-		window.setTimeout(() => {
+		const incoming = new Image();
+		incoming.src = src;
+		// Only dim the current photo if the next one is slow to arrive.
+		const dimTimer = window.setTimeout(() => token === swapToken && lightboxImage.classList.add('is-loading'), 250);
+		const swap = () => {
+			window.clearTimeout(dimTimer);
 			if (token !== swapToken) return;
+			leaveWithGhost();
+			lightbox.style.setProperty('--dir', String(dir));
+			lightboxImage.classList.add('is-entering');
+			lightboxImage.classList.remove('is-loading');
 			lightboxImage.src = src;
-			const done = () => {
-				if (token === swapToken) lightboxImage.classList.remove('is-loading');
-			};
-			lightboxImage.decode().then(done, done);
-		}, 150);
+			void lightboxImage.offsetWidth;
+			lightboxImage.classList.remove('is-entering');
+		};
+		incoming.decode().then(swap, swap);
+		warm(currentIndex + dir);
 	}
 
 	items.forEach((item, index) => {

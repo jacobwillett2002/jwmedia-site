@@ -333,6 +333,22 @@
   transform: translateX(-120%);
   pointer-events: none;
 }
+.btn-sheen {
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s var(--ease-out),
+    box-shadow 0.3s ease;
+}
+@media (hover: hover) {
+  .btn-sheen:hover:not(:disabled) {
+    transform: translate3d(0, -1px, 0);
+    box-shadow: 0 10px 24px -12px rgb(201 162 92 / 0.55);
+  }
+}
+.btn-sheen:active:not(:disabled) {
+  transform: translate3d(0, 0, 0) scale(0.98);
+  transition-duration: 0.08s;
+}
 @media (hover: hover) {
   .motion .btn-sheen:hover::after {
     transform: translateX(120%);
@@ -411,6 +427,91 @@
 }
 .motion #lightbox-image.is-loading {
   opacity: 0.35;
+}
+/* Stepping between photos (lightbox.ts): the next photo arrives from the side it is heading
+   toward while a copy of the last one drifts out the other way. */
+#lightbox #lightbox-image {
+  transition:
+    opacity 0.45s ease,
+    transform 0.6s var(--ease-out);
+}
+#lightbox #lightbox-image.is-entering {
+  opacity: 0;
+  transform: translate3d(calc(var(--dir, 0) * 48px), 0, 0) scale(0.985);
+  transition: none;
+}
+#lightbox-ghost {
+  position: absolute;
+  max-width: none;
+  max-height: none;
+  opacity: 1;
+  transition:
+    opacity 0.4s ease,
+    transform 0.55s var(--ease-out);
+}
+#lightbox-ghost:not([src]) {
+  display: none;
+}
+#lightbox-ghost.is-leaving {
+  opacity: 0;
+  transform: translate3d(calc(var(--dir, 0) * -48px), 0, 0) scale(0.985);
+}
+@media (prefers-reduced-motion: reduce) {
+  #lightbox #lightbox-image.is-entering,
+  #lightbox-ghost.is-leaving {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Photos lift toward you under the mouse (gallery grids)
+   -------------------------------------------------------------------------- */
+@media (hover: hover) {
+  .gallery-item {
+    transition:
+      transform 0.55s var(--ease-out),
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
+  }
+  .gallery-item:hover {
+    z-index: 2;
+    transform: scale(1.07);
+    border-color: rgb(201 162 92 / 0.45);
+    box-shadow: 0 24px 56px -14px rgb(0 0 0 / 0.88), 0 0 0 1px rgb(244 241 236 / 0.07);
+    transition:
+      transform 0.24s cubic-bezier(0.2, 0.9, 0.25, 1),
+      box-shadow 0.24s ease,
+      border-color 0.24s ease;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Project cards on a desktop (card-preview.ts): the card pops forward and a
+   silent preview of the video plays in the thumbnail.
+   -------------------------------------------------------------------------- */
+.project-card.can-pop {
+  transition:
+    transform 0.24s cubic-bezier(0.2, 0.9, 0.25, 1),
+    box-shadow 0.24s ease,
+    border-color 0.3s ease;
+}
+.project-card.is-popped {
+  box-shadow: 0 30px 80px -10px rgb(0 0 0 / 0.85), 0 0 0 1px rgb(244 241 236 / 0.08);
+}
+/* The player is taller than the frame, so YouTube's title bar sits outside it, out of sight. */
+.card-preview {
+  position: absolute;
+  left: 0;
+  top: -30%;
+  width: 100%;
+  height: 160%;
+  border: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card-preview.is-on {
+  opacity: 1;
 }
 
 /* --------------------------------------------------------------------------

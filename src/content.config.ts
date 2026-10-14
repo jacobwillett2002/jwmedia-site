@@ -9,6 +9,8 @@ const projects = defineCollection({
     category: z.enum(['music', 'narrative', 'live']),
     videoProvider: z.enum(['vimeo', 'youtube']).optional(),
     videoId: z.string().optional(),
+    /** Seconds into the video where the silent hover preview starts (desktop). Defaults to 10. */
+    previewStart: z.number().min(0).optional(),
     thumbnail: z.string().optional(),
     thumbnailPosition: z.string().optional(),
     thumbnailFit: z.enum(['cover', 'contain']).default('cover'),

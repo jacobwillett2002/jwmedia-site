@@ -1,5 +1,6 @@
 import type { APIContext } from 'astro';
 import { env } from 'cloudflare:workers';
+import { describeJourney } from '../../lib/journey';
 
 export const prerender = false;
 
@@ -19,6 +20,11 @@ export async function POST(context: APIContext) {
 	const name = String(formData.get('name') ?? '').trim();
 	const email = String(formData.get('email') ?? '').trim();
 	const message = String(formData.get('message') ?? '').trim();
+	const field = (key: string, max = 120) => String(formData.get(key) ?? '').trim().slice(0, max);
+	const service = field('service');
+	const date = field('date', 40);
+	const phone = field('phone', 40);
+	const found = describeJourney(formData.get('journey'));
 
 	if (!name || !email || !message) {
 		return new Response(JSON.stringify({ ok: false, error: 'Please fill out every field.' }), {
@@ -41,8 +47,16 @@ export async function POST(context: APIContext) {
 		from: FROM_EMAIL,
 		to: [TO_EMAIL],
 		reply_to: email,
-		subject: `New inquiry from ${name} via jwmedia.biz`,
-		text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+		subject: `New inquiry from ${name}${service ? ` — ${service}` : ''} via jwmedia.biz`,
+		text: [
+			[`Name: ${name}`, `Email: ${email}`, phone && `Phone: ${phone}`, service && `Project: ${service}`, date && `Date: ${date}`]
+				.filter(Boolean)
+				.join('\n'),
+			message,
+			found && `— How they found the site —\n${found}`,
+		]
+			.filter(Boolean)
+			.join('\n\n'),
 	};
 
 	const response = await fetch('https://api.resend.com/emails', {

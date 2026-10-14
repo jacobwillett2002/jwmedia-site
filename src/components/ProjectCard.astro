@@ -17,6 +17,7 @@ interface Props {
 	artistLink?: string;
 	videoProvider?: 'vimeo' | 'youtube';
 	videoId?: string;
+	previewStart?: number;
 	comingSoon?: boolean;
 	description?: string;
 	caseStudyHref?: string;
@@ -33,6 +34,7 @@ const {
 	artistLink,
 	videoProvider,
 	videoId,
+	previewStart = 10,
 	comingSoon = false,
 	description,
 	caseStudyHref,
@@ -67,9 +69,11 @@ const watchHref =
 
 <article
 	data-reveal
+	data-preview={videoProvider === 'youtube' && videoId && !comingSoon ? videoId : undefined}
+	data-preview-start={videoProvider === 'youtube' && videoId ? String(Math.floor(previewStart)) : undefined}
 	class="project-card group relative overflow-hidden border border-border bg-bg-alt transition-colors duration-300 hover:border-accent-gold/50 [&.is-active]:border-accent-gold/50"
 >
-	<div class="relative aspect-video overflow-hidden">
+	<div class="card-media relative aspect-video overflow-hidden">
 		{
 			poolImages.length > 0 ? (
 				<div class="thumbnail-pool absolute inset-0">

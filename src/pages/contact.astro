@@ -4,6 +4,15 @@ import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
 import heroBackdrop from '../assets/gallery/hd-sitd-13.jpg';
 
+const services = [
+	'Music video',
+	'Live session or concert',
+	'Narrative or documentary',
+	'Photography',
+	'Event or livestream',
+	'Something else',
+];
+
 const socials = [
 	{ label: 'Instagram', href: 'https://www.instagram.com/jwmedia.biz/' },
 	{ label: 'YouTube', href: 'https://www.youtube.com/channel/UCVnhW-a6Mu7H3edWdgB6hXg' },
@@ -68,6 +77,7 @@ const socials = [
 					id="name"
 					name="name"
 					type="text"
+					autocomplete="name"
 					required
 					class="mt-2 w-full border border-border bg-bg-alt px-4 py-3 text-fg outline-none transition-colors duration-300 focus:border-accent"
 				/>
@@ -81,9 +91,33 @@ const socials = [
 					id="email"
 					name="email"
 					type="email"
+					autocomplete="email"
 					required
 					class="mt-2 w-full border border-border bg-bg-alt px-4 py-3 text-fg outline-none transition-colors duration-300 focus:border-accent"
 				/>
+			</div>
+
+			<div class="grid gap-5 sm:grid-cols-2">
+				<div>
+					<label for="phone" class="text-xs font-semibold uppercase tracking-widest text-fg-muted">
+						Phone <span class="normal-case tracking-normal">(optional)</span>
+					</label>
+					<input id="phone" name="phone" type="tel" autocomplete="tel" class="mt-2 w-full border border-border bg-bg-alt px-4 py-3 text-fg outline-none transition-colors duration-300 focus:border-accent" />
+				</div>
+				<div>
+					<label for="service" class="text-xs font-semibold uppercase tracking-widest text-fg-muted">What are you planning?</label>
+					<select id="service" name="service" class="mt-2 w-full border border-border bg-bg-alt px-4 py-3 text-fg outline-none transition-colors duration-300 focus:border-accent">
+						<option value="">Choose one</option>
+						{services.map((service) => <option>{service}</option>)}
+					</select>
+				</div>
+			</div>
+
+			<div>
+				<label for="date" class="text-xs font-semibold uppercase tracking-widest text-fg-muted">
+					Shoot or release date <span class="normal-case tracking-normal">(if you have one)</span>
+				</label>
+				<input id="date" name="date" type="text" placeholder="e.g. late March, or not sure yet" class="mt-2 w-full border border-border bg-bg-alt px-4 py-3 text-fg outline-none transition-colors duration-300 focus:border-accent" />
 			</div>
 
 			<div>
@@ -98,6 +132,12 @@ const socials = [
 					class="mt-2 w-full border border-border bg-bg-alt px-4 py-3 text-fg outline-none transition-colors duration-300 focus:border-accent"
 				></textarea>
 			</div>
+
+			<input type="hidden" name="journey" id="journey" />
+			<p id="draft-note" class="hidden text-sm text-fg-muted" aria-live="polite">
+				Your message from last time is still here.{' '}
+				<button type="button" id="draft-clear" class="text-accent-gold underline-offset-4 hover:underline">Start over</button>
+			</p>
 
 			<div class="hidden">
 				<label for="company">Company</label>
@@ -118,9 +158,67 @@ const socials = [
 </Layout>
 
 <script>
+	import { journeySummary, likelyService } from '../scripts/journey';
+
 	const form = document.getElementById('contact-form') as HTMLFormElement;
 	const status = document.getElementById('form-status');
 	const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+	const service = document.getElementById('service') as unknown as HTMLSelectElement;
+	const draftNote = document.getElementById('draft-note') as HTMLElement;
+
+	/* ---------- what they type is kept in this browser until it is sent ---------- */
+	const DRAFT = 'jwm_contact_draft';
+	const KEPT = ['name', 'email', 'phone', 'service', 'date', 'message'];
+	const DRAFT_DAYS = 60;
+	const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+	try {
+		const draft = JSON.parse(localStorage.getItem(DRAFT) || 'null');
+		if (draft && Date.now() - draft.ts < DRAFT_DAYS * 86400000) {
+			for (const name of KEPT) if (draft.values?.[name]) field(name).value = draft.values[name];
+			draftNote.classList.toggle('hidden', !(draft.values?.message || draft.values?.name));
+		} else if (draft) {
+			localStorage.removeItem(DRAFT);
+		}
+	} catch {
+		/* storage blocked (private window): the form simply starts empty */
+	}
+	let saveTimer = 0;
+	form.addEventListener('input', () => {
+		window.clearTimeout(saveTimer);
+		saveTimer = window.setTimeout(() => {
+			try {
+				const values = Object.fromEntries(KEPT.map((name) => [name, field(name).value]));
+				if (Object.values(values).some(Boolean)) localStorage.setItem(DRAFT, JSON.stringify({ ts: Date.now(), values }));
+				else localStorage.removeItem(DRAFT);
+			} catch {
+				/* storage full or blocked */
+			}
+		}, 400);
+	});
+	const forgetDraft = () => {
+		try {
+			localStorage.removeItem(DRAFT);
+		} catch {
+			/* nothing to forget */
+		}
+		draftNote.classList.add('hidden');
+	};
+	document.getElementById('draft-clear')?.addEventListener('click', () => {
+		form.reset();
+		forgetDraft();
+		preselect();
+		field('name').focus();
+	});
+
+	/* ---------- pre-select the kind of project they were looking at ---------- */
+	function preselect() {
+		if (service.value) return;
+		// A link can name it (/contact?service=Photography); otherwise the work page they viewed last.
+		const asked = new URLSearchParams(location.search).get('service') || likelyService();
+		const option = [...service.options].find((o) => o.value && o.value.toLowerCase() === asked.toLowerCase());
+		if (option) service.value = option.value;
+	}
+	preselect();
 
 	form.addEventListener('submit', async (e) => {
 		e.preventDefault();
@@ -129,6 +227,7 @@ const socials = [
 			status.textContent = 'Sending...';
 			status.className = 'text-sm text-fg-muted';
 		}
+		(document.getElementById('journey') as HTMLInputElement).value = journeySummary();
 
 		try {
 			const response = await fetch('/api/contact', {
@@ -139,6 +238,7 @@ const socials = [
 
 			if (result.ok) {
 				form.reset();
+				forgetDraft();
 				if (status) {
 					status.textContent = "Thanks — we'll be in touch soon.";
 					status.className = 'text-sm text-accent';
