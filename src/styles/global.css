@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./motion.css";
 
 @theme {
   --font-display: "Bebas Neue", "Oswald", sans-serif;

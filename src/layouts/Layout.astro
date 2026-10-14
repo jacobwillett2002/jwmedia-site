@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ContactPrompt from '../components/ContactPrompt.astro';
+import VideoModal from '../components/VideoModal.astro';
 
 interface Props {
 	title: string;
@@ -72,6 +73,25 @@ const jsonLd = {
 
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
+		<!-- Turn on entrance motion before first paint, unless the visitor prefers reduced motion.
+		     If the motion script fails to load, the failsafe shows everything after 4s. -->
+		<script is:inline>
+			(function () {
+				var d = document.documentElement;
+				d.classList.add('js');
+				if (
+					window.matchMedia &&
+					!window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+					'IntersectionObserver' in window
+				) {
+					d.classList.add('motion');
+					setTimeout(function () {
+						if (!window.__jwmMotion) d.classList.remove('motion');
+					}, 4000);
+				}
+			})();
+		</script>
+
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -87,5 +107,9 @@ const jsonLd = {
 		</main>
 		<Footer />
 		<ContactPrompt />
+		<VideoModal />
+		<script>
+			import '../scripts/motion.ts';
+		</script>
 	</body>
 </html>

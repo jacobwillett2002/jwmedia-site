@@ -2,7 +2,9 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Lightbox from '../components/Lightbox.astro';
 import BackdropSection from '../components/BackdropSection.astro';
+import SplitWords from '../components/SplitWords.astro';
 
 const photoModules = import.meta.glob<{ default: ImageMetadata }>('/src/assets/gallery/*.jpg', {
 	eager: true,
@@ -186,11 +188,11 @@ const sections = [
 >
 	<BackdropSection image={resolve('more-sitd-10.jpg')}>
 		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
-			<p class="text-sm font-semibold uppercase tracking-widest text-accent">Photo Gallery</p>
-			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
-				Music Photography
+			<p class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">Photo Gallery</p>
+			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl" data-split aria-label="Music Photography" data-delay="200">
+				<SplitWords text="Music Photography" />
 			</h1>
-			<p class="mt-4 max-w-2xl text-fg-muted">
+			<p class="mt-4 max-w-2xl text-fg-muted" data-reveal data-delay="420">
 				Stills from the same shows, studio sessions, and sets you see in our films, organized by
 				project &mdash; click any image to view it full-size.
 			</p>
@@ -200,7 +202,7 @@ const sections = [
 	{
 		sections.map((section) => (
 			<section class="mx-auto max-w-7xl px-6 pb-16 lg:px-10">
-				<div class="mb-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+				<div class="mb-6 flex flex-wrap items-baseline gap-x-4 gap-y-1" data-reveal>
 					<h2 class="font-display text-2xl tracking-wide text-fg sm:text-3xl">{section.title}</h2>
 					{
 						section.videoId && (
@@ -233,13 +235,15 @@ const sections = [
 							type="button"
 							class="gallery-item gallery-lazy-block group relative mb-4 block w-full overflow-hidden border border-border"
 							data-src={filename}
+							data-reveal="img"
+							data-caption={section.title}
 						>
 							<Image
 								src={resolve(filename)}
 								alt={`${section.title} — photo ${i + 1}`}
 								widths={[400, 700, 1000]}
 								sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-								class="w-full transition-transform duration-500 group-hover:scale-105"
+								class="w-full transition-transform duration-700 ease-out group-hover:scale-105"
 								loading="lazy"
 								decoding="async"
 							/>
@@ -257,89 +261,10 @@ const sections = [
 		}
 	</style>
 
-	<div
-		id="lightbox"
-		class="fixed inset-0 z-[60] hidden items-center justify-center bg-bg/95 p-6"
-		role="dialog"
-		aria-modal="true"
-	>
-		<button
-			id="lightbox-close"
-			type="button"
-			aria-label="Close"
-			class="absolute right-6 top-6 text-3xl text-fg hover:text-accent"
-		>
-			&times;
-		</button>
-		<button
-			id="lightbox-prev"
-			type="button"
-			aria-label="Previous photo"
-			class="absolute left-4 top-1/2 -translate-y-1/2 text-4xl text-fg hover:text-accent"
-		>
-			&#8249;
-		</button>
-		<img id="lightbox-image" src="" alt="" class="max-h-[85vh] max-w-full object-contain" />
-		<button
-			id="lightbox-next"
-			type="button"
-			aria-label="Next photo"
-			class="absolute right-4 top-1/2 -translate-y-1/2 text-4xl text-fg hover:text-accent"
-		>
-			&#8250;
-		</button>
-	</div>
+	<Lightbox />
 
 	<CtaBand
 		heading="Need photos to match your video?"
 		subheading="We shoot stills alongside every video production — ask us to add it to your package."
 	/>
 </Layout>
-
-<script>
-	const items = Array.from(document.querySelectorAll<HTMLButtonElement>('.gallery-item'));
-	const sources = items.map((item) => item.querySelector('img')?.src ?? '');
-
-	const lightbox = document.getElementById('lightbox');
-	const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement;
-	const closeBtn = document.getElementById('lightbox-close');
-	const prevBtn = document.getElementById('lightbox-prev');
-	const nextBtn = document.getElementById('lightbox-next');
-
-	let currentIndex = 0;
-
-	function open(index: number) {
-		currentIndex = index;
-		lightboxImage.src = sources[currentIndex];
-		lightbox?.classList.remove('hidden');
-		lightbox?.classList.add('flex');
-	}
-
-	function close() {
-		lightbox?.classList.add('hidden');
-		lightbox?.classList.remove('flex');
-	}
-
-	function show(delta: number) {
-		currentIndex = (currentIndex + delta + sources.length) % sources.length;
-		lightboxImage.src = sources[currentIndex];
-	}
-
-	items.forEach((item, index) => {
-		item.addEventListener('click', () => open(index));
-	});
-
-	closeBtn?.addEventListener('click', close);
-	prevBtn?.addEventListener('click', () => show(-1));
-	nextBtn?.addEventListener('click', () => show(1));
-	lightbox?.addEventListener('click', (e) => {
-		if (e.target === lightbox) close();
-	});
-
-	document.addEventListener('keydown', (e) => {
-		if (lightbox?.classList.contains('hidden')) return;
-		if (e.key === 'Escape') close();
-		if (e.key === 'ArrowLeft') show(-1);
-		if (e.key === 'ArrowRight') show(1);
-	});
-</script>

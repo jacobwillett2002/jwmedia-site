@@ -24,8 +24,20 @@ const { items } = Astro.props;
 </div>
 
 <style>
+	.marquee {
+		/* soft fade at both edges so words drift in and out instead of being cut */
+		-webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+		mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+	}
+
 	.marquee-track {
 		animation: marquee-scroll 28s linear infinite;
+	}
+
+	@media (hover: hover) {
+		.marquee:hover .marquee-track {
+			animation-play-state: paused;
+		}
 	}
 
 	@keyframes marquee-scroll {

@@ -1,0 +1,64 @@
+---
+// Theater-style video player. Any link with `data-video-id` (the play buttons on
+// project cards) opens here instead of leaving the site. Without JavaScript the
+// link still goes straight to YouTube. Logic lives in src/scripts/video-modal.ts.
+---
+
+<div
+	id="video-modal"
+	class="video-modal fixed inset-0 z-[70] hidden items-center justify-center p-4 sm:p-8"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="video-modal-title"
+>
+	<div class="vm-backdrop absolute inset-0 bg-[rgb(8_6_5/0.94)]" data-vm-close></div>
+	<span tabindex="0" class="sr-only" data-vm-sentinel></span>
+	<div class="vm-stage relative w-full max-w-6xl">
+		<div class="mb-3 flex items-center justify-between gap-4">
+			<p class="flex min-w-0 items-center gap-3">
+				<span class="hidden h-px w-6 shrink-0 bg-accent-gold sm:block" aria-hidden="true"></span>
+				<span id="video-modal-title" class="truncate font-display text-xl tracking-wide text-fg sm:text-2xl"></span>
+			</p>
+			<div class="flex shrink-0 items-center gap-4">
+				<a
+					data-vm-external
+					href="#"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hidden text-xs font-semibold uppercase tracking-widest text-fg-muted transition-colors hover:text-accent-gold sm:inline"
+				>
+					Watch on YouTube &nearr;
+				</a>
+				<button
+					type="button"
+					class="-mr-1 p-1 text-fg-muted transition-colors hover:text-fg"
+					aria-label="Close video"
+					data-vm-close
+				>
+					<svg width="22" height="22" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+						<path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.2"></path>
+					</svg>
+				</button>
+			</div>
+		</div>
+		<div class="vm-frame relative aspect-video w-full overflow-hidden border border-border bg-black shadow-2xl shadow-black/60">
+			<div class="vm-loading absolute inset-0 flex items-center justify-center" aria-hidden="true">
+				<span class="h-8 w-8 animate-spin rounded-full border-2 border-fg/15 border-t-accent-gold motion-reduce:animate-none"></span>
+			</div>
+		</div>
+		<a
+			data-vm-external
+			href="#"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="mt-4 inline-block text-xs font-semibold uppercase tracking-widest text-fg-muted transition-colors hover:text-accent-gold sm:hidden"
+		>
+			Watch on YouTube &nearr;
+		</a>
+	</div>
+	<span tabindex="0" class="sr-only" data-vm-sentinel></span>
+</div>
+
+<script>
+	import '../scripts/video-modal.ts';
+</script>

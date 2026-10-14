@@ -1,0 +1,50 @@
+---
+// Full-size photo viewer for any page with `.gallery-item` buttons
+// (Photo Gallery, the Stuck in the Desert "On Set" grid). Add `data-caption`
+// to a button to label it; the viewer shows "Caption · 3 / 12".
+// Logic lives in src/scripts/lightbox.ts.
+---
+
+<div
+	id="lightbox"
+	class="fixed inset-0 z-[60] hidden items-center justify-center bg-bg/95 p-6"
+	role="dialog"
+	aria-modal="true"
+	aria-label="Photo viewer"
+>
+	<button
+		id="lightbox-close"
+		type="button"
+		aria-label="Close"
+		class="absolute right-6 top-6 text-3xl text-fg hover:text-accent"
+	>
+		&times;
+	</button>
+	<button
+		id="lightbox-prev"
+		type="button"
+		aria-label="Previous photo"
+		class="absolute left-4 top-1/2 -translate-y-1/2 text-4xl text-fg hover:text-accent"
+	>
+		&#8249;
+	</button>
+	<img id="lightbox-image" src="" alt="" class="max-h-[85vh] max-w-full object-contain" />
+	<button
+		id="lightbox-next"
+		type="button"
+		aria-label="Next photo"
+		class="absolute right-4 top-1/2 -translate-y-1/2 text-4xl text-fg hover:text-accent"
+	>
+		&#8250;
+	</button>
+	<p
+		id="lightbox-caption"
+		class="pointer-events-none absolute inset-x-0 bottom-3 px-6 text-center text-xs font-semibold uppercase tracking-widest text-fg-muted"
+		aria-live="polite"
+	>
+	</p>
+</div>
+
+<script>
+	import '../scripts/lightbox.ts';
+</script>

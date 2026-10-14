@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
+import SplitWords from '../components/SplitWords.astro';
 import heroBackdrop from '../assets/gallery/gal-sitd-02.jpg';
 
 const allProjects = await getCollection('projects');
@@ -18,17 +19,19 @@ const musicProjects = allProjects
 >
 	<BackdropSection image={heroBackdrop}>
 		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
-			<p class="text-sm font-semibold uppercase tracking-widest text-accent">Music Cinematography</p>
-			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
-				The Gravities get stuck in the desert &mdash; and win a San Diego Music Award for it.
+			<p class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">Music Cinematography</p>
+			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl" data-split aria-label="The Gravities get stuck in the desert — and win a San Diego Music Award for it." data-delay="200">
+				<SplitWords text="The Gravities get stuck in the desert — and win a San Diego Music Award for it." />
 			</h1>
-			<p class="mt-4 max-w-2xl text-fg-muted">
+			<p class="mt-4 max-w-2xl text-fg-muted" data-reveal data-delay="650">
 				Award-winning <span class="gold-shimmer font-semibold">"Best Music Video"</span> at the San
 				Diego Music Awards in May 2026. From full narrative music videos to live session coverage,
 				this is where we live.
 			</p>
 			<a
 				href="/stuck-in-the-desert"
+				data-reveal
+				data-delay="780"
 				class="mt-4 inline-block text-sm font-semibold uppercase tracking-widest text-accent-gold hover:opacity-80"
 			>
 				Read the full story &rarr;

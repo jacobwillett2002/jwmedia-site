@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
+import SplitWords from '../components/SplitWords.astro';
 import heroBackdrop from '../assets/gallery/more-sitd-05.jpg';
 
 const allProjects = await getCollection('projects');
@@ -18,11 +19,11 @@ const liveProjects = allProjects
 >
 	<BackdropSection image={heroBackdrop}>
 		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
-			<p class="text-sm font-semibold uppercase tracking-widest text-accent">Live Sessions</p>
-			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl">
-				Full sets, in the room, in 4K.
+			<p class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">Live Sessions</p>
+			<h1 class="mt-4 max-w-2xl font-display text-4xl tracking-wide text-fg sm:text-5xl" data-split aria-label="Full sets, in the room, in 4K." data-delay="200">
+				<SplitWords text="Full sets, in the room, in 4K." />
 			</h1>
-			<p class="mt-4 max-w-2xl text-fg-muted">
+			<p class="mt-4 max-w-2xl text-fg-muted" data-reveal data-delay="520">
 				Multi-camera coverage of live performances and in-studio sessions — up to 8 cameras for
 				Beach Break Sessions, full crews from Sessions by the Bay to SOMA San Diego.
 			</p>
