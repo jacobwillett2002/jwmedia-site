@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { capWidth, fitLongEdge } from '../lib/images';
 import Layout from '../layouts/Layout.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Lightbox from '../components/Lightbox.astro';
@@ -70,6 +71,7 @@ const facts = [
 				src={heroBackdrop}
 				alt="The Gravities on location for Stuck in the Desert"
 				class="h-full w-full object-cover"
+				width={capWidth(heroBackdrop, 1920)}
 				widths={[640, 1280, 1920, 2560]}
 				sizes="100vw"
 				priority
@@ -251,6 +253,7 @@ const facts = [
 						<Image
 							src={resolve(filename)}
 							alt={`Stuck in the Desert — behind the scenes photo ${i + 1}`}
+							width={fitLongEdge(resolve(filename))}
 							widths={[400, 700, 1000]}
 							sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 							class="w-full"

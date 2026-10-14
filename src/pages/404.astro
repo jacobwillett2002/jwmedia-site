@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { capWidth } from '../lib/images';
 import Layout from '../layouts/Layout.astro';
 import SplitWords from '../components/SplitWords.astro';
 import floorStill from '../assets/gallery/sitd-money-01.jpg';
@@ -24,6 +25,7 @@ const links = [
 				src={floorStill}
 				alt=""
 				class="h-full w-full object-cover opacity-60"
+				width={capWidth(floorStill, 1920)}
 				widths={[828, 1280, 1920]}
 				sizes="100vw"
 				priority

@@ -2,8 +2,9 @@
 @import "./motion.css";
 
 @theme {
-  --font-display: "Bebas Neue", "Oswald", sans-serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  /* --font-bebas and --font-inter are defined by the fonts setup in astro.config.mjs */
+  --font-display: var(--font-bebas);
+  --font-sans: var(--font-inter);
 
   --color-bg: #120f0d;
   --color-bg-alt: #1c1613;

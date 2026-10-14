@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { fitLongEdge } from '../lib/images';
 import Layout from '../layouts/Layout.astro';
 import ServiceSchema from '../components/ServiceSchema.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -243,6 +244,7 @@ const sections = [
 							<Image
 								src={resolve(filename)}
 								alt={`${section.title} — photo ${i + 1}`}
+								width={fitLongEdge(resolve(filename))}
 								widths={[400, 700, 1000]}
 								sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
 								class="w-full"

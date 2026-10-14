@@ -1,25 +1,30 @@
 ---
 import { Image } from 'astro:assets';
+import { capWidth } from '../lib/images';
 
 interface Props {
 	image: ImageMetadata;
 	class?: string;
+	/** set when the section sits further down the page, so its photo loads only when scrolled to */
+	belowFold?: boolean;
 }
 
-const { image, class: className = '' } = Astro.props;
+const { image, class: className = '', belowFold = false } = Astro.props;
 ---
 
 <!-- `isolate` gives the -z-10 backdrop layers their own stacking context; without it
      they render underneath the page background and never show. -->
 <section class:list={['relative isolate overflow-hidden', className]}>
+	<!-- This photo shows through at roughly 1% strength under the dark gradient below, so a small,
+	     low-priority file looks identical to a full-size one and leaves bandwidth for the rest
+	     of the page. -->
 	<Image
 		src={image}
 		alt=""
 		class="absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.14] grayscale-[15%] sepia-[20%] contrast-[1.1]"
-		widths={[640, 1280, 1920]}
-		sizes="100vw"
-		loading="eager"
-		fetchpriority="high"
+		width={capWidth(image, 640)}
+		loading={belowFold ? 'lazy' : 'eager'}
+		decoding="async"
 	/>
 	<div class="absolute inset-0 -z-10 bg-gradient-to-b from-bg via-bg/95 to-bg"></div>
 	<div

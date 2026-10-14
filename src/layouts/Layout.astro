@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -129,12 +130,10 @@ const jsonLd = {
 			})();
 		</script>
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
-			rel="stylesheet"
-		/>
+		<!-- Self-hosted fonts (configured in astro.config.mjs); preloaded so headlines and body text
+		     show in the right typeface on the first paint. -->
+		<Font cssVariable="--font-bebas" preload />
+		<Font cssVariable="--font-inter" preload />
 		<slot name="head" />
 	</head>
 	<body class="bg-bg text-fg font-sans antialiased">

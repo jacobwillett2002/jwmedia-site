@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { capWidth } from '../lib/images';
 
 const galleryImages = import.meta.glob<{ default: ImageMetadata }>(
 	'/src/assets/gallery/*.jpg',
@@ -95,6 +96,7 @@ const watchHref =
 							<Image
 								src={img}
 								alt={title}
+								width={capWidth(img, 1000)}
 								widths={[400, 700, 1000]}
 								sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 								class="relative h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105 group-[.is-active]:scale-105"
@@ -123,6 +125,7 @@ const watchHref =
 					<Image
 						src={localImage}
 						alt={title}
+						width={capWidth(localImage, 1000)}
 						widths={[400, 700, 1000]}
 						sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 						class="relative h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105 group-[.is-active]:scale-105"
@@ -132,6 +135,7 @@ const watchHref =
 				<Image
 					src={localImage}
 					alt={title}
+					width={capWidth(localImage, 1000)}
 					widths={[400, 700, 1000]}
 					sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 					style={`object-position: ${thumbnailPosition};`}
