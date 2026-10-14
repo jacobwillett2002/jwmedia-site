@@ -5,6 +5,7 @@ import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
 import StartingAt from '../components/StartingAt.astro';
+import { money, startingPrices } from '../data/pricing';
 import heroBackdrop from '../assets/gallery/studio-05.jpg';
 
 // Conference, corporate event and livestream coverage. Kept apart from the music work on purpose:
@@ -52,7 +53,7 @@ const steps = [
 const faqs = [
 	{
 		q: 'How is a conference priced?',
-		a: 'Livestreams start at $1,500 for a multi-camera stream switched live, with full recordings delivered afterward. Recording-only, multi-room and multi-day events are quoted per event, and session edits are priced by how many talks you need cut. You get a written quote after a free scope call.',
+		a: `Livestreams start at ${money(startingPrices.events)} for a multi-camera stream switched live, with full recordings delivered afterward. Recording-only, multi-room and multi-day events are quoted per event, and session edits are priced by how many talks you need cut. You get a written quote after a free scope call.`,
 	},
 	{
 		q: 'Do you need the venue’s internet?',
