@@ -89,3 +89,27 @@ textarea:-webkit-autofill:focus {
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
+/* Gold frame corners, like crop marks on a contact sheet, around a featured video or photo.
+   Put class="corners" on a wrapper (not on an element that clips its overflow). */
+.corners {
+  position: relative;
+}
+.corners::after {
+  --c: var(--corner-color, var(--color-accent-gold));
+  --l: var(--corner-length, 26px);
+  --t: 1px;
+  content: "";
+  position: absolute;
+  inset: var(--corner-inset, -12px);
+  pointer-events: none;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) top left / var(--t) var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / var(--t) var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / var(--t) var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / var(--t) var(--l) no-repeat;
+}

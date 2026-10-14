@@ -9,6 +9,8 @@ import MarqueeTicker from '../components/MarqueeTicker.astro';
 import HeroReel, { type ReelSlide } from '../components/HeroReel.astro';
 import { money, startingPrices } from '../data/pricing';
 import SplitWords from '../components/SplitWords.astro';
+import Lightbox from '../components/Lightbox.astro';
+import { Image } from 'astro:assets';
 
 const tickerItems = [
 	'San Diego Music Awards Winner',
@@ -77,6 +79,17 @@ const featured = allProjects
 // Rounds down to the nearest 5 so the stat stays true as projects are added,
 // without needing a manual bump for every single new file.
 const productionCount = Math.floor(allProjects.length / 5) * 5;
+
+// Stills shown under each service on the home page (files in src/assets/gallery, all from
+// JWMedia's own productions). Click any to view it full size.
+const galleryStills = import.meta.glob<{ default: ImageMetadata }>('/src/assets/gallery/*.jpg', { eager: true });
+const still = (file: string) => galleryStills[`/src/assets/gallery/${file}`].default;
+const servicePhotos: Record<string, { files: string[]; aspect: string; link: string }> = {
+	'Music Cinematography': { files: ['hd-sitd-05.jpg', 'hd-sitd-10.jpg', 'more-edge-06.jpg', 'raye-sundaze-01.jpg'], aspect: 'aspect-[4/5]', link: 'See the music videos' },
+	'Live Sessions': { files: ['whiskey-girl-live-01.jpg', 'more-bsp25-04.jpg', 'whiskey-girl-live-05.jpg', 'live-band-05.jpg'], aspect: 'aspect-[4/5]', link: 'See the live sessions' },
+	'Narrative & Documentary': { files: ['more-hangups-03.jpg', 'more-ourplace-07.jpg', 'more-warriors-06.jpg', 'more-hangups-09.jpg'], aspect: 'aspect-video', link: 'See the films' },
+	Photography: { files: ['michelin-headshot-01.jpg', 'studio-01.jpg', 'more-bsp25-10.jpg', 'studio-11.jpg'], aspect: 'aspect-[4/5]', link: 'See the photo gallery' },
+};
 
 const services = [
 	{
@@ -337,24 +350,77 @@ const process = [
 					Six services, one crew — music videos are the specialty, not the whole story.
 				</p>
 			</div>
-			<div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+			{
+				services
+					.filter((service) => servicePhotos[service.title])
+					.map((service) => {
+						const photos = servicePhotos[service.title];
+						return (
+							<div class="mt-14">
+								<div class="mb-6 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5" data-reveal>
+									<div>
+										<h3 class="font-display text-3xl tracking-wide text-fg sm:text-4xl">{service.title}</h3>
+										<p class="mt-2 max-w-xl text-sm text-fg-muted">{service.description}</p>
+									</div>
+									<div class="flex flex-col items-start gap-1 sm:items-end">
+										{service.from !== null && (
+											<p class="text-xs font-semibold uppercase tracking-widest text-fg-muted">From <span class="text-accent-gold">{money(service.from)}</span></p>
+										)}
+										<a href={service.href} class="group text-xs font-semibold uppercase tracking-widest text-accent-gold transition-colors hover:text-fg">
+											{photos.link}
+											<span aria-hidden="true">&nbsp;&rarr;</span>
+										</a>
+									</div>
+								</div>
+								<div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+									{photos.files.map((file, i) => (
+										<button
+											type="button"
+											class="gallery-item group relative block w-full overflow-hidden border border-border"
+											data-caption={service.title}
+											data-reveal="img"
+											data-delay={String(i * 90)}
+										>
+											<Image
+												src={still(file)}
+												alt={`${service.title} — still ${i + 1}`}
+												widths={[400, 700, 1000]}
+												sizes="(min-width: 768px) 25vw, 50vw"
+												class:list={['w-full object-cover', photos.aspect]}
+												loading="lazy"
+												decoding="async"
+											/>
+										</button>
+									))}
+								</div>
+							</div>
+						);
+					})
+			}
+
+			<div class="mt-14 grid gap-8 border-t border-border pt-10 sm:grid-cols-2">
 				{
-					services.map((service) => (
-						<a href={service.href} class="group block" data-reveal>
-							<h3 class="font-display text-2xl tracking-wide text-fg transition-colors group-hover:text-accent">
-								{service.title}
-								<span class="svc-arrow" aria-hidden="true">&rarr;</span>
-							</h3>
-							<p class="mt-3 text-sm text-fg-muted">{service.description}</p>
-							{service.from !== null && (
-								<p class="mt-3 text-xs font-semibold uppercase tracking-widest text-accent-gold">From {money(service.from)}</p>
-							)}
-						</a>
-					))
+					services
+						.filter((service) => !servicePhotos[service.title])
+						.map((service) => (
+							<a href={service.href} class="group block" data-reveal>
+								<h3 class="font-display text-2xl tracking-wide text-fg transition-colors group-hover:text-accent">
+									{service.title}
+									<span class="svc-arrow" aria-hidden="true">&rarr;</span>
+								</h3>
+								<p class="mt-3 text-sm text-fg-muted">{service.description}</p>
+								{service.from !== null && (
+									<p class="mt-3 text-xs font-semibold uppercase tracking-widest text-accent-gold">From {money(service.from)}</p>
+								)}
+							</a>
+						))
 				}
 			</div>
 		</div>
 	</section>
+
+	<Lightbox />
 
 	<section class="mx-auto max-w-7xl px-6 py-24 lg:px-10">
 		<div data-reveal>

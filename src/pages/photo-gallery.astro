@@ -233,11 +233,11 @@ const sections = [
 						)
 					}
 				</div>
-				<div class="columns-1 gap-4 sm:columns-2 lg:columns-3">
+				<div class="columns-2 gap-3 md:columns-3 md:gap-4 xl:columns-4">
 					{section.files.map((filename, i) => (
 						<button
 							type="button"
-							class="gallery-item gallery-lazy-block group relative mb-4 block w-full overflow-hidden border border-border"
+							class="gallery-item gallery-lazy-block group relative mb-3 block w-full overflow-hidden border border-border md:mb-4"
 							data-src={filename}
 							data-reveal="img"
 							data-caption={section.title}
@@ -246,7 +246,7 @@ const sections = [
 								src={resolve(filename)}
 								alt={`${section.title} — photo ${i + 1}`}
 								widths={[400, 700, 1000]}
-								sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+								sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
 								class="w-full"
 								loading="lazy"
 								decoding="async"
