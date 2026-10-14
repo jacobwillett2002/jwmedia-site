@@ -7,6 +7,7 @@ import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
 import StartingAt from '../components/StartingAt.astro';
+import Packages from '../components/Packages.astro';
 import heroBackdrop from '../assets/gallery/gal-sitd-02.jpg';
 
 const allProjects = await getCollection('projects');
@@ -67,6 +68,8 @@ const musicProjects = allProjects
 			}
 		</div>
 	</section>
+
+	<Packages service="music" />
 
 	<CtaBand
 		heading="Got a track that needs visuals?"

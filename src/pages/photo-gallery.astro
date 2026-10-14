@@ -7,6 +7,7 @@ import Lightbox from '../components/Lightbox.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
 import StartingAt from '../components/StartingAt.astro';
+import Packages from '../components/Packages.astro';
 
 const photoModules = import.meta.glob<{ default: ImageMetadata }>('/src/assets/gallery/*.jpg', {
 	eager: true,
@@ -266,6 +267,8 @@ const sections = [
 	</style>
 
 	<Lightbox />
+
+	<Packages service="photo" />
 
 	<CtaBand
 		heading="Need photos to match your video?"

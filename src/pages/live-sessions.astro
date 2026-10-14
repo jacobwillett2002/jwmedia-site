@@ -7,6 +7,7 @@ import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
 import StartingAt from '../components/StartingAt.astro';
+import Packages from '../components/Packages.astro';
 import heroBackdrop from '../assets/gallery/more-sitd-05.jpg';
 
 const allProjects = await getCollection('projects');
@@ -56,6 +57,8 @@ const liveProjects = allProjects
 			}
 		</div>
 	</section>
+
+	<Packages service="live" />
 
 	<CtaBand
 		heading="Got a set that needs cameras rolling?"
