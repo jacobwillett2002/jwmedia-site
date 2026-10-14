@@ -7,7 +7,6 @@ import { Image, getImage } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { money, startingPrices } from '../../data/pricing';
 
 type Project = CollectionEntry<'projects'>;
 
@@ -23,9 +22,9 @@ const data = project.data;
 const videoId = data.videoId!;
 
 const CATEGORIES = {
-	music: { label: 'Music Cinematography', href: '/music-cinematography', service: 'Music video', price: startingPrices.music, ask: 'Planning a music video?' },
-	narrative: { label: 'Narrative & Documentary', href: '/narrative-and-documentary', service: 'Narrative or documentary', price: startingPrices.narrative, ask: 'Have a film in the works?' },
-	live: { label: 'Live Sessions', href: '/live-sessions', service: 'Live session or concert', price: startingPrices.live, ask: 'Got a set that needs cameras?' },
+	music: { label: 'Music Cinematography', href: '/music-cinematography', service: 'Music video', ask: 'Planning a music video?' },
+	narrative: { label: 'Narrative & Documentary', href: '/narrative-and-documentary', service: 'Narrative or documentary', ask: 'Have a film in the works?' },
+	live: { label: 'Live Sessions', href: '/live-sessions', service: 'Live session or concert', ask: 'Got a set that needs cameras?' },
 } as const;
 const category = CATEGORIES[data.category];
 
@@ -120,13 +119,6 @@ const artistLinkLabel = data.artistLink?.includes('spotify.com')
 			</div>
 			<aside class="self-start border border-border bg-bg-alt p-6" data-reveal data-delay="120">
 				<p class="font-display text-2xl tracking-wide text-fg">{category.ask}</p>
-				{
-					category.price !== null && (
-						<p class="mt-2 text-sm text-fg-muted">
-							Starting at <span class="font-semibold text-accent-gold">{money(category.price)}</span>
-						</p>
-					)
-				}
 				<a
 					href={`/contact?service=${encodeURIComponent(category.service)}`}
 					class="btn-sheen mt-5 inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold uppercase tracking-wide text-bg transition-opacity hover:opacity-90"

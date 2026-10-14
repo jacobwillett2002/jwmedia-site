@@ -3,8 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
 import Reviews from '../components/Reviews.astro';
-import { budgetRanges } from '../data/pricing';
 import heroBackdrop from '../assets/gallery/hd-sitd-13.jpg';
+
+// Optional budget question (the visitor's budget, not our prices).
+const budgetRanges = ['Under $1,000', '$1,000 – $2,500', '$2,500 – $5,000', '$5,000 – $10,000', '$10,000+', 'Not sure yet'];
 
 const services = [
 	'Music video',

@@ -6,7 +6,6 @@ import ProjectCard from '../components/ProjectCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
-import StartingAt from '../components/StartingAt.astro';
 import heroBackdrop from '../assets/gallery/gal-sitd-03.jpg';
 
 const allProjects = await getCollection('projects');
@@ -38,7 +37,6 @@ const comingSoon = allProjects
 				Short films are where we live right now, with feature-length work already taking shape.
 				Producers and investors interested in our upcoming feature work are always welcome to reach out.
 			</p>
-			<StartingAt service="narrative" delay={840} />
 		</div>
 	</BackdropSection>
 

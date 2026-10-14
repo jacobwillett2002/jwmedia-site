@@ -4,9 +4,6 @@ import ServiceSchema from '../components/ServiceSchema.astro';
 import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
-import StartingAt from '../components/StartingAt.astro';
-import Packages from '../components/Packages.astro';
-import { money, startingPrices } from '../data/pricing';
 import heroBackdrop from '../assets/gallery/studio-05.jpg';
 
 // Conference, corporate event and livestream coverage. Kept apart from the music work on purpose:
@@ -54,7 +51,7 @@ const steps = [
 const faqs = [
 	{
 		q: 'How is a conference priced?',
-		a: `Livestreams start at ${money(startingPrices.events)} for a multi-camera stream switched live, with full recordings delivered afterward. Recording-only, multi-room and multi-day events are quoted per event, and session edits are priced by how many talks you need cut. You get a written quote after a free scope call.`,
+		a: 'Every event is quoted on its own, based on how many cameras and rooms you need, whether you stream, and how many sessions you want edited. You get a written quote after a free scope call.',
 	},
 	{
 		q: 'Do you need the venue’s internet?',
@@ -89,7 +86,7 @@ const faqSchema = {
 	title="Conference Video & Livestream Production San Diego"
 	description="Multi-camera conference recording, livestreaming and session editing in San Diego and Los Angeles. Every talk recorded clean, streamed live, and cut for your on-demand library."
 >
-	<ServiceSchema slot="head" name="Conference Video & Livestream Production" serviceType="Event video production and livestreaming" description="Multi-camera conference recording, livestreaming and session editing for conferences, annual meetings and corporate events." price="events" />
+	<ServiceSchema slot="head" name="Conference Video & Livestream Production" serviceType="Event video production and livestreaming" description="Multi-camera conference recording, livestreaming and session editing for conferences, annual meetings and corporate events." />
 	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
 
 	<BackdropSection image={heroBackdrop}>
@@ -114,7 +111,6 @@ const faqSchema = {
 				The same crew behind the 2026 San Diego Music Awards’ Best Music Video, bringing that eye to the
 				stage, the speakers and the room.
 			</p>
-			<StartingAt service="events" delay={760} note="For a multi-camera livestream. Bigger and multi-room events are quoted per event." />
 			<a
 				href="/contact?service=Event%20or%20livestream"
 				data-reveal
@@ -143,8 +139,6 @@ const faqSchema = {
 			}
 		</div>
 	</section>
-
-	<Packages service="events" />
 
 	<section class="border-y border-border bg-bg-alt">
 		<div class="mx-auto max-w-7xl px-6 py-20 lg:px-10">

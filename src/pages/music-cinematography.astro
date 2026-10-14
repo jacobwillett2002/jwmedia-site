@@ -6,8 +6,6 @@ import ProjectCard from '../components/ProjectCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
-import StartingAt from '../components/StartingAt.astro';
-import Packages from '../components/Packages.astro';
 import heroBackdrop from '../assets/gallery/gal-sitd-02.jpg';
 
 const allProjects = await getCollection('projects');
@@ -20,7 +18,7 @@ const musicProjects = allProjects
 	title="Music Video Production San Diego & LA"
 	description="San Diego and Los Angeles music video production and cinematography from JWMedia — including our San Diego Music Award for Best Music Video, for The Gravities' 'Stuck in the Desert.'"
 >
-	<ServiceSchema slot="head" name="Music Video Production" serviceType="Music video production" description="Music videos, promos and performance videos for artists and labels, directed and shot by JWMedia in San Diego and Los Angeles. Winner of Best Music Video at the 2026 San Diego Music Awards." price="music" />
+	<ServiceSchema slot="head" name="Music Video Production" serviceType="Music video production" description="Music videos, promos and performance videos for artists and labels, directed and shot by JWMedia in San Diego and Los Angeles. Winner of Best Music Video at the 2026 San Diego Music Awards." />
 	<BackdropSection image={heroBackdrop}>
 		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
 			<h1 class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">San Diego Music Video Production</h1>
@@ -40,7 +38,6 @@ const musicProjects = allProjects
 			>
 				Read the full story &rarr;
 			</a>
-			<StartingAt service="music" delay={900} note="Performance videos. Concept-driven and multi-location shoots scale from there." />
 		</div>
 	</BackdropSection>
 
@@ -68,8 +65,6 @@ const musicProjects = allProjects
 			}
 		</div>
 	</section>
-
-	<Packages service="music" />
 
 	<CtaBand
 		heading="Got a track that needs visuals?"

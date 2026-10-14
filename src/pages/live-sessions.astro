@@ -6,8 +6,6 @@ import ProjectCard from '../components/ProjectCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
-import StartingAt from '../components/StartingAt.astro';
-import Packages from '../components/Packages.astro';
 import heroBackdrop from '../assets/gallery/more-sitd-05.jpg';
 
 const allProjects = await getCollection('projects');
@@ -20,7 +18,7 @@ const liveProjects = allProjects
 	title="Live Concert & Event Videography San Diego & LA"
 	description="Multi-camera live concert and event videography in San Diego and Los Angeles — full-set coverage from Beach Break Sessions to Sessions by the Bay, and studio sessions from JWMedia."
 >
-	<ServiceSchema slot="head" name="Live Concert Videography" serviceType="Live concert and session videography" description="Multi-camera live concert, live session and in-studio performance videos, synced to the board mix and edited in-house." price="live" />
+	<ServiceSchema slot="head" name="Live Concert Videography" serviceType="Live concert and session videography" description="Multi-camera live concert, live session and in-studio performance videos, synced to the board mix and edited in-house." />
 	<BackdropSection image={heroBackdrop}>
 		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
 			<h1 class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">Live Concert Videography · San Diego</h1>
@@ -31,7 +29,6 @@ const liveProjects = allProjects
 				Multi-camera coverage of live performances and in-studio sessions — up to 8 cameras for
 				Beach Break Sessions, full crews from Sessions by the Bay to SOMA San Diego.
 			</p>
-			<StartingAt service="live" delay={640} note="Demo tapings and single sets. Full shows scale from there." />
 		</div>
 	</BackdropSection>
 
@@ -57,8 +54,6 @@ const liveProjects = allProjects
 			}
 		</div>
 	</section>
-
-	<Packages service="live" />
 
 	<CtaBand
 		heading="Got a set that needs cameras rolling?"

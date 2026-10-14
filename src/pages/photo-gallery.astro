@@ -6,8 +6,6 @@ import CtaBand from '../components/CtaBand.astro';
 import Lightbox from '../components/Lightbox.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import SplitWords from '../components/SplitWords.astro';
-import StartingAt from '../components/StartingAt.astro';
-import Packages from '../components/Packages.astro';
 
 const photoModules = import.meta.glob<{ default: ImageMetadata }>('/src/assets/gallery/*.jpg', {
 	eager: true,
@@ -189,7 +187,7 @@ const sections = [
 	title="Music & Event Photography San Diego & LA"
 	description="San Diego and Los Angeles music, studio, and live event photography from JWMedia — a full look at the work behind every project, organized by shoot."
 >
-	<ServiceSchema slot="head" name="Music & Concert Photography" serviceType="Music photography" description="Live concert, studio and press photography for musicians, shot alongside JWMedia's video productions." price="photo" />
+	<ServiceSchema slot="head" name="Music & Concert Photography" serviceType="Music photography" description="Live concert, studio and press photography for musicians, shot alongside JWMedia's video productions." />
 	<BackdropSection image={resolve('more-sitd-10.jpg')}>
 		<div class="mx-auto max-w-7xl px-6 pb-12 pt-32 lg:px-10">
 			<h1 class="text-sm font-semibold uppercase tracking-widest text-accent" data-reveal data-delay="100">Music &amp; Concert Photography</h1>
@@ -200,7 +198,6 @@ const sections = [
 				Stills from the same shows, studio sessions, and sets you see in our films, organized by
 				project &mdash; click any image to view it full-size.
 			</p>
-			<StartingAt service="photo" delay={560} note="Band, studio and live photography." />
 		</div>
 	</BackdropSection>
 
@@ -267,8 +264,6 @@ const sections = [
 	</style>
 
 	<Lightbox />
-
-	<Packages service="photo" />
 
 	<CtaBand
 		heading="Need photos to match your video?"

@@ -7,7 +7,6 @@ import CtaBand from '../components/CtaBand.astro';
 import BackdropSection from '../components/BackdropSection.astro';
 import MarqueeTicker from '../components/MarqueeTicker.astro';
 import HeroReel, { type ReelSlide } from '../components/HeroReel.astro';
-import { money, startingPrices } from '../data/pricing';
 import SplitWords from '../components/SplitWords.astro';
 import Lightbox from '../components/Lightbox.astro';
 import { Image } from 'astro:assets';
@@ -96,37 +95,31 @@ const services = [
 		title: 'Music Cinematography',
 		description: 'Music videos, promos, and studio content built to move your sound. Our specialty.',
 		href: '/music-cinematography',
-		from: startingPrices.music,
 	},
 	{
 		title: 'Narrative & Documentary',
 		description: 'Short films and documentaries today, with feature-length work on the horizon.',
 		href: '/narrative-and-documentary',
-		from: startingPrices.narrative,
 	},
 	{
 		title: 'Live Sessions',
 		description: 'Multi-camera coverage of live sets and in-studio sessions, in 4K.',
 		href: '/live-sessions',
-		from: startingPrices.live,
 	},
 	{
 		title: 'Podcasting',
 		description: 'Multi-camera podcasts recorded on location — three cameras switched live on an ATEM Mini Pro ISO, so you leave with a finished episode.',
 		href: '/contact?service=Podcast',
-		from: startingPrices.podcast,
 	},
 	{
 		title: 'Photography',
 		description: 'Live show, studio, and event photography for artists and brands.',
 		href: '/photo-gallery',
-		from: startingPrices.photo,
 	},
 	{
 		title: 'Conferences & Livestreams',
 		description: 'Multi-camera wireless livestream production for corporate events and conferences.',
 		href: '/conference-video-production-san-diego',
-		from: startingPrices.events,
 	},
 ];
 
@@ -364,9 +357,6 @@ const process = [
 										<p class="mt-2 max-w-xl text-sm text-fg-muted">{service.description}</p>
 									</div>
 									<div class="flex flex-col items-start gap-1 sm:items-end">
-										{service.from !== null && (
-											<p class="text-xs font-semibold uppercase tracking-widest text-fg-muted">From <span class="text-accent-gold">{money(service.from)}</span></p>
-										)}
 										<a href={service.href} class="group text-xs font-semibold uppercase tracking-widest text-accent-gold transition-colors hover:text-fg">
 											{photos.link}
 											<span aria-hidden="true">&nbsp;&rarr;</span>
@@ -410,9 +400,6 @@ const process = [
 									<span class="svc-arrow" aria-hidden="true">&rarr;</span>
 								</h3>
 								<p class="mt-3 text-sm text-fg-muted">{service.description}</p>
-								{service.from !== null && (
-									<p class="mt-3 text-xs font-semibold uppercase tracking-widest text-accent-gold">From {money(service.from)}</p>
-								)}
 							</a>
 						))
 				}

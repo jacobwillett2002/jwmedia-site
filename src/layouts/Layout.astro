@@ -5,7 +5,6 @@ import Footer from '../components/Footer.astro';
 import ContactPrompt from '../components/ContactPrompt.astro';
 import VideoModal from '../components/VideoModal.astro';
 import { googleProfileUrl } from '../data/reviews';
-import { startingPrices } from '../data/pricing';
 
 interface Props {
 	title: string;
@@ -44,7 +43,6 @@ const jsonLd = {
 		addressCountry: 'US',
 	},
 	areaServed: ['San Diego, CA', 'Los Angeles, CA'],
-	priceRange: '$$',
 	founder: { '@type': 'Person', name: 'Jacob Willett', jobTitle: 'Director' },
 	award: 'Best Music Video, 2026 San Diego Music Awards (The Gravities, "Stuck in the Desert")',
 	knowsAbout: [
@@ -65,16 +63,15 @@ const jsonLd = {
 		'@type': 'OfferCatalog',
 		name: 'Video production services',
 		itemListElement: [
-			['Music video production', '/music-cinematography', startingPrices.music],
-			['Live concert videography', '/live-sessions', startingPrices.live],
-			['Conference video and livestream production', '/conference-video-production-san-diego', startingPrices.events],
-			['Short film and documentary production', '/narrative-and-documentary', startingPrices.narrative],
-			['Music and concert photography', '/photo-gallery', startingPrices.photo],
-			['Podcast production', '/contact?service=Podcast', startingPrices.podcast],
-		].map(([name, path, from]) => ({
+			['Music video production', '/music-cinematography'],
+			['Live concert videography', '/live-sessions'],
+			['Conference video and livestream production', '/conference-video-production-san-diego'],
+			['Short film and documentary production', '/narrative-and-documentary'],
+			['Music and concert photography', '/photo-gallery'],
+			['Podcast production', '/contact?service=Podcast'],
+		].map(([name, path]) => ({
 			'@type': 'Offer',
 			itemOffered: { '@type': 'Service', name, url: `https://jwmedia.biz${path}` },
-			...(from !== null && { priceSpecification: { '@type': 'PriceSpecification', minPrice: from, priceCurrency: 'USD' } }),
 		})),
 	},
 	sameAs: [
