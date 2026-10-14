@@ -44,7 +44,7 @@ const jsonLd = {
 		addressCountry: 'US',
 	},
 	areaServed: ['San Diego, CA', 'Los Angeles, CA'],
-	priceRange: '$$$',
+	priceRange: '$$',
 	founder: { '@type': 'Person', name: 'Jacob Willett', jobTitle: 'Director' },
 	award: 'Best Music Video, 2026 San Diego Music Awards (The Gravities, "Stuck in the Desert")',
 	knowsAbout: [
@@ -70,6 +70,7 @@ const jsonLd = {
 			['Conference video and livestream production', '/conference-video-production-san-diego', startingPrices.events],
 			['Short film and documentary production', '/narrative-and-documentary', startingPrices.narrative],
 			['Music and concert photography', '/photo-gallery', startingPrices.photo],
+			['Podcast production', '/contact?service=Podcast', startingPrices.podcast],
 		].map(([name, path, from]) => ({
 			'@type': 'Offer',
 			itemOffered: { '@type': 'Service', name, url: `https://jwmedia.biz${path}` },

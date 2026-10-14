@@ -14,6 +14,7 @@ const LINKS: Record<string, [string, string][]> = {
 	'Live session or concert': [['Live sessions', 'https://jwmedia.biz/live-sessions/'], ['Music videos', 'https://jwmedia.biz/music-cinematography/']],
 	'Narrative or documentary': [['Narrative & documentary', 'https://jwmedia.biz/narrative-and-documentary/'], ['Music videos', 'https://jwmedia.biz/music-cinematography/']],
 	'Photography': [['Photo gallery', 'https://jwmedia.biz/photo-gallery/'], ['Music videos', 'https://jwmedia.biz/music-cinematography/']],
+	'Podcast': [['Our team and gear', 'https://jwmedia.biz/about/'], ['Live sessions', 'https://jwmedia.biz/live-sessions/']],
 };
 const DEFAULT_LINKS: [string, string][] = [['Music videos', 'https://jwmedia.biz/music-cinematography/'], ['Live sessions', 'https://jwmedia.biz/live-sessions/']];
 
