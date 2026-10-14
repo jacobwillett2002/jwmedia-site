@@ -52,11 +52,11 @@ const steps = [
 const faqs = [
 	{
 		q: 'How is a conference priced?',
-		a: 'Livestream packages run $3,000 to $5,500 for three to five cameras switched by a technical director, with full recordings delivered afterward. Larger, multi-room or multi-day events are quoted from our day rates, with editing billed by the day. Final pricing is confirmed in writing after a free scope call.',
+		a: 'Livestreams start at $1,500 for a multi-camera stream switched live, with full recordings delivered afterward. Recording-only, multi-room and multi-day events are quoted per event, and session edits are priced by how many talks you need cut. You get a written quote after a free scope call.',
 	},
 	{
 		q: 'Do you need the venue’s internet?',
-		a: 'A wired venue connection is best, so we check it with the venue ahead of time. Where the internet can’t be trusted, bonded cellular streaming is available at cost.',
+		a: 'A wired venue connection is best, so we check it with the venue ahead of time. If the internet can’t be trusted, we’ll plan a backup with you before the day.',
 	},
 	{
 		q: 'Can you cover more than one room at once?',
@@ -64,11 +64,11 @@ const faqs = [
 	},
 	{
 		q: 'Where do you work?',
-		a: 'We’re based in San Diego and cover Los Angeles and the rest of Southern California, and we travel nationwide. The first 30 miles each way are included; travel beyond that is billed separately.',
+		a: 'We’re based in San Diego and cover Los Angeles and the rest of Southern California, and we travel for the right project.',
 	},
 	{
 		q: 'How do we book?',
-		a: 'Send the dates and agenda through the contact page. A 50% deposit at booking secures the date, and the rest is due on delivery. Quotes are valid for 60 days.',
+		a: 'Send the dates and agenda through the contact page. A 50% deposit secures the date, due within two weeks of booking.',
 	},
 ];
 
@@ -112,7 +112,7 @@ const faqSchema = {
 				The same crew behind the 2026 San Diego Music Awards’ Best Music Video, bringing that eye to the
 				stage, the speakers and the room.
 			</p>
-			<StartingAt service="events" delay={760} note="For a multi-camera livestream. Recording-only and multi-room events are quoted from day rates." />
+			<StartingAt service="events" delay={760} note="For a multi-camera livestream. Bigger and multi-room events are quoted per event." />
 			<a
 				href="/contact?service=Event%20or%20livestream"
 				data-reveal
